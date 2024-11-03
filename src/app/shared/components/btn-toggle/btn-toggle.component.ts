@@ -1,10 +1,13 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, inject, Input } from '@angular/core';
 //Material
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+//Services
+import { ToggleService } from '@shared/services';
 //Models
-import { BtnToggleModel } from '@shared/models';
+import { BtnToggleModel, eBtnToggleType } from '@shared/models';
+
 
 const materialModules = [MatButtonModule, MatIconModule, MatTooltipModule]
 @Component({
@@ -15,14 +18,32 @@ const materialModules = [MatButtonModule, MatIconModule, MatTooltipModule]
   styleUrl: './btn-toggle.component.scss'
 })
 export class BtnToggleComponent {
-  data = input<BtnToggleModel>(new BtnToggleModel());
-  toggle = output<void>()
-  icon = computed<string>(() => this.data().isActive ? this.data().icon : this.data().iconAlt);
-  tooltip = computed<string>(() => this.data().isActive ? this.data().tooltip : this.data().tooltipAlt);
-
+  @Input({ required: true }) type!: eBtnToggleType;
+  toggleService = inject(ToggleService);
+  icon = computed<string>(() => this.getIcon());
+  tooltip = computed<string>(() => this.getTooltip());
 
   onBtnClicked($event: Event): void {
     $event.stopPropagation();
-    this.toggle.emit();
+    this.toggleService.handleToggleEvent(this.type, !this.isActive());
+  }
+
+  private getIcon(): string {
+    let data = this.getData()
+    return data.isActive ? data.icon : data.iconAlt;
+  }
+
+  private getTooltip(): string {
+    let data = this.getData()
+    return data.isActive ? data.tooltip : data.tooltipAlt;
+  }
+
+  private isActive(): boolean {
+    return this.getData().isActive;
+  }
+
+  private getData(): BtnToggleModel {
+    let data = this.toggleService.appToggleBtnData().find(data => data.type === this.type)
+    return !!data ? data : new BtnToggleModel();
   }
 }

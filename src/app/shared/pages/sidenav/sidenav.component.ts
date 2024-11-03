@@ -5,10 +5,11 @@ import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 //Components
 import { BarBottomComponent, BarTopComponent } from '@shared/components';
-//
+//Services
 import { MediaQuery } from '@core/services';
-import { SidenavService } from '@shared/services';
-import { MatDrawerPosition } from '@shared/models';
+import { ToggleService, SidenavService } from '@shared/services';
+//Models
+import { MatDrawerPosition, eBtnToggleType } from '@shared/models';
 
 const materialModules = [MatSidenavModule, MatToolbarModule];
 const components = [BarBottomComponent, BarTopComponent];
@@ -21,9 +22,11 @@ const components = [BarBottomComponent, BarTopComponent];
 })
 export class SidenavComponent {
   sidenavService = inject(SidenavService);
-  mediaQuery = inject(MediaQuery);  
+  mediaQuery = inject(MediaQuery);
+  toggleService = inject(ToggleService);
   mode = computed<MatDrawerMode>(() => this.mediaQuery.isLarge() ? "side" : "over");
   position = computed<MatDrawerPosition>(() => this.mediaQuery.isMobile() ? "end" : "start");
   isMobile = computed<boolean>(() => this.mediaQuery.isMobile());
   isLarge = computed<boolean>(() => this.mediaQuery.isLarge());
+  toggleType = eBtnToggleType.SIDENAV;
 }

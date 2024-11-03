@@ -1,6 +1,6 @@
 export type MatDrawerPosition = "start" | "end";
 export enum eBtnToggleType {
-    TOGGLE,
+    SIDENAV,
     FULLSCREEN,
     THEME,
 }
@@ -10,6 +10,6 @@ export class BtnToggleModel {
     iconAlt: string='';
     tooltip: string='';
     tooltipAlt: string='';
-    type: eBtnToggleType=eBtnToggleType.TOGGLE;
+    type: eBtnToggleType=eBtnToggleType.SIDENAV;
     isActive: boolean = true;
 }

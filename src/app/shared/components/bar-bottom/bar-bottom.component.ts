@@ -3,9 +3,9 @@ import { Component, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 //Components
 import { BtnToggleComponent } from '../btn-toggle/btn-toggle.component';
-//Services
-import { MediaQuery } from '@core/services';
-import { SidenavService } from '@shared/services';
+//Models
+import { eBtnToggleType } from '@shared/models'
+
 const components = [BtnToggleComponent];
 const materialModules = [MatToolbarModule,];
 
@@ -17,6 +17,5 @@ const materialModules = [MatToolbarModule,];
   styleUrl: './bar-bottom.component.scss'
 })
 export class BarBottomComponent {
-  sidenavService = inject(SidenavService);
-  mediaQuery = inject(MediaQuery);
+  toggleType = eBtnToggleType.SIDENAV;
 }

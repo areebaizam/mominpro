@@ -1,6 +1,6 @@
 <mat-sidenav-container [class.large-screen]="mediaQuery.isLarge()">
     <mat-sidenav [opened]="mediaQuery.isLarge() || sidenavService.isOpen()" [mode]="mode()" role="dialog"
-        (closedStart)="sidenavService.closedStart()" [position]="position()">heello</mat-sidenav>
+        (closedStart)="toggleService.handleToggleEvent(toggleType,false)" [position]="position()">heello</mat-sidenav>
     <mat-sidenav-content>
         <!-- Top Bar for Large Screen -->
         @if(!mediaQuery.isMobile()){

@@ -1,5 +1,3 @@
 <mat-toolbar aria-label="App Bar" role="navigation">
-    @if(!mediaQuery.isLarge()){
-    <tap-btn-toggle [data]="sidenavService.menuBtnData()" (toggle)="sidenavService.toggleState()"></tap-btn-toggle>
-    }
+    <tap-btn-toggle [type]="toggleType"></tap-btn-toggle>
 </mat-toolbar>

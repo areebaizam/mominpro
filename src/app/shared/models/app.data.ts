@@ -1,11 +1,12 @@
 import { BtnToggleModel, eBtnToggleType } from "./common.model";
 
-export const SIDENAV_TOGGLE_ICON =
+export const APP_TOGGLE_ICONS = [
     {
         icon: "menu_open",
         iconAlt: "menu",
-        tooltip:"Close menu",
-        tooltipAlt:"Open menu",
+        tooltip: "Close menu",
+        tooltipAlt: "Open menu",
         isActive: false,
-        type: eBtnToggleType.TOGGLE,
-    } as BtnToggleModel
+        type: eBtnToggleType.SIDENAV,
+    },
+] as BtnToggleModel[]
