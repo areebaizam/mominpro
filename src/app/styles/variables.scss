@@ -1,4 +1,4 @@
-$page-wrapper-height: calc(100vh - env(safe-area-inset-bottom));
+$page-wrapper-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
 $page-wrappper-padding-horizontal: 12px;
 $page-wrappper-padding-vertical: 8px;
 $page-wrapper-padding-top: calc($page-wrappper-padding-vertical + env(safe-area-inset-top, $page-wrappper-padding-vertical));

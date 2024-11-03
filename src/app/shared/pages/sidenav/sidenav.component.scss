@@ -1,0 +1,19 @@
+@import '@styles/variables.scss';
+@import '@styles/colors.scss';
+
+.mat-drawer-container {
+    --mat-sidenav-container-width: #{$app-drawer-width};
+
+    .mat-drawer-content {
+        min-width: $app-screen-min-width;
+        min-height: $page-wrapper-height;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.large-screen {
+    --mat-sidenav-container-shape: 0px;
+    --mat-sidenav-container-divider-color:#{$outline-variant};
+}
+

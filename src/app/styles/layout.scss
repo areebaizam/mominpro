@@ -1,18 +1,10 @@
 @import '@styles/variables.scss';
+@import '@styles/colors.scss';
 
-.flex-column{
+.flex-column {
     display: flex !important;
     flex-direction: column;
     flex-grow: 1;
-}
-
-.nav-bar-position{
-    position: fixed;
-    left:0;
-    right:0;
-    &.bottom{
-        bottom: 0;
-    }
 }
 
 .position-fixed {
@@ -27,8 +19,18 @@
     }
 }
 
+.main-container {
+    border-radius: var(--mdc-fab-container-shape);
+    background: $primary-container;
+}
+
 .safe-area-padding {
     padding: $page-wrapper-padding-top $page-wrapper-padding-right $page-wrapper-padding-bottom $page-wrapper-padding-left;
+}
+
+.main-container,
+.safe-area-margin {
+    margin: $page-wrapper-padding-top $page-wrapper-padding-right $page-wrapper-padding-bottom $page-wrapper-padding-left;
 }
 
 .mat-mdc-list-item,

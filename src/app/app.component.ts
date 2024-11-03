@@ -1,17 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { SidenavComponent } from '@shared/pages';
 
 @Component({
   selector: 'tap-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: `
-    <h1>Welcome to {{title}}!</h1>
-
-    <router-outlet />
-  `,
-  styles: [],
+  imports: [SidenavComponent],
+  template: `<tap-sidenav></tap-sidenav>`
 })
 export class AppComponent {
-  title = 'mominpro';
 }
