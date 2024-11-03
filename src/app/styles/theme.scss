@@ -1,0 +1,54 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+@import '@styles/colors.scss';
+
+// Define the theme object.
+$light-theme: mat.define-theme((color: (theme-type: light,
+        primary: mat.$chartreuse-palette,
+        tertiary: mat.$blue-palette,
+      )));
+
+$dark-theme: mat.define-theme((color: (theme-type: dark,
+        primary: mat.$rose-palette,
+        tertiary: mat.$blue-palette,
+      )));
+
+html {
+  // Apply the light theme by default
+  @include mat.all-component-themes($light-theme);
+  // Apply the dark theme only when the user prefers dark themes.
+  // @media (prefers-color-scheme: dark) {
+  //   // Use the `-color` mixins to only apply color styles without reapplying the same
+  //   // typography and density styles.
+  //   // @include mat.all-component-colors($dark-theme);
+  // }  
+}
+
+.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+}
+
+
+.mat-toolbar {
+  user-select: none;
+  text-transform: capitalize;
+  justify-content: space-between;
+  --mat-toolbar-container-text-color:#{$primary};
+  --mdc-icon-button-icon-color: #{$primary};
+
+}
+
+.mat-mdc-tab-link {
+  --mat-tab-header-inactive-label-text-color: #{$primary};
+  --mat-tab-header-active-label-text-color: #{$primary};
+  --mat-tab-header-active-focus-label-text-color: #{$primary};
+  --mat-tab-header-inactive-hover-label-text-color: #{$primary};
+}

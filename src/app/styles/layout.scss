@@ -1,0 +1,38 @@
+@import '@styles/variables.scss';
+
+.flex-column{
+    display: flex !important;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.nav-bar-position{
+    position: fixed;
+    left:0;
+    right:0;
+    &.bottom{
+        bottom: 0;
+    }
+}
+
+.position-fixed {
+    position: fixed;
+
+    &.top {
+        top: 0;
+    }
+
+    &.bottom {
+        bottom: 0;
+    }
+}
+
+.safe-area-padding {
+    padding: $page-wrapper-padding-top $page-wrapper-padding-right $page-wrapper-padding-bottom $page-wrapper-padding-left;
+}
+
+.mat-mdc-list-item,
+.mat-toolbar {
+    user-select: none;
+    text-transform: capitalize;
+}
