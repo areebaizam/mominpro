@@ -1,9 +1,9 @@
-<mat-sidenav-container [class.large-screen]="sidenavService.isLarge()">
-    <mat-sidenav [opened]="sidenavService.isOpen()" [mode]="sidenavService.mode()" role="dialog"
-        (closedStart)="sidenavService.closedStart()">heello</mat-sidenav>
+<mat-sidenav-container [class.large-screen]="mediaQuery.isLarge()">
+    <mat-sidenav [opened]="mediaQuery.isLarge() || sidenavService.isOpen()" [mode]="mode()" role="dialog"
+        (closedStart)="sidenavService.closedStart()" [position]="position()">heello</mat-sidenav>
     <mat-sidenav-content>
         <!-- Top Bar for Large Screen -->
-        @if(!sidenavService.isMobile()){
+        @if(!mediaQuery.isMobile()){
         <tap-bar-top class="position-fixed top"></tap-bar-top>
         <!-- Dummy PlaceHolder for Scroll Issues -->
         <mat-toolbar></mat-toolbar>
@@ -13,7 +13,7 @@
             <router-outlet></router-outlet>
         </div>
         <!-- Bottom Bar for mobile Screen -->
-        @if(sidenavService.isMobile()){
+        @if(mediaQuery.isMobile()){
         <!-- Dummy PlaceHolder for Scroll Issues -->
         <mat-toolbar></mat-toolbar>
         <tap-bar-bottom class="position-fixed bottom"></tap-bar-bottom>

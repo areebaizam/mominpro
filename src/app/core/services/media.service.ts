@@ -5,7 +5,7 @@ import { shareReplay } from "rxjs/internal/operators/shareReplay";
 @Injectable({
   providedIn: "root",
 })
-export class MediaService {
+export class MediaQuery {
   // Media
   private breakpointObserver = inject(BreakpointObserver);
   private readonly LARGE: string = '(min-width: 840px)';

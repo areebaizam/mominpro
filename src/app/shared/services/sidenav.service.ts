@@ -1,24 +1,28 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
-import { MatDrawerMode } from '@angular/material/sidenav';
-import { MediaService } from '@core/services';
+import { computed, Injectable, signal } from '@angular/core';
+//Models
+import { BtnToggleModel, SIDENAV_TOGGLE_ICON } from '@shared/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SidenavService {
-  mediaService = inject(MediaService);
-  mode = computed<MatDrawerMode>(() => this.mediaService.isLarge() ? "side" : "over");
-  isMobile = computed<boolean>(() => this.mediaService.isMobile());
-  isLarge = computed<boolean>(() => this.mediaService.isLarge());
-  isOpen = computed<boolean>(() => this.mediaService.isLarge() || this.#isOpen());
-  #isOpen = signal<boolean>(true);
+  
+  #isOpen = computed<boolean>(() => this.#menuBtnData().isActive);
+  #menuBtnData = signal<BtnToggleModel>(SIDENAV_TOGGLE_ICON);
 
-  toggleSideNav() {
-    this.#isOpen.update(value => !value);
+  isOpen = computed<boolean>(this.#isOpen);
+  menuBtnData = computed(this.#menuBtnData);
+
+  toggleState() {
+    this.setState(!this.#menuBtnData().isActive)
   }
 
   closedStart() {
-    this.#isOpen.set(false);
+    this.setState(false);
+  }
+
+  private setState(state: boolean) {
+    this.#menuBtnData.update((data) => { return { ...data, isActive: state }; });
   }
 
 }
