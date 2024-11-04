@@ -1,2 +1,2 @@
-export * from './btn-toggle.service';
+export * from './toggle.service';
 export * from './sidenav.service';

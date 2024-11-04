@@ -3,12 +3,12 @@
 
 .mat-drawer-container {
     --mat-sidenav-container-width: #{$app-drawer-width};
-
+    user-select: none;
     .mat-drawer-content {
         min-width: $app-screen-min-width;
         min-height: $page-wrapper-height;
         display: flex;
-        flex-direction: column;
+        flex-direction: column;        
     }
 }
 

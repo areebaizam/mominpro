@@ -19,5 +19,5 @@ const materialModules = [MatToolbarModule,];
 })
 export class BarTopComponent {
   mediaQuery = inject(MediaQuery);
-  toggleType = eBtnToggleType.SIDENAV;
+  toggleType = eBtnToggleType;
 }
