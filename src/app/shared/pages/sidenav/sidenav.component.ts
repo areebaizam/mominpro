@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 
 //Components
+import { SidenavDrawerComponent } from './sidenav-drawer/sidenav-drawer.component';
 import { BarBottomComponent, BarTopComponent,BarHiddenComponent } from '@shared/components';
 //Services
 import { MediaQuery } from '@core/services';
@@ -12,7 +13,8 @@ import { ToggleService, SidenavService } from '@shared/services';
 import { MatDrawerPosition, eBtnToggleType } from '@shared/models';
 
 const materialModules = [MatSidenavModule];
-const components = [BarBottomComponent, BarTopComponent, BarHiddenComponent];
+const components = [SidenavDrawerComponent,BarBottomComponent, BarTopComponent, BarHiddenComponent];
+
 @Component({
   selector: 'tap-sidenav',
   standalone: true,

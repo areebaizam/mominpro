@@ -1,0 +1,6 @@
+// @import '@styles/variables.scss';
+@import '@styles/colors.scss';
+.brand {
+    border-bottom: 1px solid $outline-variant;
+    padding-top: env(safe-area-inset-top);
+}

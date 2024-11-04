@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 @Component({
-  selector: 'tap-bar-hidden',
+  selector: 'tap-app-brand',
   standalone: true,
   imports: [MatToolbarModule],
-  templateUrl: './bar-hidden.component.html',
-  styleUrl: './bar-hidden.component.scss'
+  templateUrl: './app-brand.component.html',
+  styleUrl: './app-brand.component.scss'
 })
-export class BarHiddenComponent {
+export class AppBrandComponent {
 
 }
