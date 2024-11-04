@@ -1,3 +1,9 @@
+export enum eFeatureRouteURL {
+    HOME = "",
+    TIMINGS = "timings",
+    SETTINGS = "settings",
+}
+
 export type MatDrawerPosition = "start" | "end";
 export enum eBtnToggleType {
     SIDENAV,

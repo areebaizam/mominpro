@@ -1,9 +1,13 @@
 <mat-toolbar aria-label="App Bar" role="navigation">
-    @if(!mediaQuery.isLarge()){
-    <tap-btn-toggle [type]="toggleType.SIDENAV"></tap-btn-toggle>
-    }
-    @else{
-    <tap-btn-toggle [type]="toggleType.FULLSCREEN"></tap-btn-toggle>
-    <tap-btn-toggle [type]="toggleType.THEME"></tap-btn-toggle>
-    }
+    <div></div>
+    <div>Momin Pro App</div>
+    <div>
+        @if(!mediaQuery.isLarge()){
+        <tap-btn-toggle [type]="toggleType.SIDENAV"></tap-btn-toggle>
+        }
+        @else{
+        <tap-btn-toggle [type]="toggleType.FULLSCREEN"></tap-btn-toggle>
+        <tap-btn-toggle [type]="toggleType.THEME"></tap-btn-toggle>
+        }
+    </div>
 </mat-toolbar>

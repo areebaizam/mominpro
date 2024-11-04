@@ -4,9 +4,9 @@
     <mat-sidenav-content>
         <!-- Top Bar for Large Screen -->
         @if(!mediaQuery.isMobile()){
-        <tap-bar-top class="position-fixed top"></tap-bar-top>
+        <tap-bar-top class="navbar-position-fixed top"></tap-bar-top>
         <!-- Dummy PlaceHolder for Scroll Issues -->
-        <mat-toolbar></mat-toolbar>
+         <tap-bar-hidden></tap-bar-hidden>        
         }
         <!-- Router Outlet -->
         <div class="main-container flex-column">
@@ -14,9 +14,9 @@
         </div>
         <!-- Bottom Bar for mobile Screen -->
         @if(mediaQuery.isMobile()){
-        <!-- Dummy PlaceHolder for Scroll Issues -->
-        <mat-toolbar></mat-toolbar>
-        <tap-bar-bottom class="position-fixed bottom"></tap-bar-bottom>
+        <!-- Dummy PlaceHolder for Scroll Issues -->        
+        <tap-bar-hidden></tap-bar-hidden>  
+        <tap-bar-bottom class="navbar-position-fixed bottom"></tap-bar-bottom>
         }
 
     </mat-sidenav-content>

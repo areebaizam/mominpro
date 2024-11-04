@@ -2,17 +2,17 @@ import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 //Material
 import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
+
 //Components
-import { BarBottomComponent, BarTopComponent } from '@shared/components';
+import { BarBottomComponent, BarTopComponent,BarHiddenComponent } from '@shared/components';
 //Services
 import { MediaQuery } from '@core/services';
 import { ToggleService, SidenavService } from '@shared/services';
 //Models
 import { MatDrawerPosition, eBtnToggleType } from '@shared/models';
 
-const materialModules = [MatSidenavModule, MatToolbarModule];
-const components = [BarBottomComponent, BarTopComponent];
+const materialModules = [MatSidenavModule];
+const components = [BarBottomComponent, BarTopComponent, BarHiddenComponent];
 @Component({
   selector: 'tap-sidenav',
   standalone: true,

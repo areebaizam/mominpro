@@ -15,5 +15,8 @@
 .large-screen {
     --mat-sidenav-container-shape: 0px;
     --mat-sidenav-container-divider-color:#{$outline-variant};
+    .navbar-position-fixed {
+        left: $app-drawer-width;
+    }
 }
 
