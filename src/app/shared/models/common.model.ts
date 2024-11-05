@@ -9,6 +9,7 @@ export enum eBtnToggleType {
     SIDENAV,
     FULLSCREEN,
     THEME,
+    HOME,
 }
 
 export class BtnToggleModel {

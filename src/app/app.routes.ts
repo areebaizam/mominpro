@@ -8,14 +8,17 @@ export const routes: Routes = [
     {
         path: eFeatureRouteURL.HOME,
         loadChildren: () => import("@features/home/routes"),
+        data: { breadcrumb: 'Home' }
     },
     {
         path: eFeatureRouteURL.TIMINGS,
         loadChildren: () => import("@features/timings/routes"),
+        data: { breadcrumb: eFeatureRouteURL.TIMINGS }
     },
     {
         path: eFeatureRouteURL.SETTINGS,
         loadChildren: () => import("@features/settings/routes"),
+        data: { breadcrumb: eFeatureRouteURL.SETTINGS }
     },
     {
         path: "",

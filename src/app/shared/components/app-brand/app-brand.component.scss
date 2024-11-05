@@ -1,6 +1,16 @@
 // @import '@styles/variables.scss';
 @import '@styles/colors.scss';
+.mat-toolbar{
+    background: $primary-container;
+}
 .brand {
-    // border-bottom: 1px solid $outline-variant;
-    padding-top: env(safe-area-inset-top);
+    flex-grow: 1;
+    letter-spacing: 2px;
+    --mdc-text-button-container-shape:#{4px};
+    font-size: 1.5rem;
+    .mat-icon{
+        font-size: 1.5rem;
+        height: 1.5rem;
+        width: 1.5rem;
+    }
 }

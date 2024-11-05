@@ -1,0 +1,17 @@
+// @import '@styles/variables.scss';
+@import '@styles/colors.scss';
+.breadcrumbs-padding{
+    padding-bottom: 0;
+}
+.link {
+    text-decoration: none;
+    text-transform: capitalize;
+    color: $primary;
+    font-size: .75rem;
+    font-weight: 500;
+}
+.link:last-child{
+    text-decoration: none;
+    color: $secondary;
+    font-weight: 400;
+}

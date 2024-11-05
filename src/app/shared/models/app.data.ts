@@ -10,6 +10,14 @@ export const APP_TOGGLE_ICONS = [
         type: eBtnToggleType.SIDENAV,
     },
     {
+        icon: "mosque",
+        iconAlt: "mosque",
+        tooltip: "Home",
+        tooltipAlt: "Home",
+        isActive: false,
+        type: eBtnToggleType.HOME,
+    },
+    {
         icon: "fullscreen_exit",
         iconAlt: "fullscreen",
         tooltip:"Exit full screen (f)",
@@ -27,10 +35,20 @@ export const APP_TOGGLE_ICONS = [
     },
 ] as BtnToggleModel[]
 
+export const APP_NAV_HOME_BTN = {
+    order: 1,
+    id: 1,
+    parentId:null,
+    icon: "mosque",
+    label: "Home",
+    url: eFeatureRouteURL.HOME,
+    children:null
+} as BtnNavModel;
+
 export const APP_NAV_BTNS = [
     {
-        order: 1,
-        id: 1,
+        order: 2,
+        id: 2,
         parentId:null,
         icon: "schedule",
         label: "Timings",
@@ -38,8 +56,8 @@ export const APP_NAV_BTNS = [
         children:null
     }, 
     {
-        order: 2,
-        id: 2,
+        order: 3,
+        id: 3,
         parentId:null,
         icon: "settings",
         label: "Settings",

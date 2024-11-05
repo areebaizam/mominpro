@@ -1,5 +1,9 @@
 <mat-toolbar aria-label="App Bar" role="navigation">
-    <div></div>
+    <div>
+        @if(!mediaQuery.isLarge()){
+        <tap-btn-toggle [type]="toggleType.HOME"></tap-btn-toggle>
+        }
+    </div>
     <div>Momin Pro App</div>
     <div>
         @if(!mediaQuery.isLarge()){
