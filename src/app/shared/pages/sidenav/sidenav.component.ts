@@ -7,7 +7,7 @@ import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { SidenavDrawerComponent } from './sidenav-drawer/sidenav-drawer.component';
 import { BreadcrumbComponent, BarBottomComponent, BarTopComponent,BarHiddenComponent } from '@shared/components';
 //Services
-import { MediaQuery } from '@core/services';
+import { IconService, MediaQuery } from '@core/services';
 import { ToggleService, SidenavService } from '@shared/services';
 //Models
 import { MatDrawerPosition, eBtnToggleType } from '@shared/models';
@@ -23,8 +23,10 @@ const components = [BreadcrumbComponent, SidenavDrawerComponent,BarBottomCompone
   styleUrl: './sidenav.component.scss'
 })
 export class SidenavComponent {
-  sidenavService = inject(SidenavService);
   mediaQuery = inject(MediaQuery);
+  iconService = inject(IconService);
+  sidenavService = inject(SidenavService);
+  
   toggleService = inject(ToggleService);
   mode = computed<MatDrawerMode>(() => this.mediaQuery.isLarge() ? "side" : "over");
   position = computed<MatDrawerPosition>(() => this.mediaQuery.isMobile() ? "end" : "start");

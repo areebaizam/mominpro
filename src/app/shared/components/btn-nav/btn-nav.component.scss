@@ -2,8 +2,12 @@
 .mat-mdc-button{
     flex-grow: 1;
     justify-content: flex-start;
+    color: $secondary;
+    font-weight: 400;
 }
 .active {
+    font-weight: 500;
+    color: $primary;
     background: $primary-container;
     font-variation-settings: 'FILL' 1;
 }
