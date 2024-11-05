@@ -1,4 +1,13 @@
 <mat-toolbar aria-label="App Bar" role="navigation">
     <div></div>
+    <div>
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+            @for (link of sidenavService.navData; track $index) {
+            <a mat-tab-link [routerLink]="link.url" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+                <tap-btn-nav-col [data]="link"></tap-btn-nav-col> </a>
+            }
+        </nav>
+        <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+    </div>
     <tap-btn-toggle [type]="toggleType"></tap-btn-toggle>
 </mat-toolbar>

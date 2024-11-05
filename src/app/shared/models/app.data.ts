@@ -1,4 +1,4 @@
-import { BtnToggleModel, eBtnToggleType } from "./common.model";
+import { BtnNavModel, BtnToggleModel, eBtnToggleType, eFeatureRouteURL } from "./common.model";
 
 export const APP_TOGGLE_ICONS = [
     {
@@ -18,11 +18,32 @@ export const APP_TOGGLE_ICONS = [
         type: eBtnToggleType.FULLSCREEN,
     },
     {
-        icon: "dark_mode",
-        iconAlt: "light_mode",
-        tooltip:"Switch to dark mode (d)",
-        tooltipAlt:"Switch to light mode (d)",
+        icon: "light_mode",
+        iconAlt: "dark_mode",
+        tooltip:"Switch to light mode (d)",
+        tooltipAlt:"Switch to dark mode (d)",
         isActive: false,
         type: eBtnToggleType.THEME,
     },
 ] as BtnToggleModel[]
+
+export const APP_NAV_BTNS = [
+    {
+        order: 1,
+        id: 1,
+        parentId:null,
+        icon: "schedule",
+        label: "Timings",
+        url: eFeatureRouteURL.TIMINGS,
+        children:null
+    }, 
+    {
+        order: 2,
+        id: 2,
+        parentId:null,
+        icon: "settings",
+        label: "Settings",
+        url: eFeatureRouteURL.SETTINGS,
+        children:null
+    },
+] as BtnNavModel[];

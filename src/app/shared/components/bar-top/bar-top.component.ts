@@ -7,6 +7,7 @@ import { BtnToggleComponent } from '../btn-toggle/btn-toggle.component';
 import { MediaQuery } from '@core/services';
 //Models
 import { eBtnToggleType } from '@shared/models'
+//Constants
 const components = [BtnToggleComponent];
 const materialModules = [MatToolbarModule,];
 

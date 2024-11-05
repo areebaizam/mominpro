@@ -1,0 +1,21 @@
+@import '@styles/colors.scss';
+
+.mat-mdc-tab-link {
+    height: var(--mat-toolbar-mobile-height);
+}
+
+.mdc-tab--active {
+    background: $primary-container;
+    font-variation-settings: 'FILL' 1;
+}
+
+.mdc-tab {
+    padding: 0;
+}
+
+:host ::ng-deep {
+    .mdc-tab-indicator {
+        height: 1px;
+        top: 1px;
+    }
+}

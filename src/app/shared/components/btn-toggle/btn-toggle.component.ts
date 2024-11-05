@@ -19,6 +19,8 @@ const materialModules = [MatButtonModule, MatIconModule, MatTooltipModule]
 })
 export class BtnToggleComponent {
   @Input({ required: true }) type!: eBtnToggleType;
+  @Input() showLabel:boolean = false;
+
   toggleService = inject(ToggleService);
   icon = computed<string>(() => this.getIcon());
   tooltip = computed<string>(() => this.getTooltip());

@@ -1,4 +1,27 @@
+// @import '@styles/variables.scss';
+@import '@styles/colors.scss';
+
 .drawer-content {
     overflow-y: auto;
     height: calc(100vh - var(--mat-toolbar-standard-height));
+    justify-content: space-between;
+
+    .drawer-section {
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid $outline-variant;
+        margin-top: 16px;
+        padding-top: 16px;
+    }
+
+    .drawer-section:first-child {
+        border-top: 0px;
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    .drawer-section:last-child {
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+    }
 }

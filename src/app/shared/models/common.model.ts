@@ -19,3 +19,13 @@ export class BtnToggleModel {
     type: eBtnToggleType=eBtnToggleType.SIDENAV;
     isActive: boolean = true;
 }
+
+export class BtnNavModel {
+    order: number = 0;
+    id: number = 0;
+    parentId: number | null = null;
+    icon: string = '';
+    label: string = '';
+    url: eFeatureRouteURL = eFeatureRouteURL.HOME;
+    children: BtnNavModel[] | null = null;
+  }

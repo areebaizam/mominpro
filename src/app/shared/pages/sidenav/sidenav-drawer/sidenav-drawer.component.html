@@ -1,38 +1,30 @@
 <!-- BRAND -->
 <tap-app-brand></tap-app-brand>
 <!-- Content -->
-<div class="safe-area-padding drawer-content">
-<p>Drawerstart 1</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer 4</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer7</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
-<p>Drawer</p>
+<div class="safe-area-padding drawer-content flex-column">
+    @if(!mediaQuery.isMobile()){
+    <div class="drawer-section">
+        @for (link of sidenavService.navData; track $index) {
+        <tap-btn-nav [data]="link" class="flex-column"></tap-btn-nav>}
+    </div>
+    }
+    @if(!mediaQuery.isLarge()){
+    <div class="drawer-section">
+        <tap-btn-toggle [type]="toggleType.FULLSCREEN" [showLabel]="true" class="flex-column"></tap-btn-toggle>
+        <tap-btn-toggle [type]="toggleType.THEME" [showLabel]="true" class="flex-column"></tap-btn-toggle>
+    </div>
+    }
+
+    <!-- <p>Drawerstart 1</p>
+    <p>Drawer</p>
+    <p>Drawer</p>
+    <p>Drawer 4</p>
+    <p>Drawer</p>
+    <p>Drawer</p>
+    <p>Drawer7</p>
+    <p>Drawer</p>
+    <p>Drawer</p>
+    <p>Drawer</p>
+    <p>Drawer</p>
+    <p>Drawer end</p> -->
 </div>

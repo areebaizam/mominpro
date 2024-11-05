@@ -1,0 +1,9 @@
+@import '@styles/colors.scss';
+.mat-mdc-button{
+    flex-grow: 1;
+    justify-content: flex-start;
+}
+.active {
+    background: $primary-container;
+    font-variation-settings: 'FILL' 1;
+}

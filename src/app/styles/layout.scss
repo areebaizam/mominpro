@@ -3,7 +3,10 @@
 
 .flex-column {
     display: flex !important;
-    flex-direction: column;
+    flex-direction: column;    
+}
+
+.flex-grow{
     flex-grow: 1;
 }
 
@@ -32,7 +35,8 @@
 
 .main-container {
     border-radius: var(--mdc-fab-container-shape);
-    background: $primary-container;
+    // background: $primary-container;
+    background: #FFF;
 }
 
 .safe-area-padding {
