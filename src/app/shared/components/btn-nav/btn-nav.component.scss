@@ -1,9 +1,10 @@
 @import '@styles/colors.scss';
-.mat-mdc-button{
+.mdc-button{
     flex-grow: 1;
     justify-content: flex-start;
-    color: $secondary;
+    color: $primary-container;
     font-weight: 400;
+    --mdc-filled-button-container-shape:#{16px};
 }
 .active {
     font-weight: 500;

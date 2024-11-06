@@ -1,15 +1,17 @@
 <mat-toolbar aria-label="App Bar" role="navigation">
-    <div>
-        @if(!mediaQuery.isLarge()){
-        <tap-btn-toggle [type]="toggleType.HOME"></tap-btn-toggle>
-        }
-    </div>
-    <div>Momin Pro App</div>
-    <div>
+    <div class="flex-center">
         @if(!mediaQuery.isLarge()){
         <tap-btn-toggle [type]="toggleType.SIDENAV"></tap-btn-toggle>
+        <a mat-button [routerLink]="sidenavService.homeData.url">AL Fatheh Mosque</a>
         }
-        @else{
+    </div>
+    <div>
+        @if(mediaQuery.isLarge()){
+        <a mat-button [routerLink]="sidenavService.homeData.url">AL Fatheh Mosque</a>
+        }
+    </div>
+    <div>
+        @if(mediaQuery.isLarge()){
         <tap-btn-toggle [type]="toggleType.FULLSCREEN"></tap-btn-toggle>
         <tap-btn-toggle [type]="toggleType.THEME"></tap-btn-toggle>
         }

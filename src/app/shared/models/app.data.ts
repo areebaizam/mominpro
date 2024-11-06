@@ -28,8 +28,8 @@ export const APP_TOGGLE_ICONS = [
     {
         icon: "light_mode",
         iconAlt: "dark_mode",
-        tooltip:"Switch to light mode (d)",
-        tooltipAlt:"Switch to dark mode (d)",
+        tooltip:"Light mode (d)",
+        tooltipAlt:"Dark mode (d)",
         isActive: false,
         type: eBtnToggleType.THEME,
     },

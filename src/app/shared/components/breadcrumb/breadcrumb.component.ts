@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit, } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd,RouterLink } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
@@ -11,7 +10,7 @@ interface Breadcrumb {
 @Component({
   selector: 'tap-breadcrumb',
   standalone: true,
-  imports: [RouterLink,NgFor,NgIf],
+  imports: [RouterLink],
   templateUrl: './breadcrumb.component.html',
   styleUrl: './breadcrumb.component.scss'
 })
@@ -45,7 +44,7 @@ export class BreadcrumbComponent implements OnInit{
     if (route.firstChild) {
       return this.buildBreadcrumbs(route.firstChild, nextUrl, breadcrumbs);
     }
-    console.log('breadcrumbs',breadcrumbs);
+    
     return breadcrumbs;
   }
 }

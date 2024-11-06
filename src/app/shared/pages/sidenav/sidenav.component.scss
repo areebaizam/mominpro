@@ -7,12 +7,15 @@
 
     .mat-sidenav{
         position: fixed;
+        --mat-sidenav-container-background-color: #{$primary};
     }
     .mat-drawer-content {
         min-width: $app-screen-min-width;
         min-height: $page-wrapper-height;
         display: flex;
         flex-direction: column;
+        background: $surface-container;
+        // --mat-sidenav-container-background-color: #{$surface-container};
     }
 }
 

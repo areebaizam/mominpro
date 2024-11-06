@@ -1,4 +1,7 @@
 @import '@styles/colors.scss';
+.mat-toolbar{
+    background: $surface-container;
+}
 
 .mat-mdc-tab-link {
     height: var(--mat-toolbar-mobile-height);

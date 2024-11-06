@@ -1,12 +1,12 @@
-<div class="safe-area-padding breadcrumbs-padding">
-    @if(breadcrumbs.length>1){
-        @for(link of breadcrumbs; track $index; let last = $last){
-        @if(!last){
-        <a [routerLink]="link.url" class="link">{{ link.label }} / </a>
-        }
-        @else{
-        <a class="link">{{ link.label }}</a>
-        }
-        }
-        }
+@if(breadcrumbs.length>1){
+<div class="safe-area-padding breadcrumbs-container">
+    @for(link of breadcrumbs; track $index; let last = $last){
+    @if(!last){
+    <a [routerLink]="link.url" class="link">{{ link.label }} / </a>
+    }
+    @else{
+    <a class="link">{{ link.label }}</a>
+    }
+    }
 </div>
+}

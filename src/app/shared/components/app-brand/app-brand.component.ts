@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-// import { BtnNavComponent } from '../btn-nav/btn-nav.component';
 //Services
 import { SidenavService } from '@shared/services';
 //Contants
@@ -19,5 +18,6 @@ const materialModules = [MatToolbarModule, MatButtonModule, MatIconModule];
 })
 export class AppBrandComponent {
   sidenavService = inject(SidenavService);
+  icon: string = 'prayer_times';
 
 }

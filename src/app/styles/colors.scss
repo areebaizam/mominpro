@@ -1,11 +1,11 @@
-$primary: var(--mdc-text-button-label-text-color);
-$primary-container: var(--mat-list-active-indicator-color);
-$on-primary: var(--mdc-filled-button-label-text-color);
+$primary: var(--mdc-text-button-label-text-color);//#326B00
+$primary-container: var(--mat-list-active-indicator-color); //#dae7ca
+$on-primary: var(--mdc-filled-button-label-text-color); //#ffffff
 
 $secondary: var(--mat-text-button-disabled-state-layer-color);
 
 
-$surface: var(--mat-sidenav-container-background-color);
-$surface-container: var(--mat-menu-container-color);
+$surface: var(--mat-sidenav-container-background-color);//#fafaf2
+$surface-container: var(--mat-menu-container-color);//#eeeee7
 
-$outline-variant: var(--mdc-filled-text-field-container-color);
+$outline-variant: var(--mdc-filled-text-field-container-color);//#e0e4d6

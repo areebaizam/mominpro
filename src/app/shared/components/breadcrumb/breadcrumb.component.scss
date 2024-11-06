@@ -1,8 +1,15 @@
 // @import '@styles/variables.scss';
 @import '@styles/colors.scss';
-.breadcrumbs-padding{
+.breadcrumbs-container{
     padding-bottom: 0;
+    background: $surface-container;
 }
+// .mat-icon{
+//     height: 14px;
+//     width: 14px;
+//     font-size: 14px;
+//     font-weight: 600;
+// }
 .link {
     text-decoration: none;
     text-transform: capitalize;

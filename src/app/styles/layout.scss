@@ -37,7 +37,7 @@
 
 .main-container {
     border-radius: var(--mdc-fab-container-shape);
-    background: $surface-container;
+    background: $surface;
 }
 
 .safe-area-padding {
@@ -53,4 +53,27 @@
 .mat-toolbar {
     user-select: none;
     text-transform: capitalize;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+}
+//TODO Fix the coloring
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--mdc-outlined-card-outline-color);//#c4c8bb;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--mat-slider-hover-state-layer-color);
+}
+
+::-webkit-scrollbar-track {
+    background-color: $surface-container;
 }

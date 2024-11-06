@@ -1,4 +1,7 @@
-.mat-mdc-button{
+// @import '@styles/variables.scss';
+@import '@styles/colors.scss';
+.mdc-button{
     flex-grow: 1;
     justify-content: flex-start;
+    // --mdc-text-button-label-text-color:#{$on-primary};
 }
