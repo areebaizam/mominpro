@@ -1,5 +1,6 @@
+// @import url(@styles/variables.scss);
 @import '@styles/variables.scss';
-@import '@styles/colors.scss';
+@import '@styles/theme.scss';
 
 .flex-column {
     display: flex !important;
@@ -18,7 +19,7 @@
         top: 0;
 
         &.nav-bar {
-            // border-bottom: 1px solid $outline-variant;
+            // border-bottom: 1px solid var(--outline-variant);
             padding-top: env(safe-area-inset-top);
             right: 0;
         }
@@ -30,14 +31,14 @@
         &.nav-bar {
             right: 0;
             padding-bottom: env(safe-area-inset-bottom);
-            border-top: 1px solid $outline-variant;
+            border-top: 1px solid var(--outline-variant);
         }
     }
 }
 
 .main-container {
     border-radius: var(--mdc-fab-container-shape);
-    background: $surface;
+    background: var(--surface-bright);
 }
 
 .safe-area-padding {
@@ -75,5 +76,5 @@
 }
 
 ::-webkit-scrollbar-track {
-    background-color: $surface-container;
+    background-color: var(--surface-container);
 }

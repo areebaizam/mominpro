@@ -1,7 +1,15 @@
-// @import '@styles/variables.scss';
-@import '@styles/colors.scss';
-.mdc-button{
+@import '@styles/theme.scss';
+
+.mdc-button {
     flex-grow: 1;
     justify-content: flex-start;
-    // --mdc-text-button-label-text-color:#{$on-primary};
+    --mdc-text-button-label-text-color: var(--secondary);
+    --mdc-text-button-container-shape:1rem;
+    --mdc-filled-button-container-shape:1rem;
+
+    &:hover {
+        // --mdc-text-button-label-text-size: 1rem;
+        --mdc-text-button-label-text-color: var(--primary);
+        // font-variation-settings: 'FILL' 1;
+    }
 }

@@ -1,5 +1,5 @@
 // @import '@styles/variables.scss';
-@import '@styles/colors.scss';
+@import '@styles/theme.scss';
 
 .drawer-content {
     overflow-y: auto;
@@ -9,7 +9,7 @@
     .drawer-section {
         display: flex;
         flex-direction: column;
-        border-top: 1px solid $outline-variant;
+        border-top: 1px solid var(--outline-variant);
         margin-top: 16px;
         padding-top: 16px;
     }

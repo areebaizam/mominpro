@@ -1,5 +1,5 @@
 @if(showLabel){
-<button mat-flat-button (click)="onBtnClicked($event)"><mat-icon>{{icon()}}</mat-icon>{{tooltip()}}</button>
+<button mat-button (click)="onBtnClicked($event)"><mat-icon>{{icon()}}</mat-icon>{{tooltip()}}</button>
 }
 @else{
 <button mat-icon-button (click)="onBtnClicked($event)" [matTooltip]="tooltip()"><mat-icon>{{icon()}}</mat-icon></button>

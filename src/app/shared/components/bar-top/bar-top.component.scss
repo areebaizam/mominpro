@@ -1,7 +1,7 @@
-// @import '@styles/variables.scss';
 @import '@styles/colors.scss';
-.mat-toolbar{
-    background: $surface-container;
+
+.mat-toolbar {
+    background: $bar-color;
     --mdc-text-button-container-shape:#{16px};
     --mdc-filled-button-container-shape:#{16px};
     --mdc-text-button-label-text-size:#{1.25rem}

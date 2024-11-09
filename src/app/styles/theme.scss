@@ -8,8 +8,6 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-@import '@styles/colors.scss';
-
 // Define the theme object.
 $light-theme: mat.define-theme((color: (theme-type: light,
         primary: mat.$chartreuse-palette,
@@ -27,6 +25,7 @@ $dark-theme: mat.define-theme((color: (theme-type: dark,
   --on-primary: #{mat.get-theme-color($theme, on-primary)};
   --primary-container: #{mat.get-theme-color($theme, primary-container)};
   --on-primary-container: #{mat.get-theme-color($theme, on-primary-container)};
+  --primary-fixed-dim: #{mat.get-theme-color($theme, primary-fixed-dim)};
   //Secondary
   --secondary: #{mat.get-theme-color($theme, secondary)};
   --on-secondary: #{mat.get-theme-color($theme, on-secondary)};
@@ -37,6 +36,9 @@ $dark-theme: mat.define-theme((color: (theme-type: dark,
   --surface-container: #{mat.get-theme-color($theme, surface-container)};
   //Outline
   --outline-variant: #{mat.get-theme-color($theme, outline-variant)};
+  //Inverse
+  --inverse-primary: #{mat.get-theme-color($theme, inverse-primary)};
+  --inverse-on-surface: #{mat.get-theme-color($theme, inverse-on-surface)};
 }
 
 html {
@@ -61,14 +63,16 @@ html {
   user-select: none;
   text-transform: capitalize;
   justify-content: space-between;
-  --mat-toolbar-container-text-color:#{$primary};
-  --mdc-icon-button-icon-color: #{$primary};
+  --mat-toolbar-container-text-color:var(--primary);
+  --mdc-icon-button-icon-color: var(--primary);
 
 }
 
 .mat-mdc-tab-link {
-  --mat-tab-header-inactive-label-text-color: #{$primary};
-  --mat-tab-header-active-label-text-color: #{$primary};
-  --mat-tab-header-active-focus-label-text-color: #{$primary};
-  --mat-tab-header-inactive-hover-label-text-color: #{$primary};
+  --mat-tab-header-active-label-text-color: var(--primary);
+  --mat-tab-header-active-focus-label-text-color: var(--primary);
+  --mat-tab-header-active-hover-label-text-color: var(--primary);
+  --mat-tab-header-inactive-label-text-color: var(--secondary);
+  --mat-tab-header-inactive-focus-label-text-color: var(--primary);  
+  --mat-tab-header-inactive-hover-label-text-color: var(--primary);
 }

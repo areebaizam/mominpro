@@ -1,14 +1,22 @@
 @import '@styles/colors.scss';
-.mdc-button{
+
+.mdc-button {
     flex-grow: 1;
     justify-content: flex-start;
-    color: $primary-container;
-    font-weight: 400;
-    --mdc-filled-button-container-shape:#{16px};
+    // text-transform: uppercase;
+    --mdc-text-button-label-text-color: var(--secondary);
+    --mdc-filled-button-container-shape:1rem;
+    --mdc-text-button-container-shape:1rem;
+    // --mdc-text-button-label-text-tracking: .031rem;
 }
+
+.mdc-button:hover,
 .active {
-    font-weight: 500;
-    color: $primary;
-    background: $primary-container;
+    // --mdc-text-button-label-text-size: 1rem;
+    --mdc-text-button-label-text-color: var(--primary);    
     font-variation-settings: 'FILL' 1;
+}
+
+.active {
+    background: $bar-color;
 }

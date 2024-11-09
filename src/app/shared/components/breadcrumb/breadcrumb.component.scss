@@ -1,8 +1,8 @@
 // @import '@styles/variables.scss';
-@import '@styles/colors.scss';
+@import '@styles/theme.scss';
 .breadcrumbs-container{
     padding-bottom: 0;
-    background: $surface-container;
+    background: var(--surface-container);
 }
 .not-mobile{
     padding-top: 0;;
@@ -10,12 +10,12 @@
 .link {
     text-decoration: none;
     text-transform: capitalize;
-    color: $primary;
+    color: var(--primary);
     font-size: .75rem;
     font-weight: 500;
 }
 .link:last-child{
     text-decoration: none;
-    color: $secondary;
+    color: var(--secondary);
     font-weight: 400;
 }

@@ -7,21 +7,21 @@
 
     .mat-sidenav{
         position: fixed;
-        --mat-sidenav-container-background-color: #{$primary};
+        // --mat-sidenav-container-background-color: #{$bar-color};
+        // border-right: ;
     }
     .mat-drawer-content {
         min-width: $app-screen-min-width;
         min-height: $page-wrapper-height;
         display: flex;
         flex-direction: column;
-        background: $surface-container;
-        // --mat-sidenav-container-background-color: #{$surface-container};
+        background: var(--surface-container);
     }
 }
 
 .large-screen {
     --mat-sidenav-container-shape: 0px;
-    --mat-sidenav-container-divider-color:#{$outline-variant};
+    --mat-sidenav-container-divider-color:var(--outline-variant);
 
     .position-fixed {
         &.top.nav-bar {

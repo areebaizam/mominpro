@@ -1,13 +1,14 @@
-// @import '@styles/variables.scss';
 @import '@styles/colors.scss';
 .mat-toolbar{
-    background: $primary;
+    background: $bar-color;
+    --mdc-filled-button-label-text-color:var(--primary);
+    --mdc-filled-button-container-color: #{$bar-color}
 }
 .brand {
     flex-grow: 1;
     letter-spacing: 2px;
-    --mdc-text-button-container-shape:#{16px};
-    --mdc-filled-button-container-shape:#{16px};
+    --mdc-text-button-container-shape:1rem;
+    --mdc-filled-button-container-shape:1rem;
     font-size: 1.5rem;
     .mat-icon{
         font-size: 1.5rem;

@@ -1,16 +1,14 @@
 @import '@styles/colors.scss';
-.mat-toolbar{
-    background: $surface-container;
+
+.mat-toolbar {
+    background: $bar-color;
 }
 
 .mat-mdc-tab-link {
     height: var(--mat-toolbar-mobile-height);
-    --mat-tab-header-inactive-label-text-color:#{$secondary};
 }
-
+.mdc-tab:hover,
 .mdc-tab--active {
-    color: $secondary;
-    background: $primary-container;
     font-variation-settings: 'FILL' 1;
 }
 
