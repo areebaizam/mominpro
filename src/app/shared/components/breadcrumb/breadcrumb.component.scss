@@ -4,12 +4,9 @@
     padding-bottom: 0;
     background: $surface-container;
 }
-// .mat-icon{
-//     height: 14px;
-//     width: 14px;
-//     font-size: 14px;
-//     font-weight: 600;
-// }
+.not-mobile{
+    padding-top: 0;;
+}
 .link {
     text-decoration: none;
     text-transform: capitalize;

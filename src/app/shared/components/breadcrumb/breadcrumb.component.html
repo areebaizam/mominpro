@@ -1,5 +1,5 @@
 @if(breadcrumbs.length>1){
-<div class="safe-area-padding breadcrumbs-container">
+<div class="safe-area-padding breadcrumbs-container" [class.not-mobile]="!isMobile()">
     @for(link of breadcrumbs; track $index; let last = $last){
     @if(!last){
     <a [routerLink]="link.url" class="link">{{ link.label }} / </a>

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, } from '@angular/core';
+import { Component, inject, input, Input, OnInit, } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd,RouterLink } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 
@@ -16,6 +16,7 @@ interface Breadcrumb {
 })
 export class BreadcrumbComponent implements OnInit{
   @Input() breadcrumb!: Breadcrumb;
+  isMobile = input.required<boolean>();
   router= inject( Router);
   activatedRoute= inject( ActivatedRoute);
   breadcrumbs: Breadcrumb[] = [];

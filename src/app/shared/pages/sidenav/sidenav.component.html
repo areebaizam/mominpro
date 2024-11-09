@@ -10,9 +10,9 @@
         <tap-bar-hidden></tap-bar-hidden>
         }
         <!-- Breadcrumbs -->
-        <tap-breadcrumb></tap-breadcrumb>
+        <tap-breadcrumb [isMobile]="mediaQuery.isMobile()"></tap-breadcrumb>
         <!-- Router Outlet -->
-        <div class="main-container flex-column flex-grow">
+        <div class="main-container flex-column flex-grow safe-area-padding">
             <router-outlet></router-outlet>
         </div>
         <!-- Bottom Bar for mobile Screen -->
