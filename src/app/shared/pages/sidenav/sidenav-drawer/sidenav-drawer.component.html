@@ -6,6 +6,7 @@
     <div class="drawer-section">
         @for (link of sidenavService.navData; track $index) {
         <tap-btn-nav [data]="link" class="flex-column"></tap-btn-nav>}
+        <tap-btn-nav [data]="sidenavService.testData" class="flex-column"></tap-btn-nav>
     </div>
     }
     @if(!mediaQuery.isLarge()){

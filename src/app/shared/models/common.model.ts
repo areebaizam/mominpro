@@ -2,6 +2,7 @@ export enum eFeatureRouteURL {
     HOME = "",
     TIMINGS = "timings",
     SETTINGS = "settings",
+    TEST = "test",
 }
 
 export type MatDrawerPosition = "start" | "end";

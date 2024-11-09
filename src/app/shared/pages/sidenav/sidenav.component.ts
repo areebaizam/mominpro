@@ -5,7 +5,7 @@ import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 
 //Components
 import { SidenavDrawerComponent } from './sidenav-drawer/sidenav-drawer.component';
-import { BreadcrumbComponent, BarBottomComponent, BarTopComponent,BarHiddenComponent } from '@shared/components';
+import { BreadcrumbComponent, BarBottomComponent, BarTopComponent, BarHiddenComponent } from '@shared/components';
 //Services
 import { IconService, MediaQuery } from '@core/services';
 import { ToggleService, SidenavService } from '@shared/services';
@@ -13,7 +13,7 @@ import { ToggleService, SidenavService } from '@shared/services';
 import { MatDrawerPosition, eBtnToggleType } from '@shared/models';
 
 const materialModules = [MatSidenavModule];
-const components = [BreadcrumbComponent, SidenavDrawerComponent,BarBottomComponent, BarTopComponent, BarHiddenComponent];
+const components = [BreadcrumbComponent, SidenavDrawerComponent, BarBottomComponent, BarTopComponent, BarHiddenComponent];
 
 @Component({
   selector: 'tap-sidenav',
@@ -23,10 +23,10 @@ const components = [BreadcrumbComponent, SidenavDrawerComponent,BarBottomCompone
   styleUrl: './sidenav.component.scss'
 })
 export class SidenavComponent {
-  mediaQuery = inject(MediaQuery);
+  mediaQuery: MediaQuery = inject(MediaQuery);
   iconService = inject(IconService);
   sidenavService = inject(SidenavService);
-  
+
   toggleService = inject(ToggleService);
   mode = computed<MatDrawerMode>(() => this.mediaQuery.isLarge() ? "side" : "over");
   position = computed<MatDrawerPosition>(() => this.mediaQuery.isMobile() ? "end" : "start");

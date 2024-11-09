@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Constants
-const formModules = [FormsModule, ReactiveFormsModule ];
-const materialModules = [MatSelectModule, MatFormFieldModule,MatInputModule]
+const formModules = [FormsModule, ReactiveFormsModule];
+const materialModules = [MatSelectModule, MatFormFieldModule, MatInputModule]
 
 interface Animal {
   name: string;
@@ -15,7 +15,7 @@ interface Animal {
 @Component({
   selector: 'tap-salah',
   standalone: true,
-  imports: [...formModules,...materialModules],
+  imports: [...formModules, ...materialModules],
   templateUrl: './salah.component.html',
   styleUrl: './salah.component.scss'
 })

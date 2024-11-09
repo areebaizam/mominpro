@@ -45,6 +45,16 @@ export const APP_NAV_HOME_BTN = {
     children:null
 } as BtnNavModel;
 
+export const APP_NAV_TEST_BTN = {
+    order: 9,
+    id: 9,
+    parentId:null,
+    icon: "experiment",
+    label: "Test",
+    url: eFeatureRouteURL.TEST,
+    children:null
+} as BtnNavModel;
+
 export const APP_NAV_BTNS = [
     {
         order: 2,

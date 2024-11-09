@@ -9,6 +9,7 @@
       "@features/*": ["app/features/*"],
       "@shared/*": ["app/shared/*"],
       "@styles/*": ["app/styles/*"],
+      "@test/*": ["app/test/*"],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

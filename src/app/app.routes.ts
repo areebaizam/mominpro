@@ -21,6 +21,11 @@ export const routes: Routes = [
         data: { breadcrumb: eFeatureRouteURL.SETTINGS }
     },
     {
+        path: eFeatureRouteURL.TEST,
+        loadChildren: () => import("@test/routes"),
+        data: { breadcrumb: eFeatureRouteURL.TEST }
+    },
+    {
         path: "",
         redirectTo: eFeatureRouteURL.HOME,
         pathMatch: "full",

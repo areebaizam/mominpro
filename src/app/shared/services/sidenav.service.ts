@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { APP_NAV_BTNS, APP_NAV_HOME_BTN, BtnNavModel } from '@shared/models';
+import { APP_NAV_BTNS, APP_NAV_HOME_BTN,APP_NAV_TEST_BTN, BtnNavModel } from '@shared/models';
 //Models
 
 @Injectable({
@@ -12,6 +12,7 @@ export class SidenavService {
 
   homeData: BtnNavModel = APP_NAV_HOME_BTN;
   navData: BtnNavModel[] = APP_NAV_BTNS;
+  testData: BtnNavModel = APP_NAV_TEST_BTN;
   
   toggleState() {
     this.setState(!this.#isOpen());
