@@ -1,1 +1,7 @@
-<p>mosque works!</p>
+@defer () {
+<form [formGroup]="form">
+    <tap-lib-form controlKey="general" [formFields]="generalFields"></tap-lib-form>
+    <tap-lib-form controlKey="contact" [formFields]="contactFields"></tap-lib-form>
+    <tap-lib-form controlKey="address" [formFields]="addressFields"></tap-lib-form>
+</form>
+}
