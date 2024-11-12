@@ -1,32 +1,31 @@
-<form [formGroupName]="controlKey">
-    <mat-grid-list cols="12" rowHeight="76" gutterSize="1rem">
-        @for(field of formFields; track field){
-        <mat-grid-tile [colspan]="field.colspan">
-            @if(isInputType(field.type)){
-            <mat-form-field class="full-width">
-                <mat-label>{{field.label}}</mat-label>
-                <input matInput [type]="field.type" [formControl]="getFormControl(field.name)"
-                    [placeholder]="field.placeholder" [maxLength]="field.validators?.maxLength">
-                <!-- TODO Fix this logic -->
-                @if(field.validators?.maxLength && isNotMaxLength(field.name)<10){ <mat-error matTextSuffix align="end">
-                    {{100 - isNotMaxLength(field.name)}} / {{field.validators?.maxLength}}</mat-error>
-                    }
-            </mat-form-field>
-            }
-            @else if(field.type == 'textarea'){
-            <mat-form-field class="full-width">
-                <mat-label>{{field.label}}</mat-label>
-                <textarea matInput [type]="field.type" [formControl]="getFormControl(field.name)"
-                    [placeholder]="field.placeholder" [rows]="field.min"
-                    [maxLength]="field.validators?.maxLength"></textarea>
-                <!-- TODO Fix this logic -->
-                @if(field.validators?.maxLength && isNotMaxLength(field.name)<10){ <mat-error matTextSuffix align="end">
-                    {{!!field.validators?.maxLength?field.validators?.maxLength:100 - isNotMaxLength(field.name)}} /
-                    {{field.validators?.maxLength}}</mat-error>
-                    }
-            </mat-form-field>
-            }
-        </mat-grid-tile>
-        }
-    </mat-grid-list>
+<form [formGroupName]="controlKey" class="form-container">
+    @for(field of formFields; track field){
+    @if(isInputType(field.type)){
+    <mat-form-field class="field-width" [style.flex]="field.colspan">
+        <mat-label>{{field.label}}</mat-label>
+        <input matInput [type]="field.type" [formControl]="getFormControl(field.name)"
+            [maxLength]="field.validators?.maxLength" [placeholder]="field.placeholder">
+        <mat-hint align="end">/{{field.validators?.maxLength}}</mat-hint>
+        <!-- <mat-hint align="end">{{value().length}}/10</mat-hint> -->
+        <!-- TODO Fix this logic -->
+        <!-- @if(field.validators?.maxLength && isNotMaxLength(field.name)<10){ <mat-error matTextSuffix align="end">
+                        {{100 - isNotMaxLength(field.name)}} / {{field.validators?.maxLength}}</mat-error>
+                        } -->
+    </mat-form-field>
+    }
+    @else if(field.type == 'textarea'){
+    <mat-form-field class="field-width" [style.flex]="field.colspan">
+        <mat-label>{{field.label}}</mat-label>
+        <textarea matInput [type]="field.type" [formControl]="getFormControl(field.name)"
+            [maxLength]="field.validators?.maxLength" [placeholder]="field.placeholder" [rows]="field.min"></textarea>
+        <mat-hint align="end">/{{field.validators?.maxLength}}</mat-hint>
+        <!-- <mat-hint align="end">/{{field.validators.maxLength}}</mat-hint> -->
+        <!-- TODO Fix this logic -->
+        <!-- @if(field.validators?.maxLength && isNotMaxLength(field.name)<10){ <mat-error matTextSuffix align="end">
+            {{!!field.validators?.maxLength?field.validators?.maxLength:100 - isNotMaxLength(field.name)}} /
+            {{field.validators?.maxLength}}</mat-error>
+            } -->
+    </mat-form-field>
+    }
+    }
 </form>

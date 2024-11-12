@@ -1,0 +1,11 @@
+@import '@styles/theme.scss';
+
+.form-container {
+    display: flex;
+    column-gap: 1.25rem;
+    flex-wrap: wrap;
+    .field-width {
+        width: 100%;
+        min-width: 240px;
+    }
+}

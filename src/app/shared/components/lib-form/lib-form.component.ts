@@ -45,6 +45,7 @@ export class LibFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.buildformControls()
     this.parentFormGroup.addControl(this.controlKey, this.form);
+    // console.log('this.parentFormGroup',this.parentFormGroup);
   }
 
   private buildformControls(): void {
@@ -68,7 +69,7 @@ export class LibFormComponent implements OnInit, OnDestroy {
     let length = this.getFormControl(name).value.length;
     let maxLength = this.formFields.find(x => x.name == name)?.validators?.maxLength;
     // if(length && maxLength && length > maxLength)
-      return maxLength? maxLength - length : length;
+    return maxLength ? maxLength - length : length;
     // return length;
   }
 
@@ -96,6 +97,9 @@ export class LibFormComponent implements OnInit, OnDestroy {
 
   }
 
+  getHintLabel(maxLength: number|undefined): string {
+    return maxLength ?'Max ' + maxLength + ' characters' : '';
+  }
   getMaxLength(name: string): number {
     let length = this.formFields.find(x => x.name = name)?.validators?.maxLength;
     return length ? length : 0;

@@ -57,7 +57,7 @@ export class ToggleService implements OnDestroy {
         this.eventService.toggleFullScreen();
         break;
       case eBtnToggleType.HOME:
-        this.router.navigateByUrl(eFeatureRouteURL.HOME);;
+        this.router.navigateByUrl(eFeatureRouteURL.HOME);
         break;
 
     }

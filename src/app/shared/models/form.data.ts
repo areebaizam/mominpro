@@ -21,7 +21,9 @@ export const MOSQUE_FORM_GENERAL_DATA = [
         value: '',
         placeholder: 'Ex: Add tags separated by comma',
         colspan: eGridSpan.HALF,
-        validators: null
+        validators: {
+            maxLength: 100
+        }
     }
 ] as FormControlModel[];
 
@@ -38,7 +40,7 @@ export const MOSQUE_FORM_ADDRESS_DATA = [
             minLength: 3,
             maxLength: 500,
         },
-        min: 1,
+        min: 2,
     },
     {
         type: "text",
@@ -109,6 +111,7 @@ export const MOSQUE_FORM_CONTACT_DATA = [
         type: "text",
         name: 'phone',
         label: 'Phone',
+        prefix:'+',
         value: '',
         placeholder: 'Ex: +1 604 500 500',
         colspan: eGridSpan.ONE_THIRD,
@@ -136,7 +139,7 @@ export const MOSQUE_FORM_CONTACT_DATA = [
         placeholder: 'Ex: www.my-mosque.com',
         colspan: eGridSpan.ONE_THIRD,
         validators: {
-            maxLength: 100
+            maxLength: 100,
         }
     },
 ] as FormControlModel[];
