@@ -1,25 +1,19 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 //Components
-import { LibFormComponent } from '@shared/components';
-import { MOSQUE_FORM_ADDRESS_DATA, MOSQUE_FORM_CONTACT_DATA, MOSQUE_FORM_GENERAL_DATA } from '@shared/models';
+import { LibFormContainer } from '@shared/pages';
+// Models
+import { ReactiveForm, MOSQUE_FORM_DATA } from '@shared/models';
 //Constants
-const formModules = [FormsModule, ReactiveFormsModule];
-const components = [LibFormComponent];
+const components = [LibFormContainer];
 @Component({
   selector: 'tap-mosque',
   standalone: true,
-  imports: [...formModules, ...components],
+  imports: [...components],
   templateUrl: './mosque.component.html',
   styleUrl: './mosque.component.scss'
 })
 export class MosqueComponent {
-
-
-  fb = inject(FormBuilder);
-  form = this.fb.group({});
-  generalFields = MOSQUE_FORM_GENERAL_DATA;
-  addressFields = MOSQUE_FORM_ADDRESS_DATA;
-  contactFields = MOSQUE_FORM_CONTACT_DATA;
+  form: FormGroup = new FormGroup({});
+  formGroups: ReactiveForm[] = MOSQUE_FORM_DATA;
 }

@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 //Models
 import { alphanumericbool, FormControlModel, SelectOptionModel, SeriesModel, ValidatorModel } from '@shared/models';
 
@@ -34,7 +34,6 @@ const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, 
 export class LibFormComponent implements OnInit, OnDestroy {
   @Input({ required: true }) controlKey!: string;
   @Input({ required: true }) formFields!: FormControlModel[];
-  @Input() label = '';
 
   parentContainer = inject(ControlContainer);
   fb = inject(FormBuilder);
@@ -94,28 +93,43 @@ export class LibFormComponent implements OnInit, OnDestroy {
     return !!this.form.get(name) ? this.form.get(name) as FormControl : new FormControl();
   }
 
-  private generateSeriesOptions(field:SeriesModel){
-    this.options[field.name] = [];     
+  private generateSeriesOptions(field: SeriesModel) {
+    this.options[field.name] = [];
     let min = field.validators?.min;
     let max = field.validators?.max;
-    if (min && max) {
+        
+    if ((min || min == 0) && (max || max == 0)) {
       for (let i = min; i <= max; i++) {
+        let label = `${i} ${field.suffix}`;
+        let recommended:boolean = false;
+        if (!i)
+          label = field.baseLabel;
+
+        else if (i * i == 1)
+          label = `${i} ${field.suffixUnit}`;
+
+        if ((field.recommendedValue || field.recommendedValue == 0) && i == field.recommendedValue){
+          recommended = true;
+          label = `${label} (Recommended)`;
+        }
+          
         this.options[field.name].push({
-          value: i, // Convert to string if necessary
-          name: `${i} ${field.suffix}`,
+          value: i,
+          name: label,
+          recommended: recommended,
         })
       }
       this.selected[field.name] = field.value;
     }
   }
 
-  private getSeriesOptions(){
+  private getSeriesOptions() {
     let seriesFields = this.formFields.filter(field => field.type === 'series');
-    seriesFields.forEach(field=>{
+    seriesFields.forEach(field => {
       this.generateSeriesOptions(field);
     })
   }
-  
+
   getFieldLength(fieldName: string): number {
     return this.form.get(fieldName)?.value?.length || 0;
   }

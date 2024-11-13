@@ -21,7 +21,6 @@
         top: 0;
 
         &.nav-bar {
-            // border-bottom: 1px solid var(--outline-variant);
             padding-top: env(safe-area-inset-top);
             right: 0;
             z-index: 2;
@@ -84,10 +83,9 @@
 }
 
 .form-group-name{
-        // color: var(--secondary);
         margin-block: 1.25rem;
         padding-bottom: .25rem;
-        border-bottom: 1px solid var(--outline-variant);
+        border-bottom: 1px solid var(--mat-tab-header-divider-color);
 }
 
 .toggle{

@@ -1,4 +1,4 @@
-import { eGridSpan, FormControlModel } from "./form.model";
+import { eGridSpan, FormControlModel, ReactiveForm } from "./form.model";
 
 export const MOSQUE_FORM_GENERAL_DATA = [
     {
@@ -216,7 +216,10 @@ export const LOCATION_FORM_SOLAR_DATA = [
             min: -30,
             max: 30,
         },
-        suffix:'minutes'
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No change',
+        recommendedValue: 0,
     },
     {
         type: "series",
@@ -228,11 +231,14 @@ export const LOCATION_FORM_SOLAR_DATA = [
             min: -30,
             max: 30,
         },
-        suffix:'minutes'
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No change',
+        recommendedValue: 0,
     },
 ] as FormControlModel[];
 
-export const HIJRI_FORM_DATA = [
+export const HIJRI_FORM_SETTINGS_DATA = [
     {
         type: "toggle",
         name: 'isHijri',
@@ -250,6 +256,163 @@ export const HIJRI_FORM_DATA = [
             min: -3,
             max: 3,
         },
-        suffix:'days'
+        suffix: 'days',
+        suffixUnit: 'day',
+        baseLabel: 'No change',
+        recommendedValue: null,
     },
 ] as FormControlModel[];
+
+export const ATHAN_FORM_REGULAR_DATA = [
+    {
+        type: "series",
+        name: 'fajrOffset',
+        label: 'Fajr Athan',
+        value: 20,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Iqama',
+        suffixUnit: 'minute before Iqama',
+        baseLabel: 'Same as Iqama',
+        recommendedValue: 10,
+    },
+    {
+        type: "series",
+        name: 'dhurOffset',
+        label: 'Dhuhr Athan',
+        value: 10,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Iqama',
+        suffixUnit: 'minute before Iqama',
+        baseLabel: 'Same as Iqama',
+        recommendedValue: 10,
+    },
+    {
+        type: "series",
+        name: 'asrOffset',
+        label: 'Asr Athan',
+        value: 30,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Iqama',
+        suffixUnit: 'minute before Iqama',
+        baseLabel: 'Same as Iqama',
+        recommendedValue: 10,
+    },
+    {
+        type: "series",
+        name: 'maghribOffset',
+        label: 'Maghrib Athan',
+        value: 1,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Iqama',
+        suffixUnit: 'minute before Iqama',
+        baseLabel: 'Same as Iqama',
+        recommendedValue: 5,
+    },
+    {
+        type: "series",
+        name: 'ishaffset',
+        label: 'Isha Athan',
+        value: 10,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Iqama',
+        suffixUnit: 'minute before Iqama',
+        baseLabel: 'Same as Iqama',
+        recommendedValue: 5,
+    },
+] as FormControlModel[];
+
+export const ATHAN_FORM_RAMADAN_DATA = [
+    ...ATHAN_FORM_REGULAR_DATA,
+    {
+        type: "series",
+        name: 'taraweehffset',
+        label: 'Taraweeh Iqama',
+        value: 5,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes after Iqama',
+        suffixUnit: 'minute after Iqama',
+        baseLabel: 'Soon after Isha',
+        recommendedValue: 10,
+    },
+] as FormControlModel[];
+
+export const MOSQUE_FORM_DATA = [
+    {
+        key: "general",
+        label: "Information",
+        data: MOSQUE_FORM_GENERAL_DATA,
+    },
+    {
+        key: "address",
+        label: "Address",
+        data: MOSQUE_FORM_ADDRESS_DATA,
+    },
+    {
+        key: "contact",
+        label: "Contact",
+        data: MOSQUE_FORM_CONTACT_DATA,
+    },
+] as ReactiveForm[];
+
+export const LOCATION_FORM_DATA = [
+    {
+        key: "coordinates",
+        label: "Coordinates",
+        data: LOCATION_FORM_COORD_DATA,
+    },
+    {
+        key: "timezone",
+        label: "Timezone",
+        data: LOCATION_FORM_TIMEZONE_DATA,
+    },
+    {
+        key: "solarOffset",
+        label: "Solar Adjustments",
+        data: LOCATION_FORM_SOLAR_DATA,
+    },
+] as ReactiveForm[];
+
+export const HIJRI_FORM_DATA = [
+    {
+        key: "Hijri",
+        label: "Adjustments",
+        data: HIJRI_FORM_SETTINGS_DATA,
+    }
+] as ReactiveForm[]
+
+export const ATHAN_FORM_DATA = [
+    {
+        key: "general",
+        label: "Regular Timings",
+        data: ATHAN_FORM_REGULAR_DATA,
+    },
+    {
+        key: "ramadan",
+        label: "Ramadan Timings",
+        data: ATHAN_FORM_RAMADAN_DATA,
+    },
+] as ReactiveForm[]

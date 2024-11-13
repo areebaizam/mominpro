@@ -51,6 +51,7 @@ export interface SelectModel extends BaseFormControlModel {
 export interface SelectOptionModel {
     value: alphanumericbool;
     name: string;
+    recommended: boolean;
 }
 
 export interface NumberModel extends BaseFormControlModel {
@@ -61,9 +62,18 @@ export interface NumberModel extends BaseFormControlModel {
 export interface SeriesModel extends BaseFormControlModel {
     type: 'series',
     suffix: string,
+    suffixUnit: string,
+    baseLabel: string,
+    recommendedValue: alphanumericbool | null,
 }
 export interface ToggleModel extends BaseFormControlModel {
     type: 'toggle',
 }
 
 export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel;
+
+export interface ReactiveForm {
+    key: string;
+    label: string;
+    data: FormControlModel[];
+}

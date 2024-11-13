@@ -1,22 +1,20 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 //Components
-import { LibFormComponent } from '@shared/components';
-import { HIJRI_FORM_DATA } from '@shared/models';
+import { LibFormContainer } from '@shared/pages';
+// Models
+import { ReactiveForm, HIJRI_FORM_DATA } from '@shared/models';
 //Constants
-const formModules = [FormsModule, ReactiveFormsModule];
-const components = [LibFormComponent];
+const components = [LibFormContainer];
+
 @Component({
   selector: 'tap-hijri',
   standalone: true,
-  imports: [...formModules, ...components],
+  imports: [...components],
   templateUrl: './hijri.component.html',
   styleUrl: './hijri.component.scss'
 })
 export class HijriComponent {
-  fb = inject(FormBuilder);
-  form = this.fb.group({});
-  hijriFields = HIJRI_FORM_DATA;
-  
+  form: FormGroup = new FormGroup({});
+  formGroups: ReactiveForm[] = HIJRI_FORM_DATA;
 }
