@@ -7,13 +7,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSelectModule } from '@angular/material/select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 //Models
-import { FormControlModel, ValidatorModel } from '@shared/models';
+import { alphanumericbool, FormControlModel, SelectOptionModel, SeriesModel, ValidatorModel } from '@shared/models';
 
 
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule];
-const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, MatSliderModule, MatIconModule, MatButtonModule]
+const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, MatSliderModule, MatIconModule, MatButtonModule, MatSelectModule, MatSlideToggleModule]
 
 //Reference:https://github.com/DMezhenskyi/shared-angular-forms/blob/implemented/src/app/address-group/address-group.component.ts
 @Component({
@@ -37,15 +39,17 @@ export class LibFormComponent implements OnInit, OnDestroy {
   parentContainer = inject(ControlContainer);
   fb = inject(FormBuilder);
   form = this.fb.group({});
+  options: { [key: string]: SelectOptionModel[] } = {};
+  selected: { [key: string]: alphanumericbool } = {};
 
   get parentFormGroup() {
     return this.parentContainer.control as FormGroup;
   }
 
   ngOnInit() {
+    this.getSeriesOptions();
     this.buildformControls()
     this.parentFormGroup.addControl(this.controlKey, this.form);
-    // console.log('this.parentFormGroup',this.parentFormGroup);
   }
 
   private buildformControls(): void {
@@ -58,22 +62,7 @@ export class LibFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.parentFormGroup.removeControl(this.controlKey);
-  }
-
-  getFormControl(name: string): FormControl {
-    return !!this.form.get(name) ? this.form.get(name) as FormControl : new FormControl();
-  }
-  isNotMaxLength(name: string): number {
-    let length = this.getFormControl(name).value.length;
-    let maxLength = this.formFields.find(x => x.name == name)?.validators?.maxLength;
-    // if(length && maxLength && length > maxLength)
-    return maxLength ? maxLength - length : length;
-    // return length;
-  }
-
-  getValidators(validators: ValidatorModel | null): ValidatorFn[] | null {
+  private getValidators(validators: ValidatorModel | null): ValidatorFn[] | null {
     if (!validators)
       return null;
     let validatorFn: ValidatorFn[] = [];
@@ -97,12 +86,38 @@ export class LibFormComponent implements OnInit, OnDestroy {
 
   }
 
-  getHintLabel(maxLength: number|undefined): string {
-    return maxLength ?'Max ' + maxLength + ' characters' : '';
+  ngOnDestroy() {
+    this.parentFormGroup.removeControl(this.controlKey);
   }
-  getMaxLength(name: string): number {
-    let length = this.formFields.find(x => x.name = name)?.validators?.maxLength;
-    return length ? length : 0;
+
+  getFormControl(name: string): FormControl {
+    return !!this.form.get(name) ? this.form.get(name) as FormControl : new FormControl();
+  }
+
+  private generateSeriesOptions(field:SeriesModel){
+    this.options[field.name] = [];     
+    let min = field.validators?.min;
+    let max = field.validators?.max;
+    if (min && max) {
+      for (let i = min; i <= max; i++) {
+        this.options[field.name].push({
+          value: i, // Convert to string if necessary
+          name: `${i} ${field.suffix}`,
+        })
+      }
+      this.selected[field.name] = field.value;
+    }
+  }
+
+  private getSeriesOptions(){
+    let seriesFields = this.formFields.filter(field => field.type === 'series');
+    seriesFields.forEach(field=>{
+      this.generateSeriesOptions(field);
+    })
+  }
+  
+  getFieldLength(fieldName: string): number {
+    return this.form.get(fieldName)?.value?.length || 0;
   }
 
   isInputType(type: string): boolean {

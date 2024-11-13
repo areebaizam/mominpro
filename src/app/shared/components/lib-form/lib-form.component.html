@@ -5,27 +5,48 @@
         <mat-label>{{field.label}}</mat-label>
         <input matInput [type]="field.type" [formControl]="getFormControl(field.name)"
             [maxLength]="field.validators?.maxLength" [placeholder]="field.placeholder">
-        <mat-hint align="end">/{{field.validators?.maxLength}}</mat-hint>
-        <!-- <mat-hint align="end">{{value().length}}/10</mat-hint> -->
-        <!-- TODO Fix this logic -->
-        <!-- @if(field.validators?.maxLength && isNotMaxLength(field.name)<10){ <mat-error matTextSuffix align="end">
-                        {{100 - isNotMaxLength(field.name)}} / {{field.validators?.maxLength}}</mat-error>
-                        } -->
+        <mat-hint align="end">{{getFieldLength(field.name)}}/{{field.validators?.maxLength}}</mat-hint>
     </mat-form-field>
     }
     @else if(field.type == 'textarea'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{field.label}}</mat-label>
         <textarea matInput [type]="field.type" [formControl]="getFormControl(field.name)"
-            [maxLength]="field.validators?.maxLength" [placeholder]="field.placeholder" [rows]="field.min"></textarea>
-        <mat-hint align="end">/{{field.validators?.maxLength}}</mat-hint>
-        <!-- <mat-hint align="end">/{{field.validators.maxLength}}</mat-hint> -->
-        <!-- TODO Fix this logic -->
-        <!-- @if(field.validators?.maxLength && isNotMaxLength(field.name)<10){ <mat-error matTextSuffix align="end">
-            {{!!field.validators?.maxLength?field.validators?.maxLength:100 - isNotMaxLength(field.name)}} /
-            {{field.validators?.maxLength}}</mat-error>
-            } -->
+            [maxLength]="field.validators?.maxLength" [placeholder]="field.placeholder" [rows]="field.rows"></textarea>
+        <mat-hint align="end">{{getFieldLength(field.name)}}/{{field.validators?.maxLength}}</mat-hint>
     </mat-form-field>
+    }
+    @else if(field.type == 'number'){
+    <mat-form-field class="field-width" [style.flex]="field.colspan">
+        <mat-label>{{field.label}}</mat-label>
+        <input matInput [type]="field.type" [formControl]="getFormControl(field.name)" [placeholder]="field.placeholder"
+            [maxLength]="field.validators?.maxLength">
+        <mat-hint align="end">{{getFieldLength(field.name)}}/{{field.validators?.maxLength}}</mat-hint>
+    </mat-form-field>
+    }
+    @else if(field.type == 'select'){
+    <mat-form-field class="field-width" [style.flex]="field.colspan">
+        <mat-label>{{field.label}}</mat-label>
+        <mat-select [formControl]="getFormControl(field.name)">
+            @for (option of field.options; track option.value) {
+            <mat-option [value]="option.value"><span>{{option.name}}</span></mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    }
+    @else if(field.type == 'series'){
+    <mat-form-field class="field-width" [style.flex]="field.colspan">
+        <mat-label>{{field.label}}</mat-label>
+        <mat-select [formControl]="getFormControl(field.name)" [value]="selected[field.name]">
+            @for (option of options[field.name]; track option.value) {
+            <mat-option [value]="option.value"><span>{{option.name}}</span></mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    }
+    @else if(field.type == 'toggle'){
+    <mat-slide-toggle [formControl]="getFormControl(field.name)" [checked]="field.value" class="field-width toggle"
+        [style.flex]="field.colspan">{{field.label}}</mat-slide-toggle>
     }
     }
 </form>

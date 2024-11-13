@@ -1,7 +1,10 @@
 @defer () {
 <form [formGroup]="form">
+    <div class="form-group-name"> General </div>
     <tap-lib-form controlKey="general" [formFields]="generalFields"></tap-lib-form>
+    <div class="form-group-name"> Contact </div>
     <tap-lib-form controlKey="contact" [formFields]="contactFields"></tap-lib-form>
+    <div class="form-group-name"> Address </div>
     <tap-lib-form controlKey="address" [formFields]="addressFields"></tap-lib-form>
 </form>
 }

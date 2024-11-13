@@ -3,23 +3,21 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Components
 import { LibFormComponent } from '@shared/components';
-import { MOSQUE_FORM_ADDRESS_DATA, MOSQUE_FORM_CONTACT_DATA, MOSQUE_FORM_GENERAL_DATA } from '@shared/models';
+import { LOCATION_FORM_COORD_DATA, LOCATION_FORM_TIMEZONE_DATA, LOCATION_FORM_SOLAR_DATA } from '@shared/models';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule];
 const components = [LibFormComponent];
 @Component({
-  selector: 'tap-mosque',
+  selector: 'tap-location',
   standalone: true,
   imports: [...formModules, ...components],
-  templateUrl: './mosque.component.html',
-  styleUrl: './mosque.component.scss'
+  templateUrl: './location.component.html',
+  styleUrl: './location.component.scss'
 })
-export class MosqueComponent {
-
-
+export class LocationComponent {
   fb = inject(FormBuilder);
   form = this.fb.group({});
-  generalFields = MOSQUE_FORM_GENERAL_DATA;
-  addressFields = MOSQUE_FORM_ADDRESS_DATA;
-  contactFields = MOSQUE_FORM_CONTACT_DATA;
+  coordinatesFields = LOCATION_FORM_COORD_DATA;
+  timezoneFields = LOCATION_FORM_TIMEZONE_DATA;
+  solarFields = LOCATION_FORM_SOLAR_DATA;
 }

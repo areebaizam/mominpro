@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 //Materials
 import { MatTabsModule } from '@angular/material/tabs';
 //Componenents
-import { MosqueComponent } from '@features/settings/components'
+import { MosqueComponent, LocationComponent, HijriComponent } from '@features/settings/components'
 
 const materialModules = [MatTabsModule];
-const components = [MosqueComponent]
+const components = [MosqueComponent, LocationComponent, HijriComponent]
 @Component({
   selector: 'tap-settings',
   standalone: true,

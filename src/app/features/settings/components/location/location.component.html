@@ -1,0 +1,10 @@
+@defer () {
+<form [formGroup]="form">
+    <div class="form-group-name"> Coordinates </div>
+    <tap-lib-form controlKey="general" [formFields]="coordinatesFields"></tap-lib-form>
+    <div class="form-group-name"> Timezone </div>
+    <tap-lib-form controlKey="contact" [formFields]="timezoneFields"></tap-lib-form>
+    <div class="form-group-name"> Solar Adjustments </div>
+    <tap-lib-form controlKey="contact" [formFields]="solarFields"></tap-lib-form>
+</form>
+}
