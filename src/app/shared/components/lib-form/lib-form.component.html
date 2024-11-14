@@ -31,16 +31,25 @@
         <mat-label>{{ field.label }}</mat-label>
         <mat-select [formControl]="getFormControl(field.name)">
             @for (option of field.options; track option.value) {
-            <mat-option [value]="option.value" ><span>{{ option.name }}</span></mat-option>
+            <mat-option [value]="option.value" [class.recommended]="option.recommended"><span>{{ option.name
+                    }}</span></mat-option>
             }
         </mat-select>
     </mat-form-field>
+    } @else if(field.type == 'slider'){
+    <div class="field-width slider" [style.flex]="field.colspan">
+        <div class="slider-label">{{ field.label }} (<span class="slider-value">{{getFormControl(field.name).value}}&deg;</span>)</div>
+        <mat-slider [max]="field.validators?.max" [min]="field.validators?.min" [step]="field.step" discrete>
+            <input matSliderThumb [value]="field.value" [formControl]="getFormControl(field.name)">
+        </mat-slider>
+    </div>
     } @else if(field.type == 'series'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <mat-select [formControl]="getFormControl(field.name)" [value]="selected[field.name]">
             @for (option of options[field.name]; track option.value) {
-            <mat-option [value]="option.value" [class.recommended]="option.recommended"><span>{{ option.name }}</span></mat-option>
+            <mat-option [value]="option.value" [class.recommended]="option.recommended"><span>{{ option.name
+                    }}</span></mat-option>
             }
         </mat-select>
     </mat-form-field>

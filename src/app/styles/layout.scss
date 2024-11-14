@@ -10,9 +10,11 @@
 .flex-grow {
     flex-grow: 1;
 }
-.full-width{
+
+.full-width {
     width: 100%;
 }
+
 .position-fixed {
     position: fixed;
     left: 0;
@@ -63,6 +65,7 @@
     display: flex;
     align-items: center;
 }
+
 //TODO Fix the coloring
 ::-webkit-scrollbar {
     width: 8px;
@@ -82,13 +85,54 @@
     background-color: var(--secondary-container);
 }
 
-.form-group-name{
-        margin-block: 1.25rem;
-        padding-bottom: .25rem;
-        border-bottom: 1px solid var(--mat-tab-header-divider-color);
+.form-group-name {
+    margin-block: 1.25rem;
+    padding-bottom: .25rem;
+    border-bottom: 1px solid var(--mat-tab-header-divider-color);
 }
 
-.toggle{
+.toggle {
     height: var(--mat-form-field-container-height);
     display: flex !important;
+}
+
+.slider {
+    display: flex;
+    align-items: center;
+    height: var(--mat-form-field-container-height);
+
+    .slider-label {
+        width: 120px;
+        .slider-value{
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+    }
+}
+
+.mat-mdc-slider {
+    flex-grow: 1;
+    margin-inline: 0 1.5rem !important;
+    --mdc-slider-inactive-track-color:var(--secondary);
+}
+
+.mat-mdc-option {
+    --mat-option-selected-state-layer-color: var(--primary);
+    --mat-option-selected-state-label-text-color: var(--on-primary);
+
+}
+
+.recommended {
+    --mat-option-label-text-color: var(--on-secondary-container);
+
+    &.mat-mdc-option.mdc-list-item {
+        background: var(--secondary-container);
+    }
+
+    --mat-option-hover-state-layer-color: var(--primary);
+
+    &:hover {
+        --mat-option-label-text-color: var(--on-primary);
+    }
 }

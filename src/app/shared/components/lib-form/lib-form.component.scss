@@ -1,21 +1,12 @@
 @import '@styles/theme.scss';
 
 .form-container {
-    
     display: flex;
     gap: .5rem 1.25rem;
     flex-wrap: wrap;
+
     .field-width {
         width: 100%;
         min-width: 240px;
     }
-}
-.mat-mdc-option{
-    --mat-option-selected-state-layer-color:var(--primary);
-    --mat-option-selected-state-label-text-color:var(--on-primary);
-}
-.recommended{    
-    --mat-option-label-text-color:var(--primary);
-    background:var(--secondary-container);
-    --mat-option-hover-state-layer-color:var(--primary-container);
 }
