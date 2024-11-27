@@ -1,12 +1,17 @@
 
+export class IqamaValue {
+    constructor(public type: ControlType, public value: alphanumericbool) { }
+}
 export type alphanumericbool = string | number | boolean;
 export type InputType = 'color' | 'date' | 'datetime-local' | 'email' | 'month' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
-export type ControlType = InputType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle';
+export type CustomType = 'iqama';
+export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle';
+export type ControlValue = alphanumericbool | IqamaValue;
 export enum eGridSpan {
     FULL = '1 1 100%',
     HALF = '1 1 calc(50% - 1.25rem)',
     ONE_THIRD = '1 1 calc(33.33% - 1.25rem)',
-    ONE_FORTH = '1 1 calc(25% - 1.25rem)',
+    ONE_FOURTH = '1 1 calc(25% - 1.25rem)',
 }
 
 export interface ValidatorModel {
@@ -23,18 +28,19 @@ export interface ValidatorModel {
 export interface BaseFormControlModel {
     name: string;
     label: string;
-    value: alphanumericbool;
+    value: ControlValue;
     colspan: eGridSpan;
     validators: ValidatorModel | null;
-    placeholder: string;
     type: ControlType;
 }
 //Input
 export interface InputModel extends BaseFormControlModel {
     type: InputType;
+    placeholder: string;
 }
 export interface TextAreaModel extends BaseFormControlModel {
     type: 'textarea';
+    placeholder: string;
     rows: number;
 }
 //Slider
@@ -56,6 +62,7 @@ export interface SelectOptionModel {
 
 export interface NumberModel extends BaseFormControlModel {
     type: 'number',
+    placeholder: string;
     suffix: string,
     step: number;
 }
@@ -70,7 +77,21 @@ export interface ToggleModel extends BaseFormControlModel {
     type: 'toggle',
 }
 
-export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel;
+export interface IqamaModel extends BaseFormControlModel {
+    type: 'iqama',
+    value:IqamaValue,
+    options: IqamaOptions[];
+}
+
+export interface IqamaOptions {
+    type: ControlType,
+    typeLabel: string,
+    recommended: boolean,
+    value: IqamaValue,
+    control: FormControlModel,
+}
+
+export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | IqamaModel;
 
 export interface ReactiveForm {
     key: string;

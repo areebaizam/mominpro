@@ -1,0 +1,16 @@
+<div role="group" class="input-container" [formGroup]="parts" [attr.aria-labelledby]="_formField?.getLabelId()"
+  (focusin)="onFocusIn()" (focusout)="onFocusOut($event)">
+  @if(parts.controls['type'].value == 'time'){
+  <input matInput type="time" formControlName="value" #value>
+  }
+  @else if(parts.controls['type'].value == 'series'){
+    <!-- <tap-series></tap-series> -->
+ 
+  }
+  <mat-select formControlName="type" #type>
+    @for (option of control.options; track option) {
+    <mat-option [value]="option.type" [class.recommended]="option.recommended"><span>{{ option.typeLabel
+        }}</span></mat-option>
+    }
+  </mat-select>
+</div>

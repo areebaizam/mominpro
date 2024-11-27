@@ -1,5 +1,6 @@
 <form [formGroupName]="controlKey" class="form-container">
-    @for(field of formFields; track field){ @if(isInputType(field.type)){
+    @for(field of formFields; track field){
+    @if(field.type == isInputType(field.type)){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [type]="field.type" [formControl]="getFormControl(field.name)"
@@ -38,7 +39,8 @@
     </mat-form-field>
     } @else if(field.type == 'slider'){
     <div class="field-width slider" [style.flex]="field.colspan">
-        <div class="slider-label">{{ field.label }} (<span class="slider-value">{{getFormControl(field.name).value}}&deg;</span>)</div>
+        <div class="slider-label">{{ field.label }} (<span
+                class="slider-value">{{getFormControl(field.name).value}}&deg;</span>)</div>
         <mat-slider [max]="field.validators?.max" [min]="field.validators?.min" [step]="field.step" discrete>
             <input matSliderThumb [value]="field.value" [formControl]="getFormControl(field.name)">
         </mat-slider>
@@ -56,5 +58,13 @@
     } @else if(field.type == 'toggle'){
     <mat-slide-toggle [formControl]="getFormControl(field.name)" [checked]="field.value" class="field-width toggle"
         [style.flex]="field.colspan">{{ field.label }}</mat-slide-toggle>
-    } }
+    }
+    @else if(field.type == 'iqama'){
+    <mat-form-field class="field-width" [style.flex]="field.colspan">
+        <mat-label>{{ field.label }}</mat-label>
+        <tap-iqama [formControl]="getFormControl(field.name)" [control]="field"></tap-iqama>
+    </mat-form-field>
+    }
+    }
+
 </form>

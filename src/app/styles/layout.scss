@@ -94,6 +94,10 @@
 .toggle {
     height: var(--mat-form-field-container-height);
     display: flex !important;
+    padding-left: .25rem;
+    --mdc-switch-selected-focus-handle-color:var(--on-primary);
+    --mdc-switch-selected-hover-handle-color: var(--on-primary);
+    --mdc-switch-selected-pressed-handle-color: var(--on-primary);
 }
 
 .slider {
