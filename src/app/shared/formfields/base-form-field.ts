@@ -5,7 +5,9 @@ import { MAT_FORM_FIELD, MatFormFieldControl } from '@angular/material/form-fiel
 import { Subject } from 'rxjs';
 
 const formModules = [FormsModule, ReactiveFormsModule];
-@Directive({})
+@Directive({
+    standalone: false
+})
 export abstract class BaseFormField<T> implements ControlValueAccessor, MatFormFieldControl<T> {
   static nextId = 0;
   readonly _value = model<T | null>(null, { alias: 'value' });

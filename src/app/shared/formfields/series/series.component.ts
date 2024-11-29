@@ -6,11 +6,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { ControlValue, FormControlModel, SelectOptionModel, SeriesModel, ValidatorModel, InputType, ControlType, alphanumericbool } from '@shared/models';
 
 @Component({
-  selector: 'tap-series',
-  standalone: true,
-  imports: [MatSelectModule],
-  templateUrl: './series.component.html',
-  styleUrl: './series.component.scss'
+    selector: 'tap-series',
+    imports: [MatSelectModule],
+    templateUrl: './series.component.html',
+    styleUrl: './series.component.scss'
 })
 export class SeriesComponent implements OnInit {
   @Input({ required: true }) formControl!: FormControl;

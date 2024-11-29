@@ -9,11 +9,10 @@ import { FormControlModel } from '@shared/models';
 const formModules = [FormsModule, ReactiveFormsModule];
 const components = [LibFormComponent];
 @Component({
-  selector: 'tap-lib-form-container',
-  standalone: true,
-  imports: [...formModules,...components],
-  templateUrl: './lib-form-container.component.html',
-  styleUrl: './lib-form-container.component.scss'
+    selector: 'tap-lib-form-container',
+    imports: [...formModules, ...components],
+    templateUrl: './lib-form-container.component.html',
+    styleUrl: './lib-form-container.component.scss'
 })
 export class LibFormContainer {
   @Input({ required: true }) controlKey!: string;

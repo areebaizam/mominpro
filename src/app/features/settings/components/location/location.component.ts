@@ -8,11 +8,10 @@ import { ReactiveForm, LOCATION_FORM_DATA } from '@shared/models';
 const components = [LibFormContainer];
 
 @Component({
-  selector: 'tap-location',
-  standalone: true,
-  imports: [...components],
-  templateUrl: './location.component.html',
-  styleUrl: './location.component.scss'
+    selector: 'tap-location',
+    imports: [...components],
+    templateUrl: './location.component.html',
+    styleUrl: './location.component.scss'
 })
 export class LocationComponent {
   form: FormGroup = new FormGroup({});

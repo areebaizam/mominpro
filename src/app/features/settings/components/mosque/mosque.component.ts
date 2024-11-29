@@ -7,11 +7,10 @@ import { ReactiveForm, MOSQUE_FORM_DATA } from '@shared/models';
 //Constants
 const components = [LibFormContainer];
 @Component({
-  selector: 'tap-mosque',
-  standalone: true,
-  imports: [...components],
-  templateUrl: './mosque.component.html',
-  styleUrl: './mosque.component.scss'
+    selector: 'tap-mosque',
+    imports: [...components],
+    templateUrl: './mosque.component.html',
+    styleUrl: './mosque.component.scss'
 })
 export class MosqueComponent {
   form: FormGroup = new FormGroup({});

@@ -18,11 +18,10 @@ const components = [BtnToggleComponent, BtnNavColComponent];
 const materialModules = [MatToolbarModule,MatTabsModule];
 
 @Component({
-  selector: 'tap-bar-bottom',
-  standalone: true,
-  imports: [RouterLink, RouterLinkActive ,...materialModules, ...components],
-  templateUrl: './bar-bottom.component.html',
-  styleUrl: './bar-bottom.component.scss'
+    selector: 'tap-bar-bottom',
+    imports: [RouterLink, RouterLinkActive, ...materialModules, ...components],
+    templateUrl: './bar-bottom.component.html',
+    styleUrl: './bar-bottom.component.scss'
 })
 export class BarBottomComponent {
   sidenavService = inject(SidenavService);

@@ -10,11 +10,10 @@ import { eBtnToggleType } from '@shared/models'
 const components = [AppBrandComponent, BtnNavComponent, BtnToggleComponent];
 
 @Component({
-  selector: 'tap-sidenav-drawer',
-  standalone: true,
-  imports: [...components],
-  templateUrl: './sidenav-drawer.component.html',
-  styleUrl: './sidenav-drawer.component.scss'
+    selector: 'tap-sidenav-drawer',
+    imports: [...components],
+    templateUrl: './sidenav-drawer.component.html',
+    styleUrl: './sidenav-drawer.component.scss'
 })
 export class SidenavDrawerComponent {
   sidenavService = inject(SidenavService);

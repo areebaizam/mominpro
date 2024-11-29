@@ -7,11 +7,10 @@ import { AthanComponent, IqamaComponent, SalahComponent } from '@features/timing
 const materialModules = [MatTabsModule];
 const components = [AthanComponent, IqamaComponent, SalahComponent]
 @Component({
-  selector: 'tap-timings',
-  standalone: true,
-  imports: [...materialModules,...components],
-  templateUrl: './timings.component.html',
-  styleUrl: './timings.component.scss'
+    selector: 'tap-timings',
+    imports: [...materialModules, ...components],
+    templateUrl: './timings.component.html',
+    styleUrl: './timings.component.scss'
 })
 export default class TimingsComponent {
 

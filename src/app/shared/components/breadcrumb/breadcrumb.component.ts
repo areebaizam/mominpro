@@ -8,11 +8,10 @@ interface Breadcrumb {
 }
 
 @Component({
-  selector: 'tap-breadcrumb',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './breadcrumb.component.html',
-  styleUrl: './breadcrumb.component.scss'
+    selector: 'tap-breadcrumb',
+    imports: [RouterLink],
+    templateUrl: './breadcrumb.component.html',
+    styleUrl: './breadcrumb.component.scss'
 })
 export class BreadcrumbComponent implements OnInit{
   @Input() breadcrumb!: Breadcrumb;

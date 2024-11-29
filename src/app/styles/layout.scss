@@ -1,6 +1,4 @@
-// @import url(@styles/variables.scss);
-@import '@styles/variables.scss';
-@import '@styles/colors.scss';
+@use '@styles/variables.scss' as var;
 
 .flex-column {
     display: flex !important;
@@ -47,12 +45,12 @@
 }
 
 .safe-area-padding {
-    padding: $page-wrapper-padding-top $page-wrapper-padding-right $page-wrapper-padding-bottom $page-wrapper-padding-left;
+    padding: var.$page-wrapper-padding-top var.$page-wrapper-padding-right var.$page-wrapper-padding-bottom var.$page-wrapper-padding-left;
 }
 
 .main-container,
 .safe-area-margin {
-    margin: $page-wrapper-padding-top $page-wrapper-padding-right $page-wrapper-padding-bottom $page-wrapper-padding-left;
+    margin: var.$page-wrapper-padding-top var.$page-wrapper-padding-right var.$page-wrapper-padding-bottom var.$page-wrapper-padding-left;
 }
 
 .mat-mdc-list-item,

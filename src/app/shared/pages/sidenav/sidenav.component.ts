@@ -16,11 +16,10 @@ const materialModules = [MatSidenavModule];
 const components = [BreadcrumbComponent, SidenavDrawerComponent, BarBottomComponent, BarTopComponent, BarHiddenComponent];
 
 @Component({
-  selector: 'tap-sidenav',
-  standalone: true,
-  imports: [RouterOutlet, ...materialModules, ...components],
-  templateUrl: './sidenav.component.html',
-  styleUrl: './sidenav.component.scss'
+    selector: 'tap-sidenav',
+    imports: [RouterOutlet, ...materialModules, ...components],
+    templateUrl: './sidenav.component.html',
+    styleUrl: './sidenav.component.scss'
 })
 export class SidenavComponent {
   mediaQuery: MediaQuery = inject(MediaQuery);

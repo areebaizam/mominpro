@@ -22,17 +22,16 @@ const customControls = [IqamaComponent];
 
 //Reference:https://github.com/DMezhenskyi/shared-angular-forms/blob/implemented/src/app/address-group/address-group.component.ts
 @Component({
-  selector: 'tap-lib-form',
-  standalone: true,
-  imports: [...formModules, ...materialModules, ...customControls],
-  viewProviders: [
-    {
-      provide: ControlContainer,
-      useFactory: () => inject(ControlContainer, { skipSelf: true })
-    }
-  ],
-  templateUrl: './lib-form.component.html',
-  styleUrl: './lib-form.component.scss'
+    selector: 'tap-lib-form',
+    imports: [...formModules, ...materialModules, ...customControls],
+    viewProviders: [
+        {
+            provide: ControlContainer,
+            useFactory: () => inject(ControlContainer, { skipSelf: true })
+        }
+    ],
+    templateUrl: './lib-form.component.html',
+    styleUrl: './lib-form.component.scss'
 })
 export class LibFormComponent implements OnInit, OnDestroy {
   @Input({ required: true }) controlKey!: string;

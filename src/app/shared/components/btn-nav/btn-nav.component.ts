@@ -8,11 +8,10 @@ import { BtnNavModel } from '@shared/models';
 
 const materialModules = [MatButtonModule, MatIconModule]
 @Component({
-  selector: 'tap-btn-nav',
-  standalone: true,
-  imports: [RouterLinkActive,RouterLink,...materialModules],
-  templateUrl: './btn-nav.component.html',
-  styleUrl: './btn-nav.component.scss'
+    selector: 'tap-btn-nav',
+    imports: [RouterLinkActive, RouterLink, ...materialModules],
+    templateUrl: './btn-nav.component.html',
+    styleUrl: './btn-nav.component.scss'
 })
 export class BtnNavComponent {
   data = input.required<BtnNavModel>()

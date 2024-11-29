@@ -7,11 +7,10 @@ import { MosqueComponent, LocationComponent, HijriComponent } from '@features/se
 const materialModules = [MatTabsModule];
 const components = [MosqueComponent, LocationComponent, HijriComponent]
 @Component({
-  selector: 'tap-settings',
-  standalone: true,
-  imports: [...materialModules, ...components],
-  templateUrl: './settings.component.html',
-  styleUrl: './settings.component.scss'
+    selector: 'tap-settings',
+    imports: [...materialModules, ...components],
+    templateUrl: './settings.component.html',
+    styleUrl: './settings.component.scss'
 })
 export default class SettingsComponent {
 

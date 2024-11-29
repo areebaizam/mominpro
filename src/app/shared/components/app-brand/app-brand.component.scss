@@ -1,8 +1,8 @@
-@import '@styles/colors.scss';
+@use '@styles/colors.scss' as colors;
 .mat-toolbar{
-    background: $bar-color;
+    background: colors.$bar-color;
     --mdc-filled-button-label-text-color:var(--primary);
-    --mdc-filled-button-container-color: #{$bar-color}
+    --mdc-filled-button-container-color: #{colors.$bar-color}
 }
 .brand {
     flex-grow: 1;

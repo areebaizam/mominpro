@@ -1,7 +1,7 @@
-@import '@styles/colors.scss';
+@use '@styles/colors.scss' as colors;
 
 .mat-toolbar {
-    background: $bar-color;
+    background: colors.$bar-color;
 }
 
 .mat-mdc-tab-link {

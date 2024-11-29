@@ -8,11 +8,10 @@ import { ReactiveForm, SALAH_FORM_DATA } from '@shared/models';
 const components = [LibFormContainer];
 
 @Component({
-  selector: 'tap-salah',
-  standalone: true,
-  imports: [...components],
-  templateUrl: './salah.component.html',
-  styleUrl: './salah.component.scss'
+    selector: 'tap-salah',
+    imports: [...components],
+    templateUrl: './salah.component.html',
+    styleUrl: './salah.component.scss'
 })
 export class SalahComponent {
   form: FormGroup = new FormGroup({});

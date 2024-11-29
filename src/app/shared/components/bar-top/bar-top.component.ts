@@ -15,11 +15,10 @@ const materialModules = [MatToolbarModule, MatButtonModule];
 const components = [BtnToggleComponent];
 
 @Component({
-  selector: 'tap-bar-top',
-  standalone: true,
-  imports: [RouterLink,...materialModules, ...components],
-  templateUrl: './bar-top.component.html',
-  styleUrl: './bar-top.component.scss'
+    selector: 'tap-bar-top',
+    imports: [RouterLink, ...materialModules, ...components],
+    templateUrl: './bar-top.component.html',
+    styleUrl: './bar-top.component.scss'
 })
 export class BarTopComponent {
   sidenavService = inject(SidenavService);

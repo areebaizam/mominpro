@@ -25,14 +25,13 @@ export const routes: Routes = [
         loadChildren: () => import("@test/routes"),
         data: { breadcrumb: eFeatureRouteURL.TEST }
     },
-    {
-        path: "",
-        redirectTo: eFeatureRouteURL.HOME,
-        pathMatch: "full",
-    },
+    // {
+    //     path: "",
+    //     redirectTo: eFeatureRouteURL.HOME,
+    //     pathMatch: "full",
+    // },
     {
         path: "**",
         component:PageNotFoundComponent
-    },
-    
+    },    
 ];

@@ -9,11 +9,10 @@ const components = [LibFormContainer];
 
 
 @Component({
-  selector: 'tap-athan',
-  standalone: true,
-  imports: [...components],
-  templateUrl: './athan.component.html',
-  styleUrl: './athan.component.scss'
+    selector: 'tap-athan',
+    imports: [...components],
+    templateUrl: './athan.component.html',
+    styleUrl: './athan.component.scss'
 })
 export class AthanComponent {
   form: FormGroup = new FormGroup({});

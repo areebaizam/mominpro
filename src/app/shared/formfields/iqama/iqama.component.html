@@ -1,16 +1,26 @@
 <div role="group" class="input-container" [formGroup]="parts" [attr.aria-labelledby]="_formField?.getLabelId()"
   (focusin)="onFocusIn()" (focusout)="onFocusOut($event)">
+
+  <mat-radio-group style="display: flex;" (click)="$event.stopPropagation()" formControlName="type" #type>
+    @for (option of control.options; track option) {
+    <mat-radio-button [value]="option.type" [class.recommended]="option.recommended"><span>{{ option.typeLabel
+        }}</span></mat-radio-button>
+    }
+  </mat-radio-group>
+
   @if(parts.controls['type'].value == 'time'){
-  <input matInput type="time" formControlName="value" #value>
+  <input matInput formControlName="value" [matTimepicker]="picker" matTimepickerMin="12:30" matTimepickerMax="17:30"
+    #value>
+  <mat-timepicker-toggle matIconSuffix [for]="picker" />
+  <mat-timepicker #picker interval="1m" close="closeTimePicker" (click)="$event.stopPropagation()" />
   }
   @else if(parts.controls['type'].value == 'series'){
-    <!-- <tap-series></tap-series> -->
- 
-  }
-  <mat-select formControlName="type" #type>
+  <mat-select formControlName="value" #value>
     @for (option of control.options; track option) {
-    <mat-option [value]="option.type" [class.recommended]="option.recommended"><span>{{ option.typeLabel
-        }}</span></mat-option>
+    <mat-option [value]="option.type">{{option.typeLabel}}</mat-option>
     }
   </mat-select>
+
+  }
+
 </div>

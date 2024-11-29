@@ -1,8 +1,7 @@
-@import '@styles/variables.scss';
-@import '@styles/colors.scss';
+@use '@styles/variables.scss' as variables;
 
 .mat-drawer-container {
-    --mat-sidenav-container-width: #{$app-drawer-width};
+    --mat-sidenav-container-width: #{variables.$app-drawer-width};
     user-select: none;
 
     .mat-sidenav{
@@ -11,8 +10,8 @@
         // border-right: ;
     }
     .mat-drawer-content {
-        min-width: $app-screen-min-width;
-        min-height: $page-wrapper-height;
+        min-width: variables.$app-screen-min-width;
+        min-height: variables.$page-wrapper-height;
         display: flex;
         flex-direction: column;
         background: var(--surface-container);
@@ -25,7 +24,7 @@
 
     .position-fixed {
         &.top.nav-bar {
-            left: $app-drawer-width;
+            left: variables.$app-drawer-width;
         }
     }
 }

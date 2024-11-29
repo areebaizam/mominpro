@@ -11,11 +11,10 @@ import { BtnToggleModel, eBtnToggleType } from '@shared/models';
 
 const materialModules = [MatButtonModule, MatIconModule, MatTooltipModule]
 @Component({
-  selector: 'tap-btn-toggle',
-  standalone: true,
-  imports: [...materialModules],
-  templateUrl: './btn-toggle.component.html',
-  styleUrl: './btn-toggle.component.scss'
+    selector: 'tap-btn-toggle',
+    imports: [...materialModules],
+    templateUrl: './btn-toggle.component.html',
+    styleUrl: './btn-toggle.component.scss'
 })
 export class BtnToggleComponent {
   @Input({ required: true }) type!: eBtnToggleType;

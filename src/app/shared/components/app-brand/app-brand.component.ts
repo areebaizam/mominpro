@@ -10,11 +10,10 @@ import { SidenavService } from '@shared/services';
 const materialModules = [MatToolbarModule, MatButtonModule, MatIconModule];
 // const components = [];
 @Component({
-  selector: 'tap-app-brand',
-  standalone: true,
-  imports: [RouterLink, ...materialModules],
-  templateUrl: './app-brand.component.html',
-  styleUrl: './app-brand.component.scss'
+    selector: 'tap-app-brand',
+    imports: [RouterLink, ...materialModules],
+    templateUrl: './app-brand.component.html',
+    styleUrl: './app-brand.component.scss'
 })
 export class AppBrandComponent {
   sidenavService = inject(SidenavService);

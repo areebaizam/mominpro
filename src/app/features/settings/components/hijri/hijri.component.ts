@@ -8,11 +8,10 @@ import { ReactiveForm, HIJRI_FORM_DATA } from '@shared/models';
 const components = [LibFormContainer];
 
 @Component({
-  selector: 'tap-hijri',
-  standalone: true,
-  imports: [...components],
-  templateUrl: './hijri.component.html',
-  styleUrl: './hijri.component.scss'
+    selector: 'tap-hijri',
+    imports: [...components],
+    templateUrl: './hijri.component.html',
+    styleUrl: './hijri.component.scss'
 })
 export class HijriComponent {
   form: FormGroup = new FormGroup({});

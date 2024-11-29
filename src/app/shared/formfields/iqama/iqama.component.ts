@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, inject, Input, OnDestroy, OnInit, untracked, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, Input, OnDestroy, OnInit, signal, untracked, viewChild } from '@angular/core';
 //Form
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BaseFormField } from '../base-form-field';
@@ -6,23 +6,25 @@ import { BaseFormField } from '../base-form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
+import { MatTimepickerModule } from '@angular/material/timepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 //Models
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { alphanumericbool, ControlType, FormControlModel, IqamaModel, IqamaValue } from '@shared/models';
-import { SeriesComponent } from '@shared/formfields';
+// import { SeriesComponent } from '@shared/formfields';
 
 const formModules = [FormsModule, ReactiveFormsModule];
-const materialModules = [MatInputModule, MatSelectModule];
-const formFields = [SeriesComponent];
+const materialModules = [MatInputModule, MatSelectModule, MatTimepickerModule,MatRadioModule];
+// const formFields = [SeriesComponent];
 
 @Component({
   selector: 'tap-iqama',
-  standalone: true,
-  imports: [...formModules, ...materialModules,...formFields],
+  imports: [...formModules, ...materialModules],
   templateUrl: './iqama.component.html',
   styleUrl: './iqama.component.scss',
-  providers: [{ provide: MatFormFieldControl, useExisting: IqamaComponent }],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: MatFormFieldControl, useExisting: IqamaComponent }, provideNativeDateAdapter()],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IqamaComponent extends BaseFormField<IqamaValue> implements OnInit, OnDestroy {
   @Input({ required: true }) control!: IqamaModel
@@ -37,6 +39,8 @@ export class IqamaComponent extends BaseFormField<IqamaValue> implements OnInit,
 
   readonly typeInput = viewChild.required<HTMLSelectElement>('type');
   readonly valueInput = viewChild.required<HTMLInputElement>('value');
+
+  closeTimePicker = signal<boolean>(true);
 
   // selectedControl:FormControlModel = this.control.options[0].control;
 
@@ -73,9 +77,9 @@ export class IqamaComponent extends BaseFormField<IqamaValue> implements OnInit,
   ngOnInit(): void {
     this.parts = this.fb.group({
       type: [this.control.value.type],
-      value: [this.control.value.value],
+      value: [this.control.value.value, [Validators.required]],
     });
-    console.log('this.control',this.control);
+    console.log('this.control', this.control);
   }
   protected override isEmptyValue(): boolean {
     const { value: { type, value }, } = this.parts;
@@ -110,5 +114,10 @@ export class IqamaComponent extends BaseFormField<IqamaValue> implements OnInit,
   ngOnDestroy() {
     this.stateChanges.complete();
     this._focusMonitor.stopMonitoring(this._elementRef);
+  }
+  onSelectClicked($event: Event) {
+    $event.stopPropagation;
+    this.closeTimePicker.set(true);
+
   }
 }

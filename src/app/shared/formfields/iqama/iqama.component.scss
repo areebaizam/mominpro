@@ -1,7 +1,29 @@
 .input-container {
     display: flex;
 
-    :last-child {
-        padding-left: 1rem;
-    }
+    // :last-child {
+    //     padding-left: 1rem;
+    // }
+
+    --mdc-icon-button-state-layer-size: 24px;
+    --mdc-radio-state-layer-size: 24px;
+    --mat-radio-label-text-size: .75rem;
 }
+
+// .mat-timepicker-input,
+// .mat-timepicker-toggle {
+//     user-select: none;
+//     background: var(--surface);
+    
+// }
+
+.mat-mdc-select, .mat-timepicker-input{
+    margin-left: .25rem;
+    padding-left: .25rem;
+    height: 24px;
+    background: var(--surface);
+}
+
+// .mat-mdc-radio-button {
+//     padding-right: .25rem;
+// }
