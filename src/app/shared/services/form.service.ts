@@ -3,6 +3,7 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
   ValidatorFn,
   Validators
 } from "@angular/forms";
@@ -22,9 +23,9 @@ import {
 })
 export class FormService {
   fb = inject(FormBuilder);
-  options: SelectOptionModel[] =[];
+  options: SelectOptionModel[] = [];
 
-  getSeriesOptions(field: SeriesModel): SelectOptionModel[]{
+  getSeriesOptions(field: SeriesModel): SelectOptionModel[] {
     this.options = [];
     let min = field.validators?.min;
     let max = field.validators?.max;
@@ -49,7 +50,7 @@ export class FormService {
           name: label,
           recommended: recommended,
         });
-      }      
+      }
     }
     return this.options;
   }
@@ -103,4 +104,30 @@ export class FormService {
     ].includes(type);
     return isInputType ? (type as InputType) : null;
   }
+
+  getValidationError(errors: ValidationErrors, fieldName: string): string {
+    const errorMessages: string[] = [];
+    for (const errorName in errors) {
+      if (errors.hasOwnProperty(errorName)) {
+        errorMessages.push(this.getErrorMessage(errorName, errors[errorName], fieldName));
+      }
+    }
+    return errorMessages[0];
+  }
+
+  private getErrorMessage(errorName: string, errorValue: any, fieldName:string): string {
+    const messages: { [key: string]: string } = {
+      required: `${fieldName} cannot be left blank`,
+      minlength: `${fieldName} must be at least ${errorValue.requiredLength} characters long`,
+      maxlength: `${fieldName} cannot exceed ${errorValue.requiredLength} characters`,
+      max: `${fieldName} value cannot exceed ${errorValue.max}`,
+      min: `${fieldName} value must be atleast  ${errorValue.min}`,
+      email: 'Enter a valid email address',
+      pattern: `The format of ${fieldName} is incorrect`,
+    };
+
+    // Default fallback if error is not mapped
+    return messages[errorName] || 'Invalid field.';
+  }
+
 }

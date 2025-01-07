@@ -23,24 +23,24 @@ const customControls = [IqamaComponent];
 
 //Reference:https://github.com/DMezhenskyi/shared-angular-forms/blob/implemented/src/app/address-group/address-group.component.ts
 @Component({
-    selector: 'tap-lib-form',
-    imports: [...formModules, ...materialModules, ...customControls],
-    viewProviders: [
-        {
-            provide: ControlContainer,
-            useFactory: () => inject(ControlContainer, { skipSelf: true })
-        }
-    ],
-    templateUrl: './lib-form.component.html',
-    styleUrl: './lib-form.component.scss'
+  selector: 'tap-lib-form',
+  imports: [...formModules, ...materialModules, ...customControls],
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useFactory: () => inject(ControlContainer, { skipSelf: true })
+    }
+  ],
+  templateUrl: './lib-form.component.html',
+  styleUrl: './lib-form.component.scss'
 })
 export class LibFormComponent implements OnInit, OnDestroy {
   @Input({ required: true }) controlKey!: string;
   @Input({ required: true }) formFields!: FormControlModel[];
 
-  formService =  inject(FormService)
+  formService = inject(FormService)
   parentContainer = inject(ControlContainer);
-  form:FormGroup = new FormGroup({});
+  form: FormGroup = new FormGroup({});
   get parentFormGroup() {
     return this.parentContainer.control as FormGroup;
   }
@@ -49,8 +49,6 @@ export class LibFormComponent implements OnInit, OnDestroy {
     this.form = this.formService.buildformControls(this.formFields)
     this.parentFormGroup.addControl(this.controlKey, this.form);
   }
-
-  
 
   ngOnDestroy() {
     this.parentFormGroup.removeControl(this.controlKey);
@@ -64,5 +62,15 @@ export class LibFormComponent implements OnInit, OnDestroy {
     return this.form.get(fieldName)?.value?.length || 0;
   }
 
-  
+  getValidationError(field: FormControlModel): string {
+    let errors = this.form.get(field.name)?.errors;
+    if (!!errors)
+      return this.formService.getValidationError(errors, field.label);
+    return '';
+  }
+
+  showValidationError(fieldName: string): boolean {
+    let hasError = this.form.get(fieldName)?.invalid && (this.form.get(fieldName)?.dirty || this.form.get(fieldName)?.touched);
+    return hasError ? hasError : false;
+  }
 }

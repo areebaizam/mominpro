@@ -8,6 +8,9 @@
         <mat-hint align="end">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
+        @if(showValidationError(field.name)){
+        <mat-error>{{ getValidationError(field)}}</mat-error>
+        }
     </mat-form-field>
     } @else if(field.type == 'textarea'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
@@ -17,6 +20,9 @@
         <mat-hint align="end">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
+        @if(showValidationError(field.name)){
+        <mat-error>{{ getValidationError(field)}}</mat-error>
+        }
     </mat-form-field>
     } @else if(field.type == 'number'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
@@ -26,6 +32,9 @@
         <mat-hint align="end">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
+        @if(showValidationError(field.name)){
+        <mat-error>{{ getValidationError(field)}}</mat-error>
+        }
     </mat-form-field>
     } @else if(field.type == 'select'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
