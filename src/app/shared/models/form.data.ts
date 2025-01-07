@@ -71,11 +71,12 @@ export const MOSQUE_FORM_ADDRESS_DATA = [
     {
         type: "text",
         name: 'code',
-        label: 'Postal Code / Zip Code (optional)',
+        label: 'Postal Code / Zip Code',
         value: '',
         placeholder: 'Ex: USA',
         colspan: eGridSpan.HALF,
         validators: {
+            required: true,
             minLength: 3,
             maxLength: 20
         }
@@ -111,7 +112,7 @@ export const MOSQUE_FORM_CONTACT_DATA = [
     {
         type: "text",
         name: 'phone',
-        label: 'Phone',
+        label: 'Phone (Optional)',
         prefix: '+',
         value: '',
         placeholder: 'Ex: +1 604 500 500',
@@ -123,7 +124,7 @@ export const MOSQUE_FORM_CONTACT_DATA = [
     {
         type: "email",
         name: 'email',
-        label: 'Email',
+        label: 'Email (Optional)',
         value: '',
         placeholder: 'Ex: mosque@gmail.com',
         colspan: eGridSpan.ONE_THIRD,
@@ -135,7 +136,7 @@ export const MOSQUE_FORM_CONTACT_DATA = [
     {
         type: "text",
         name: 'website',
-        label: 'Website',
+        label: 'Website (Optional)',
         value: '',
         placeholder: 'Ex: www.my-mosque.com',
         colspan: eGridSpan.ONE_THIRD,
@@ -593,19 +594,19 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                 typeLabel: 'Offset',
                 recommended: false,
                 control: {
-                    name: 'offset',
+                    name: 'value',
                     label: '',
-                    value: '',
+                    value: 20,
                     colspan: eGridSpan.ONE_FOURTH,
-                    type: 'select',
-                    // validators: {
-                    //     min: 0,
-                    //     max: 30,
-                    // },
-                    // suffix: 'minutes after Start Time',
-                    // suffixUnit: 'minute after Start Time',
-                    // baseLabel: 'At Start Time',
-                    // recommendedValue: 30,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after Start Time',
+                    suffixUnit: 'minute after Start Time',
+                    baseLabel: 'At Start Time',
+                    recommendedValue: 20,
                 }
             },
             {
@@ -743,17 +744,17 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                 control: {
                     name: 'value',
                     label: '',
-                    value: '',
+                    value: 3,
                     colspan: eGridSpan.ONE_FOURTH,
-                    type: 'select',
+                    type: 'series',
                     validators: {
                         min: 0,
-                        max: 30,
+                        max: 60,
                     },
-                    suffix: 'minutes after Start Time',
-                    suffixUnit: 'minute after Start Time',
-                    baseLabel: 'At Start Time',
-                    recommendedValue: 30,
+                    suffix: 'minutes after Sunset',
+                    suffixUnit: 'minute after Sunset',
+                    baseLabel: 'At Sunset',
+                    recommendedValue: 5,
                 }
             },
             {

@@ -11,17 +11,26 @@
 }
 
 // .mat-timepicker-input,
-// .mat-timepicker-toggle {
-//     user-select: none;
-//     background: var(--surface);
-    
-// }
+.mat-timepicker-toggle {
+    height: 24px;
+    background: var(--surface);
+    //     user-select: none;
+    //     background: var(--surface);
 
-.mat-mdc-select, .mat-timepicker-input{
+}
+
+.mat-mdc-select,
+.mat-timepicker-input {
     margin-left: .25rem;
     padding-left: .25rem;
     height: 24px;
     background: var(--surface);
+}
+
+.mat-mdc-select-arrow svg {
+    top: unset;
+    left: unset;
+    transform: translateX(-50%);
 }
 
 // .mat-mdc-radio-button {

@@ -5,18 +5,21 @@ import { BaseFormField } from '../base-form-field';
 //Material
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+//Services
+import { FormService } from '@shared/services';
 //Models
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { alphanumericbool, ControlType, FormControlModel, IqamaModel, IqamaValue } from '@shared/models';
-// import { SeriesComponent } from '@shared/formfields';
+import { alphanumericbool, ControlType, FormControlModel, IqamaModel, IqamaValue, SelectOptionModel, SeriesModel } from '@shared/models';
 
+//Constants
 const formModules = [FormsModule, ReactiveFormsModule];
-const materialModules = [MatInputModule, MatSelectModule, MatTimepickerModule,MatRadioModule];
-// const formFields = [SeriesComponent];
+const materialModules = [MatInputModule, MatSelectModule, MatTimepickerModule, MatRadioModule, MatIconModule];
+
 
 @Component({
   selector: 'tap-iqama',
@@ -29,23 +32,23 @@ const materialModules = [MatInputModule, MatSelectModule, MatTimepickerModule,Ma
 export class IqamaComponent extends BaseFormField<IqamaValue> implements OnInit, OnDestroy {
   @Input({ required: true }) control!: IqamaModel
   fb = inject(FormBuilder);
+  formService = inject(FormService)
   parts: FormGroup<{
     type: FormControl<ControlType | null>;
     value: FormControl<alphanumericbool | null>;
-  }> = this.fb.group({
-    type: ['time' as ControlType],
-    value: ['' as alphanumericbool],
-  });
+  }> =
+    this.fb.group({
+      type: ['time' as ControlType],
+      value: ['12:30' as alphanumericbool],
+    });
 
   readonly typeInput = viewChild.required<HTMLSelectElement>('type');
   readonly valueInput = viewChild.required<HTMLInputElement>('value');
 
-  closeTimePicker = signal<boolean>(true);
+  options: SelectOptionModel[] = [];
 
-  // selectedControl:FormControlModel = this.control.options[0].control;
-
-  constructor() {
-    super();
+  constructor() {    
+    super();    
     effect(() => {
       if (this._disabled()) {
         untracked(() => this.parts.disable());
@@ -75,11 +78,14 @@ export class IqamaComponent extends BaseFormField<IqamaValue> implements OnInit,
   }
 
   ngOnInit(): void {
+    //TODO fix this logic
+    let seriesField = this.control.options[0].control as SeriesModel;
+    this.options = this.formService.getSeriesOptions(seriesField);
+    console.log(this.control,this.options,this.control.options)
     this.parts = this.fb.group({
       type: [this.control.value.type],
-      value: [this.control.value.value, [Validators.required]],
+      value: '05:00' as alphanumericbool,
     });
-    console.log('this.control', this.control);
   }
   protected override isEmptyValue(): boolean {
     const { value: { type, value }, } = this.parts;
@@ -114,10 +120,5 @@ export class IqamaComponent extends BaseFormField<IqamaValue> implements OnInit,
   ngOnDestroy() {
     this.stateChanges.complete();
     this._focusMonitor.stopMonitoring(this._elementRef);
-  }
-  onSelectClicked($event: Event) {
-    $event.stopPropagation;
-    this.closeTimePicker.set(true);
-
   }
 }
