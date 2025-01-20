@@ -79,7 +79,7 @@ export interface ToggleModel extends BaseFormControlModel {
 
 export interface IqamaModel extends BaseFormControlModel {
     type: 'iqama',
-    value:IqamaValue,
+    value: IqamaValue,
     options: IqamaOptions[];
 }
 
@@ -97,4 +97,11 @@ export interface ReactiveForm {
     key: string;
     label: string;
     data: FormControlModel[];
+}
+
+export interface TabModel {
+    id: number;
+    label: string;
+    editMode: boolean;
+    forms: ReactiveForm[]
 }

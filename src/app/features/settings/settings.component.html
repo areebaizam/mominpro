@@ -1,6 +1,8 @@
-<mat-tab-group>
-    <!-- TODO make it dynamic -->
-    <mat-tab label="Mosque"><tap-mosque></tap-mosque> </mat-tab>
-    <mat-tab label="Location"><tap-location></tap-location> </mat-tab>
-    <mat-tab label="Hijri"><tap-hijri></tap-hijri> </mat-tab>
+<tap-action-buttons-ces [editMode]="currentTab()?.editMode" (output)="onActionBtnClicked($event)"></tap-action-buttons-ces>
+<mat-tab-group (selectedTabChange)="onTabChange($event.index)">
+    @for (tab of tabs(); track tab.id){
+    <mat-tab [label]="tab.label">
+    </mat-tab>
+    }
 </mat-tab-group>
+<div #formContainer></div>

@@ -1,4 +1,4 @@
-import { eGridSpan, FormControlModel, ReactiveForm } from "./form.model";
+import { eGridSpan, FormControlModel, ReactiveForm, TabModel } from "./form.model";
 
 export const MOSQUE_FORM_GENERAL_DATA = [
     {
@@ -274,7 +274,7 @@ export const HIJRI_FORM_SETTINGS_DATA = [
         type: "toggle",
         name: 'isHijri',
         label: 'Show Hijri Calender',
-        value: true,
+        value: false,
         colspan: eGridSpan.HALF,
     },
 ] as FormControlModel[];
@@ -913,7 +913,7 @@ export const LOCATION_FORM_DATA = [
 
 export const HIJRI_FORM_DATA = [
     {
-        key: "Hijri",
+        key: "hijri",
         label: "Adjustments",
         data: HIJRI_FORM_SETTINGS_DATA,
     }
@@ -951,11 +951,23 @@ export const SALAH_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
-export const IQAMA_FORM_DATA = [
+export const IQAMAH_FORM_DATA = [
     {
         key: "iqama",
         label: "Iqamah Timings",
         data: IQAMAH_FORM_PRAYER_DATA,
     }
-
 ] as ReactiveForm[];
+
+
+export const TIMINGS_TABS_DATA = [
+    { id: 0, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },
+    { id: 1, label: "Iqamah", editMode: true, forms: IQAMAH_FORM_DATA },
+    { id: 2, label: "Athan", editMode: false, forms: ATHAN_FORM_DATA },
+] as TabModel[];
+
+export const SETTINGS_TABS_DATA = [
+    { id: 0, label: "Mosque", editMode: true, forms: MOSQUE_FORM_DATA },
+    { id: 1, label: "Location", editMode: true, forms: LOCATION_FORM_DATA },
+    { id: 2, label: "Hijri", editMode: false, forms: HIJRI_FORM_DATA },
+] as TabModel[];

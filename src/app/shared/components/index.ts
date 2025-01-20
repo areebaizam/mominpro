@@ -1,3 +1,4 @@
+export * from './action-buttons-ces/action-buttons-ces.component';
 export * from './app-brand/app-brand.component';
 export * from './bar-bottom/bar-bottom.component';
 export * from './bar-hidden/bar-hidden.component';

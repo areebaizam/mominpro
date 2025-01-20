@@ -42,6 +42,7 @@
 .main-container {
     border-radius: var(--mdc-fab-container-shape);
     background: var(--surface-bright);
+    position: relative;
 }
 
 .safe-area-padding {
@@ -137,4 +138,10 @@
     &:hover {
         --mat-option-label-text-color: var(--on-primary);
     }
+}
+.tab-action-buttons-ces{
+    position: absolute;
+    right: 8px;
+    top: 58px;
+    z-index: 2;
 }

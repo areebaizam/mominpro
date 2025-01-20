@@ -12,6 +12,11 @@ export enum eBtnToggleType {
     THEME,
     HOME,
 }
+export enum eBtnActionCESType{
+    CANCEL='cancel',
+    EDIT='edit',
+    SAVE='save',
+}
 
 export class BtnToggleModel {
     icon: string ='';

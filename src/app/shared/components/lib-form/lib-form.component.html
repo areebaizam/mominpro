@@ -1,3 +1,4 @@
+@defer{
 <form [formGroupName]="controlKey" class="form-container">
     @for(field of formFields; track field){
     @if(field.type == formService.isInputType(field.type)){
@@ -28,7 +29,7 @@
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [type]="field.type" [formControl]="getFormControl(field.name)" [placeholder]="field.placeholder"
-            [maxLength]="field.validators?.maxLength" />
+            [maxLength]="field.validators?.maxLength" [max]="field.validators?.max" [min]="field.validators?.min" />
         <mat-hint align="end">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
@@ -39,12 +40,15 @@
     } @else if(field.type == 'select'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
-        <mat-select [formControl]="getFormControl(field.name)">
+        <mat-select [formControl]="getFormControl(field.name)" (selectionChange)="onSelect(field.name,$event.value)">
             @for (option of field.options; track option.value) {
             <mat-option [value]="option.value" [class.recommended]="option.recommended"><span>{{ option.name
                     }}</span></mat-option>
             }
         </mat-select>
+        @if(showValidationError(field.name)){
+        <mat-error>{{ getValidationError(field)}}</mat-error>
+        }
     </mat-form-field>
     } @else if(field.type == 'slider'){
     <div class="field-width slider" [style.flex]="field.colspan">
@@ -57,7 +61,8 @@
     } @else if(field.type == 'series'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
-        <mat-select [formControl]="getFormControl(field.name)" [value]="field.value">
+        <mat-select [formControl]="getFormControl(field.name)" [value]="field.value"
+            (selectionChange)="onSelect(field.name,$event.value)">
             @for (option of formService.getSeriesOptions(field); track option.value) {
             <mat-option [value]="option.value" [class.recommended]="option.recommended"><span>{{ option.name
                     }}</span></mat-option>
@@ -66,7 +71,8 @@
     </mat-form-field>
     } @else if(field.type == 'toggle'){
     <mat-slide-toggle [formControl]="getFormControl(field.name)" [checked]="field.value" class="field-width toggle"
-        [style.flex]="field.colspan">{{ field.label }}</mat-slide-toggle>
+        [style.flex]="field.colspan" (change)="onToggle(field.name, $event.checked)">{{ field.label
+        }}</mat-slide-toggle>
     }
     @else if(field.type == 'iqama'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
@@ -75,5 +81,5 @@
     </mat-form-field>
     }
     }
-
 </form>
+}

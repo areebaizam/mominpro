@@ -35,10 +35,11 @@ const customControls = [IqamaComponent];
   styleUrl: './lib-form.component.scss'
 })
 export class LibFormComponent implements OnInit, OnDestroy {
+  @Input() editMode: boolean | undefined = true;
   @Input({ required: true }) controlKey!: string;
   @Input({ required: true }) formFields!: FormControlModel[];
 
-  formService = inject(FormService)
+  formService = inject(FormService);
   parentContainer = inject(ControlContainer);
   form: FormGroup = new FormGroup({});
   get parentFormGroup() {
@@ -46,7 +47,8 @@ export class LibFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.form = this.formService.buildformControls(this.formFields)
+    this.form = this.formService.buildformControls(this.formFields);
+    if (!this.editMode) this.form.disable();
     this.parentFormGroup.addControl(this.controlKey, this.form);
   }
 
@@ -72,5 +74,18 @@ export class LibFormComponent implements OnInit, OnDestroy {
   showValidationError(fieldName: string): boolean {
     let hasError = this.form.get(fieldName)?.invalid && (this.form.get(fieldName)?.dirty || this.form.get(fieldName)?.touched);
     return hasError ? hasError : false;
+  }
+
+  onToggle(fieldName: string, value: boolean) {
+    //TODO Move it to common Service
+    // if (fieldName == 'isHijri')
+    //   value ? this.getFormControl('hijri').enable() : this.getFormControl('hijri').disable();
+  }
+
+  onSelect(fieldName: string, value: string) {
+    if (fieldName == 'method')
+      value == 'CUS' ? this.getFormControl('fajr').enable() : this.getFormControl('fajr').disable();
+    value == 'CUS' ? this.getFormControl('isha').enable() : this.getFormControl('isha').disable();
+
   }
 }

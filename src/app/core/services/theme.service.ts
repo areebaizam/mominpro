@@ -13,8 +13,8 @@ export class ThemeService {
 
   constructor() {
     this.setThemeParams();
-   }
-   setThemeParams() {
+  }
+  setThemeParams() {
     if (isPlatformBrowser(this.platformId)) {
       //Todo handle icon base on sys preference
       this.#darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -22,7 +22,7 @@ export class ThemeService {
       // Listen for changes in system preference
       this.#darkThemeMediaQuery.addEventListener('change', () => {
         this.updateDefaultTheme();
-      });
+      }, { passive: true });
     }
   }
 

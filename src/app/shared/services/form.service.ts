@@ -10,7 +10,6 @@ import {
 //Models
 import {
   ControlType,
-  ControlValue,
   FormControlModel,
   InputType,
   SelectOptionModel,
@@ -18,9 +17,8 @@ import {
   ValidatorModel,
 } from "@shared/models";
 
-@Injectable({
-  providedIn: "root",
-})
+@Injectable({ providedIn: "root", })
+
 export class FormService {
   fb = inject(FormBuilder);
   options: SelectOptionModel[] = [];
@@ -29,13 +27,16 @@ export class FormService {
     this.options = [];
     let min = field.validators?.min;
     let max = field.validators?.max;
+    let suffix = '';
 
     if ((min || min == 0) && (max || max == 0)) {
       for (let i = min; i <= max; i++) {
-        let label = `${i} ${field.suffix}`;
+        if (min < 0)
+          suffix = i < 0 ? 'early' : 'late';
+        let label = `${Math.abs(i)} ${field.suffix} ${suffix}`;
         let recommended: boolean = false;
         if (!i) label = field.baseLabel;
-        else if (i * i == 1) label = `${i} ${field.suffixUnit}`;
+        else if (i * i == 1) label = `${Math.abs(i)} ${field.suffixUnit} ${suffix}`;
 
         if (
           (field.recommendedValue || field.recommendedValue == 0) &&
@@ -115,7 +116,7 @@ export class FormService {
     return errorMessages[0];
   }
 
-  private getErrorMessage(errorName: string, errorValue: any, fieldName:string): string {
+  private getErrorMessage(errorName: string, errorValue: any, fieldName: string): string {
     const messages: { [key: string]: string } = {
       required: `${fieldName} cannot be left blank`,
       minlength: `${fieldName} must be at least ${errorValue.requiredLength} characters long`,
