@@ -1,6 +1,6 @@
 <form [formGroup]="form">
     @for(form of forms; track form.key){
-    <div class="form-group-name"> {{form.label}} </div>
+    <div class="form-group-name" [class.read-only]="!editMode"> {{form.label}} </div>
     <tap-lib-form [controlKey]="form.key" [formFields]="form.data" [editMode]="editMode"></tap-lib-form>
     }
 </form>

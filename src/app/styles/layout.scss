@@ -84,11 +84,17 @@
     background-color: var(--secondary-container);
 }
 
-.form-group-name {
-    margin-block: 1.25rem;
-    padding-bottom: .25rem;
-    border-bottom: 1px solid var(--mat-tab-header-divider-color);
+.form-group-name {    
+    padding-block: 1rem;
+    border-top: 1px solid var(--mat-tab-header-divider-color);
+    color: var(--primary);
+    letter-spacing: 1px;
+    font-weight: 500;
 }
+.form-group-name:first-child{
+    border: none;
+}
+
 
 .toggle {
     height: var(--mat-form-field-container-height);
@@ -108,7 +114,6 @@
         width: 120px;
         .slider-value{
             color: var(--primary);
-            font-weight: 500;
         }
         
     }
@@ -141,7 +146,11 @@
 }
 .tab-action-buttons-ces{
     position: absolute;
-    right: 8px;
-    top: 58px;
-    z-index: 2;
+    right: 12px;
+    top: 63px;
+}
+
+.read-only{
+    font-weight: 400;
+    color: var(--outline-variant) !important;
 }

@@ -36,24 +36,25 @@ export class BaseFormComponent {
 
   private cancel() {
     this.disable();
-    this.toggleEditMode.emit(false);
   }
 
   private save() {
     console.log('save',this.form.value);
     if (!this.canSave())
-      return;
-    this.toggleEditMode.emit(false);
+      return;    
     this.disable();
   }
 
   private edit() {
     this.form.markAsUntouched();
     this.form.enable();
-    this.toggleEditMode.emit(true);
+    this.editMode = true;
+    this.toggleEditMode.emit(this.editMode);
   }
 
   private disable() {
+    this.editMode = false;
+    this.toggleEditMode.emit(this.editMode);
     this.form.disable();
   }
 
