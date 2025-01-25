@@ -168,9 +168,10 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
 
       if (this.parentControl.touched)
         this.touched.set(true);
-      
+
       if (this._value() && (value.type != this._value()?.type)) {
         this.parentControl.patchValue({ value: null }, { emitEvent: false });
+        
       }
       const timeOffset = (this.parentControl.enabled && this.parentControl.valid) || this.parentControl.value ? new TimeOffsetValue(this.parentControl.value.type || 'time', this.parentControl.value.value || null)
         : new TimeOffsetValue(this.parentControl.value.type || 'time', null);

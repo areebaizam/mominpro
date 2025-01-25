@@ -1,40 +1,37 @@
 .input-container {
     display: flex;
+    flex-direction: column;
+    margin-top: -12px;
+    margin-left: -12px;
 }
 
-.radio-input {
-    position: absolute;
-    top: 0;
-    right: 0;
+.radio-container{
+    justify-content: flex-start;
+    display: flex;
 }
 
 .time-container {
     display: flex;
     flex-grow: 1;
     align-items: center;
-    margin-top: 16px;
-
+    padding-left: 16px;
     .time-input {
         caret-color: transparent;
         user-select: none;
         height: 40px;
-        // padding-inline: 8px;
         color: var(--primary);
-        font-weight: 500;
     }
 }
 
 .select-container {
-    margin-top: 16px;
     height: 40px;
     display: flex;
-    padding-right: 16px;
+    padding-inline: 16px;
     color: var(--primary);
-    font-weight: 500;
 }
 
 .empty {
-    background: var(--surface);
+    background: var(--surface-container);
 }
 
 .mat-mdc-select-trigger {

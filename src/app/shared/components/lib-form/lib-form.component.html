@@ -77,8 +77,8 @@
         }}</span></mat-slide-toggle>
     }
     @else if(field.type == 'iqama'){
-    <mat-form-field class="field-width" [style.flex]="field.colspan">
-        <mat-label>{{ field.label }}</mat-label>
+    <mat-form-field class="field-width" [style.flex]="field.colspan" appearance="outline">
+        <mat-label [class.read-only]="!editMode" (click)="$event.stopPropagation()">{{ field.label }}</mat-label>
         <tap-time-offset-input [control]="field"></tap-time-offset-input>
         @if(showValidationError(field.name)){
         <mat-error>{{ getFormValidationError(field)}}</mat-error>
