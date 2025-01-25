@@ -131,4 +131,24 @@ export class FormService {
     return messages[errorName] || 'Invalid field.';
   }
 
+
+  //TOD FIX THIS 
+  // validateAllFields
+  validateAllFields(formGroup: FormGroup, fieldName: string):string {
+    let errorMessage: string='';
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched();
+        control.updateValueAndValidity();
+        let errors = control?.errors;
+        if (!!errors)
+          errorMessage=this.getValidationError(errors, fieldName);
+      } else if (control instanceof FormGroup) {
+        this.validateAllFields(control, fieldName);
+      }
+    });
+    return errorMessage;
+  }
+
 }

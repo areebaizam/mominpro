@@ -26,7 +26,7 @@
         }
     </mat-form-field>
     } @else if(field.type == 'number'){
-        <!-- TODO Add more validations on lenght and value -->
+    <!-- TODO Add more validations on length and value -->
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [type]="field.type" [formControl]="getFormControl(field.name)" [placeholder]="field.placeholder"
@@ -72,13 +72,17 @@
     </mat-form-field>
     } @else if(field.type == 'toggle'){
     <mat-slide-toggle [formControl]="getFormControl(field.name)" [checked]="field.value" class="field-width toggle"
-        [style.flex]="field.colspan" (change)="onToggle(field.name, $event.checked)"><span [class.read-only]="!editMode">{{ field.label
+        [style.flex]="field.colspan" (change)="onToggle(field.name, $event.checked)"><span
+            [class.read-only]="!editMode">{{ field.label
         }}</span></mat-slide-toggle>
     }
     @else if(field.type == 'iqama'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
-        <tap-iqama [formControl]="getFormControl(field.name)" [control]="field"></tap-iqama>
+        <tap-time-offset-input [control]="field"></tap-time-offset-input>
+        @if(showValidationError(field.name)){
+        <mat-error>{{ getFormValidationError(field)}}</mat-error>
+        }
     </mat-form-field>
     }
     }

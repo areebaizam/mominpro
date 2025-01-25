@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 //Custom Form Fields
+import { TimeOffsetInput } from '@shared/formfields';
 import { IqamaComponent } from '@shared/formfields';
 //Services
 import { FormService } from '@shared/services';
@@ -19,7 +20,7 @@ import { FormControlModel } from '@shared/models';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule];
 const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, MatSliderModule, MatIconModule, MatButtonModule, MatSelectModule, MatSlideToggleModule];
-const customControls = [IqamaComponent];
+const customControls = [TimeOffsetInput];
 
 //Reference:https://github.com/DMezhenskyi/shared-angular-forms/blob/implemented/src/app/address-group/address-group.component.ts
 @Component({
@@ -71,8 +72,13 @@ export class LibFormComponent implements OnInit, OnDestroy {
     return '';
   }
 
+  getFormValidationError(field: FormControlModel): string {
+    return this.formService.validateAllFields(this.form.get(field.name) as FormGroup,field.label);
+  }
+
   showValidationError(fieldName: string): boolean {
     let hasError = this.form.get(fieldName)?.invalid && (this.form.get(fieldName)?.dirty || this.form.get(fieldName)?.touched);
+    console.log('hasError', hasError);
     return hasError ? hasError : false;
   }
 

@@ -14,7 +14,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { FormService } from '@shared/services';
 //Models
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { alphanumericbool, ControlType, FormControlModel, IqamaModel, IqamaValue, SelectOptionModel, SeriesModel } from '@shared/models';
+import { alphanumericbool, ControlType, FormControlModel, TimeOffsetModel, IqamaValue, SelectOptionModel, SeriesModel } from '@shared/models';
 
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule];
@@ -30,7 +30,7 @@ const materialModules = [MatInputModule, MatSelectModule, MatTimepickerModule, M
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IqamaComponent extends BaseFormField<IqamaValue> implements OnInit, OnDestroy {
-  @Input({ required: true }) control!: IqamaModel
+  @Input({ required: true }) control!: TimeOffsetModel
   fb = inject(FormBuilder);
   formService = inject(FormService)
   parts: FormGroup<{

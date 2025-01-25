@@ -1,12 +1,16 @@
 
+// TODO Remove this
 export class IqamaValue {
     constructor(public type: ControlType, public value: alphanumericbool) { }
 }
-export type alphanumericbool = string | number | boolean;
+export class TimeOffsetValue {
+    constructor(public type: ControlType, public value: alphanumericbool | null) { }
+}
+export type alphanumericbool = string | number | boolean | Date;
 export type InputType = 'color' | 'date' | 'datetime-local' | 'email' | 'month' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
 export type CustomType = 'iqama';
 export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle';
-export type ControlValue = alphanumericbool | IqamaValue;
+export type ControlValue = alphanumericbool | TimeOffsetValue;
 export enum eGridSpan {
     FULL = '1 1 100%',
     HALF = '1 1 calc(50% - 1.25rem)',
@@ -77,7 +81,7 @@ export interface ToggleModel extends BaseFormControlModel {
     type: 'toggle',
 }
 
-export interface IqamaModel extends BaseFormControlModel {
+export interface TimeOffsetModel extends BaseFormControlModel {
     type: 'iqama',
     value: IqamaValue,
     options: IqamaOptions[];
@@ -91,7 +95,7 @@ export interface IqamaOptions {
     control: FormControlModel,
 }
 
-export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | IqamaModel;
+export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | TimeOffsetModel;
 
 export interface ReactiveForm {
     key: string;

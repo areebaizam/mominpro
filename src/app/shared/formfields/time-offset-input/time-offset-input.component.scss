@@ -1,0 +1,15 @@
+.input-container,.input-element {
+    display: flex;
+}
+.time-container {
+    background: var(--surface);
+    user-select: none;
+}
+.select-container{
+    width: 120px;
+    position: absolute;
+    bottom: 13px;
+    right: 0;
+    background: var(--surface);
+    padding: 4px;
+}
