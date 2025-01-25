@@ -38,7 +38,7 @@ export class BaseFormComponent {
     this.disable();
   }
 
-  private save() {   
+  private save() {
     if (!this.canSave())
       return;    
     this.disable();

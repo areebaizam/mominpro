@@ -623,234 +623,234 @@ export const IQAMAH_FORM_PRAYER_DATA = [
             },
         ]
     },
-    // {
-    //     type: "iqama",
-    //     name: 'dhur',
-    //     label: 'Dhuhr',
-    //     value: { type: 'series', value: 3 },
-    //     colspan: eGridSpan.ONE_THIRD,
-    //     options: [
-    //         {
-    //             type: 'series',
-    //             typeLabel: 'Offset',
-    //             recommended: false,
+    {
+        type: "iqama",
+        name: 'dhur',
+        label: 'Dhuhr',
+        value: { type: 'series', value: 3 },
+        colspan: eGridSpan.ONE_THIRD,
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
 
-    //          control: {
-    //                 name: 'value',
-    //                 label: '',
-    //                 value: 20,
-    //                 colspan: eGridSpan.ONE_FOURTH,
-    //                 type: 'series',
-    //                 validators: {
-    //                     min: 0,
-    //                     max: 60,
-    //                 },
-    //                 suffix: 'minutes after start time',
-    //                 suffixUnit: 'minute after start time',
-    //                 baseLabel: 'At start time',
-    //                 recommendedValue: 20,
-    //             }
-    //         },
-    //         {
-    //             type: 'time',
-    //             typeLabel: 'Fixed',
-    //             recommended: true,
-    //             control: {
-    //                 name: 'time',
-    //                 label: '',
-    //                 value: '',
-    //                 colspan: eGridSpan.ONE_FOURTH,
-    //                 type: 'time'
-    //             }
-    //         },
-    //     ]
-    // },
-    // {
-    //     type: "iqama",
-    //     name: 'asr',
-    //     label: 'Asr',
-    //     value: { type: 'series', value: 5 },
-    //     colspan: eGridSpan.ONE_THIRD,
-    //     options: [
+             control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: '',
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time'
+                }
+            },
+        ]
+    },
+    {
+        type: "iqama",
+        name: 'asr',
+        label: 'Asr',
+        value: { type: 'series', value: 5 },
+        colspan: eGridSpan.ONE_THIRD,
+        options: [
 
-    //         {
-    //             type: 'series',
-    //             typeLabel: 'Offset',
-    //             recommended: false,
-    //             control: {
-    //                 name: 'value',
-    //                 label: '',
-    //                 value: 20,
-    //                 colspan: eGridSpan.ONE_FOURTH,
-    //                 type: 'series',
-    //                 validators: {
-    //                     min: 0,
-    //                     max: 60,
-    //                 },
-    //                 suffix: 'minutes after start time',
-    //                 suffixUnit: 'minute after start time',
-    //                 baseLabel: 'At start time',
-    //                 recommendedValue: 20,
-    //             }
-    //         },
-    //         {
-    //             type: 'time',
-    //             typeLabel: 'Fixed',
-    //             recommended: true,
-    //             control: {
-    //                 name: 'time',
-    //                 label: '',
-    //                 value: '',
-    //                 colspan: eGridSpan.ONE_FOURTH,
-    //                 type: 'time'
-    //             }
-    //         },
-    //     ]
-    // },
-    // {
-    //     type: "iqama",
-    //     name: 'maghrib',
-    //     label: 'Maghrib',
-    //     value: { type: 'series', value: 5 },
-    //     colspan: eGridSpan.ONE_THIRD,
-    //     validators: {
-    //         required: true,
-    //     },
-    //     options: [
-    //         {
-    //             type: 'series',
-    //             typeLabel: 'Offset',
-    //             recommended: false,
-    //             control: {
-    //                 name: 'value',
-    //                 label: '',
-    //                 value: 20,
-    //                 colspan: eGridSpan.ONE_FOURTH,
-    //                 type: 'series',
-    //                 validators: {
-    //                     min: 0,
-    //                     max: 60,
-    //                 },
-    //                 suffix: 'minutes after start time',
-    //                 suffixUnit: 'minute after start time',
-    //                 baseLabel: 'At start time',
-    //                 recommendedValue: 20,
-    //             }
-    //         },
-    //         {
-    //             type: 'time',
-    //             typeLabel: 'Fixed',
-    //             recommended: true,
-    //             control: {
-    //                 name: 'value',
-    //                 label: '',
-    //                 value: '',
-    //                 colspan: eGridSpan.ONE_FOURTH,
-    //                 type: 'time'
-    //             }
-    //         },
-    //     ]
-    // },
-    // {
-    //     type: "iqama",
-    //     name: 'isha',
-    //     label: 'Isha',
-    //     value: { type: 'series', value: 5 },
-    //     colspan: eGridSpan.ONE_THIRD,
-    //     validators: {
-    //         required: true,
-    //     },
-    //     options: [
-    //         {
-    //             type: 'series',
-    //             typeLabel: 'Offset',
-    //             recommended: false,
-    //             control: {
-    //                 name: 'value',
-    //                 label: '',
-    //                 value: 20,
-    //                 colspan: eGridSpan.ONE_FOURTH,
-    //                 type: 'series',
-    //                 validators: {
-    //                     min: 0,
-    //                     max: 60,
-    //                 },
-    //                 suffix: 'minutes after start time',
-    //                 suffixUnit: 'minute after start time',
-    //                 baseLabel: 'At start time',
-    //                 recommendedValue: 20,
-    //             }
-    //         },
-    //         {
-    //             type: 'time',
-    //             typeLabel: 'Fixed',
-    //             recommended: true,
-    //             control: {
-    //                 name: 'time',
-    //                 label: '',
-    //                 value: '',
-    //                 colspan: eGridSpan.ONE_FOURTH,
-    //                 type: 'time'
-    //             }
-    //             //             name: string;
-    //             // label: string;
-    //             // value: ControlValue;
-    //             // colspan: eGridSpan;
-    //             // validators: ValidatorModel | null;
-    //             // placeholder: string;
-    //             // type: ControlType;
-    //         },
-    //     ]
-    // },
-    // {
-    //     type: "iqama",
-    //     name: 'taraweeh',
-    //     label: 'Taraweeh',
-    //     value: { type: 'series', value: 5 },
-    //     colspan: eGridSpan.ONE_THIRD,
-    //     validators: null,
-    //     options: [
-    //         {
-    //             type: 'series',
-    //             typeLabel: 'Offset',
-    //             recommended: false,
-    //             control: {
-    //                 name: 'value',
-    //                 label: '',
-    //                 value: 20,
-    //                 colspan: eGridSpan.ONE_FOURTH,
-    //                 type: 'series',
-    //                 validators: {
-    //                     min: 0,
-    //                     max: 60,
-    //                 },
-    //                 suffix: 'minutes after start time',
-    //                 suffixUnit: 'minute after start time',
-    //                 baseLabel: 'At start time',
-    //                 recommendedValue: 20,
-    //             }
-    //         },
-    //         {
-    //             type: 'time',
-    //             typeLabel: 'Fixed',
-    //             recommended: true,
-    //             control: {
-    //                 name: 'time',
-    //                 label: '',
-    //                 value: '',
-    //                 colspan: eGridSpan.ONE_FOURTH,
-    //                 type: 'time'
-    //             }
-    //             //             name: string;
-    //             // label: string;
-    //             // value: ControlValue;
-    //             // colspan: eGridSpan;
-    //             // validators: ValidatorModel | null;
-    //             // placeholder: string;
-    //             // type: ControlType;
-    //         },
-    //     ]
-    // },
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: '',
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time'
+                }
+            },
+        ]
+    },
+    {
+        type: "iqama",
+        name: 'maghrib',
+        label: 'Maghrib',
+        value: { type: 'series', value: 5 },
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            required: true,
+        },
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: '',
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time'
+                }
+            },
+        ]
+    },
+    {
+        type: "iqama",
+        name: 'isha',
+        label: 'Isha',
+        value: { type: 'series', value: 5 },
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            required: true,
+        },
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: '',
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time'
+                }
+                //             name: string;
+                // label: string;
+                // value: ControlValue;
+                // colspan: eGridSpan;
+                // validators: ValidatorModel | null;
+                // placeholder: string;
+                // type: ControlType;
+            },
+        ]
+    },
+    {
+        type: "iqama",
+        name: 'taraweeh',
+        label: 'Taraweeh',
+        value: { type: 'series', value: 5 },
+        colspan: eGridSpan.ONE_THIRD,
+        validators: null,
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: '',
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time'
+                }
+                //             name: string;
+                // label: string;
+                // value: ControlValue;
+                // colspan: eGridSpan;
+                // validators: ValidatorModel | null;
+                // placeholder: string;
+                // type: ControlType;
+            },
+        ]
+    },
 ] as FormControlModel[];
 
 export const MOSQUE_FORM_DATA = [

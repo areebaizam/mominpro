@@ -148,10 +148,10 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
     effect(() => {
       if (this._disabled()) {
         untracked(() => {
-          this.parentControl.disable({ emitEvent: false })
+          this.parentControl.disable()
         });
       } else {
-        untracked(() => this.parentControl.enable({ emitEvent: false }));
+        untracked(() => this.parentControl.enable());
       }
     });
 
@@ -168,6 +168,7 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
 
       if (this.parentControl.touched)
         this.touched.set(true);
+      
       if (this._value() && (value.type != this._value()?.type)) {
         this.parentControl.patchValue({ value: null }, { emitEvent: false });
       }

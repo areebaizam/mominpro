@@ -1,15 +1,53 @@
-.input-container,.input-element {
+.input-container {
     display: flex;
 }
-.time-container {
-    background: var(--surface);
-    user-select: none;
-}
-.select-container{
-    width: 120px;
+
+.radio-input {
     position: absolute;
-    bottom: 13px;
+    top: 0;
     right: 0;
-    background: var(--surface);
-    padding: 4px;
 }
+
+.time-container {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    margin-top: 16px;
+
+    .time-input {
+        caret-color: transparent;
+        user-select: none;
+        height: 40px;
+        // padding-inline: 8px;
+        color: var(--primary);
+        font-weight: 500;
+    }
+}
+
+.select-container {
+    margin-top: 16px;
+    height: 40px;
+    display: flex;
+    padding-right: 16px;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.empty {
+    background: var(--surface);
+}
+
+.mat-mdc-select-trigger {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+}
+
+// .select-container{
+//     width: 120px;
+//     position: absolute;
+//     bottom: 13px;
+//     right: 0;
+//     background: var(--surface);
+//     padding: 4px;
+// }
