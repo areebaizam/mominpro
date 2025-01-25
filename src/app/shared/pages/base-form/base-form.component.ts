@@ -39,7 +39,10 @@ export class BaseFormComponent {
   }
 
   private save() {
-    console.log('save',this.form.value);
+    this.form.markAsTouched();
+    this.form.updateValueAndValidity();
+    
+    console.log('save',this.form.value, this.form, this.form.valid);
     if (!this.canSave())
       return;    
     this.disable();
