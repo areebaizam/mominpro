@@ -1,4 +1,4 @@
-<div role="group" class="input-container" [formGroup]="parts" [attr.aria-labelledby]="_formField?.getLabelId()"
+<div role="group" class="input-container" [formGroup]="parentControl" [attr.aria-labelledby]="_formField?.getLabelId()"
     (focusin)="onFocusIn()" (focusout)="onFocusOut($event)">
     <mat-radio-group class="input-element" (click)="$event.stopPropagation()" formControlName="type" #type
         aria-label="Time Offset option">
@@ -7,13 +7,13 @@
                 }}</span></mat-radio-button>
         }
     </mat-radio-group>
-    @if(parts.controls['type'].value == 'time'){
+    @if(this.parentControl.value.type == 'time'){
     <input matInput formControlName="value" [matTimepicker]="picker"
         #value [value]="control.value.value"  class="time-container" readonly>
     <mat-timepicker-toggle matIconSuffix [for]="picker" />
     <mat-timepicker #picker interval="5m" close="closeTimePicker" (click)="$event.stopPropagation()" />
     }
-    @else if(parts.controls['type'].value == 'series'){
+    @else if(this.parentControl.value.type == 'series'){
     <mat-select formControlName="value" #value class="select-container" [value]="control.value.value">
         @for (option of options; track option) {
         <mat-option [value]="option.value" [class.recommended]="option.recommended">{{option.name}}</mat-option>

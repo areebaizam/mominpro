@@ -78,7 +78,6 @@ export class LibFormComponent implements OnInit, OnDestroy {
 
   showValidationError(fieldName: string): boolean {
     let hasError = this.form.get(fieldName)?.invalid && (this.form.get(fieldName)?.dirty || this.form.get(fieldName)?.touched);
-    console.log('hasError', hasError);
     return hasError ? hasError : false;
   }
 

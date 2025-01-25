@@ -81,7 +81,6 @@ export class IqamaComponent extends BaseFormField<IqamaValue> implements OnInit,
     //TODO fix this logic
     let seriesField = this.control.options[0].control as SeriesModel;
     this.options = this.formService.getSeriesOptions(seriesField);
-    console.log(this.control,this.options,this.control.options)
     this.parts = this.fb.group({
       type: [this.control.value.type],
       value: '05:00' as alphanumericbool,
