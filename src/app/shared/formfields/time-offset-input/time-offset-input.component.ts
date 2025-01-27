@@ -1,6 +1,6 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, input, Input, model, OnDestroy, signal, untracked, viewChild } from '@angular/core';
 //Form
-import { AbstractControl, ControlContainer, ControlValueAccessor, FormBuilder, FormGroup, FormsModule, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, ControlContainer, ControlValueAccessor, FormBuilder, FormControl, FormGroup, FormsModule, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
 //Material
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTimepickerModule } from '@angular/material/timepicker';
+import { MatTimepicker, MatTimepickerModule } from '@angular/material/timepicker';
 //Services
 import { FormService } from '@shared/services';
 //Models
@@ -39,8 +39,12 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
   get parentFormGroup() {
     return this.parentContainer.control as FormGroup;
   }
-  get parentControl() {
+  get form() {
     return this.parentFormGroup.controls[this.key] as FormGroup
+  }
+
+  get valueControl() {
+    return this.form.get('value') as FormControl;
   }
 
   options: SelectOptionModel[] = [];
@@ -84,7 +88,7 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
   }
 
   get empty() {
-    const { value: { value, type } } = this.parentControl;
+    const { value: { value, type } } = this.form;
     return !value && !type;
   }
 
@@ -113,7 +117,7 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
   }
 
   get errorState(): boolean {
-    return this.parentControl.invalid && this.touched();
+    return this.form.invalid && this.touched();
   }
 
   ngOnInit() {
@@ -148,33 +152,33 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
     effect(() => {
       if (this._disabled()) {
         untracked(() => {
-          this.parentControl.disable()
+          this.form.disable()
         });
       } else {
-        untracked(() => this.parentControl.enable());
+        untracked(() => this.form.enable());
       }
     });
 
     effect(() => {
       const value = this._value() || new TimeOffsetValue('time', null);
-      untracked(() => this.parentControl.setValue(value));
+      untracked(() => this.form.setValue(value));
     });
 
-    this.parentControl.statusChanges.pipe(takeUntilDestroyed()).subscribe((x) => {
+    this.form.statusChanges.pipe(takeUntilDestroyed()).subscribe((x) => {
       this.stateChanges.next();
     });
 
-    this.parentControl.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
 
-      if (this.parentControl.touched)
+      if (this.form.touched)
         this.touched.set(true);
 
       if (this._value() && (value.type != this._value()?.type)) {
-        this.parentControl.patchValue({ value: null }, { emitEvent: false });
-        
+        this.form.patchValue({ value: null }, { emitEvent: false });
+
       }
-      const timeOffset = (this.parentControl.enabled && this.parentControl.valid) || this.parentControl.value ? new TimeOffsetValue(this.parentControl.value.type || 'time', this.parentControl.value.value || null)
-        : new TimeOffsetValue(this.parentControl.value.type || 'time', null);
+      const timeOffset = (this.form.enabled && this.form.valid) || this.form.value ? new TimeOffsetValue(this.form.value.type || 'time', this.form.value.value || null)
+        : new TimeOffsetValue(this.form.value.type || 'time', null);
       this._updateValue(timeOffset);
     });
   }
@@ -230,7 +234,7 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
   }
 
   onContainerClick() {
-    if (this.parentControl.valid) {
+    if (this.form.valid) {
       this._focusMonitor.focusVia(this.valueInput(), 'program');
     }
     else {
@@ -259,5 +263,12 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
     this.onChange(this.value);
   }
 
+  getValidationError(): string {
+    return this.formService.getValidationError(this.valueControl, this.control.label);
+  }
 
+  closeIfDisabled(picker: MatTimepicker<any>) {
+    if (this.valueControl.disabled)
+      picker.close()
+  }
 }

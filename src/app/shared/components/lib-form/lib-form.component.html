@@ -9,9 +9,7 @@
         <mat-hint align="end" [class.read-only]="!editMode">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
-        @if(showValidationError(field.name)){
         <mat-error>{{ getValidationError(field)}}</mat-error>
-        }
     </mat-form-field>
     } @else if(field.type == 'textarea'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
@@ -21,9 +19,7 @@
         <mat-hint align="end" [class.read-only]="!editMode">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
-        @if(showValidationError(field.name)){
         <mat-error>{{ getValidationError(field)}}</mat-error>
-        }
     </mat-form-field>
     } @else if(field.type == 'number'){
     <!-- TODO Add more validations on length and value -->
@@ -34,9 +30,7 @@
         <mat-hint align="end" [class.read-only]="!editMode">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
-        @if(showValidationError(field.name)){
         <mat-error>{{ getValidationError(field)}}</mat-error>
-        }
     </mat-form-field>
     } @else if(field.type == 'select'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
@@ -47,9 +41,7 @@
                     }}</span></mat-option>
             }
         </mat-select>
-        @if(showValidationError(field.name)){
         <mat-error>{{ getValidationError(field)}}</mat-error>
-        }
     </mat-form-field>
     } @else if(field.type == 'slider'){
     <div class="field-width slider" [style.flex]="field.colspan">
@@ -74,17 +66,11 @@
     <mat-slide-toggle [formControl]="getFormControl(field.name)" [checked]="field.value" class="field-width toggle"
         [style.flex]="field.colspan" (change)="onToggle(field.name, $event.checked)"><span
             [class.read-only]="!editMode">{{ field.label
-        }}</span></mat-slide-toggle>
+            }}</span></mat-slide-toggle>
     }
     @else if(field.type == 'iqama'){
-    <mat-form-field class="field-width" [style.flex]="field.colspan" appearance="outline">
-        <mat-label [class.read-only]="!editMode" (click)="$event.stopPropagation()">{{ field.label }}</mat-label>
-        <tap-time-offset-input [control]="field"></tap-time-offset-input>
-        @if(showValidationError(field.name)){
-        <mat-error>{{ getFormValidationError(field)}}</mat-error>
-        }
-    </mat-form-field>
+    <tap-time-offset-input [control]="field" [style.flex]="field.colspan"></tap-time-offset-input>
     }
-    }
+}
 </form>
 }

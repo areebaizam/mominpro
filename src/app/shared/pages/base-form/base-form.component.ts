@@ -39,6 +39,7 @@ export class BaseFormComponent {
   }
 
   private save() {
+    console.log('Form', this.form.value);
     if (!this.canSave())
       return;    
     this.disable();

@@ -1,5 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -106,7 +107,10 @@ export class FormService {
     return isInputType ? (type as InputType) : null;
   }
 
-  getValidationError(errors: ValidationErrors, fieldName: string): string {
+  getValidationError(control: AbstractControl | null, fieldName: string): string {
+    let errors = control?.errors;
+    if (!errors)
+      return '';
     const errorMessages: string[] = [];
     for (const errorName in errors) {
       if (errors.hasOwnProperty(errorName)) {
@@ -129,26 +133,6 @@ export class FormService {
 
     // Default fallback if error is not mapped
     return messages[errorName] || 'Invalid field.';
-  }
-
-
-  //TOD FIX THIS 
-  // validateAllFields
-  validateAllFields(formGroup: FormGroup, fieldName: string):string {
-    let errorMessage: string='';
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched();
-        control.updateValueAndValidity();
-        let errors = control?.errors;
-        if (!!errors)
-          errorMessage=this.getValidationError(errors, fieldName);
-      } else if (control instanceof FormGroup) {
-        this.validateAllFields(control, fieldName);
-      }
-    });
-    return errorMessage;
   }
 
 }

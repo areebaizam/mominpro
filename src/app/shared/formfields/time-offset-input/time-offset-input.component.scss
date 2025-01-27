@@ -1,50 +1,10 @@
 .input-container {
     display: flex;
     flex-direction: column;
-    margin-top: -12px;
-    margin-left: -12px;
+
 }
 
-.radio-container{
-    justify-content: flex-start;
-    display: flex;
+.time-input {
+    caret-color: transparent !important;
+    user-select: none
 }
-
-.time-container {
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    padding-left: 16px;
-    .time-input {
-        caret-color: transparent;
-        user-select: none;
-        height: 40px;
-        color: var(--primary);
-    }
-}
-
-.select-container {
-    height: 40px;
-    display: flex;
-    padding-inline: 16px;
-    color: var(--primary);
-}
-
-.empty {
-    background: var(--surface-container);
-}
-
-.mat-mdc-select-trigger {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-}
-
-// .select-container{
-//     width: 120px;
-//     position: absolute;
-//     bottom: 13px;
-//     right: 0;
-//     background: var(--surface);
-//     padding: 4px;
-// }

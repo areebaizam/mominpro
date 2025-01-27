@@ -66,19 +66,7 @@ export class LibFormComponent implements OnInit, OnDestroy {
   }
 
   getValidationError(field: FormControlModel): string {
-    let errors = this.form.get(field.name)?.errors;
-    if (!!errors)
-      return this.formService.getValidationError(errors, field.label);
-    return '';
-  }
-
-  getFormValidationError(field: FormControlModel): string {
-    return this.formService.validateAllFields(this.form.get(field.name) as FormGroup,field.label);
-  }
-
-  showValidationError(fieldName: string): boolean {
-    let hasError = this.form.get(fieldName)?.invalid && (this.form.get(fieldName)?.dirty || this.form.get(fieldName)?.touched);
-    return hasError ? hasError : false;
+      return this.formService.getValidationError(this.form.get(field.name), field.label);
   }
 
   onToggle(fieldName: string, value: boolean) {
