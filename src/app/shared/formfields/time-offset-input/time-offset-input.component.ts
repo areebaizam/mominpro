@@ -34,6 +34,7 @@ const materialModules = [MatInputModule, MatSelectModule, MatTimepickerModule, M
 })
 export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, ControlValueAccessor, OnDestroy {
   @Input({ required: true }) control!: TimeOffsetModel;
+  @Input() editMode: boolean | undefined = true;
   parentContainer = inject(ControlContainer);
 
   get parentFormGroup() {
@@ -123,7 +124,12 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
   ngOnInit() {
     let seriesField = this.control.options[0].control as SeriesModel;
     this.options = this.formService.getSeriesOptions(seriesField);
+    this.form.setValue(this.control.value);
+    this.valueControl.setValidators(this.formService.getValidators(this.control.validators));
 
+  }
+  ngAfterViewInit() {
+    if (!this.editMode) this.parentFormGroup.disable();
   }
 
   constructor() {
@@ -133,11 +139,12 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
     this.key = Object.keys(this.parentFormGroup.controls)[0]
     this.parentFormGroup.removeControl(this.key);
     let form = inject(FormBuilder).group({
-      type: ['time' as ControlType, [Validators.required]],
-      value: [null, Validators.required],
+      type: ['time'],
+      value: [null],
     });
 
     this.parentFormGroup.addControl(this.key, form);
+
 
     effect(() => {
       // Read signals to trigger effect.
@@ -195,9 +202,19 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
     this._value.set(timeOffset);
   }
 
+  //TODO Get MIN TIME from Calc
+  getMinTimeValue(): string {
+    let min = this.control.options.find(x => x.type == 'time')?.control?.validators?.matTimepickerMin;
+    return !!min ? min : '00:00';
+  }
+  getMaxTimeValue(): string {
+    let max = this.control.options.find(x => x.type == 'time')?.control?.validators?.matTimepickerMax;
+    return !!max ? max : '23:59';
+  }
   ngOnDestroy() {
     this.stateChanges.complete();
     this._focusMonitor.stopMonitoring(this._elementRef);
+    this.parentFormGroup.removeControl(this.key);
   }
 
   onFocusIn() {

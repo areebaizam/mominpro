@@ -69,7 +69,7 @@
             }}</span></mat-slide-toggle>
     }
     @else if(field.type == 'iqama'){
-    <tap-time-offset-input [control]="field" [style.flex]="field.colspan"></tap-time-offset-input>
+    <tap-time-offset-input [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-time-offset-input>
     }
 }
 </form>

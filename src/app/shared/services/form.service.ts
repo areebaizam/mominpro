@@ -69,7 +69,7 @@ export class FormService {
     return form;
   }
 
-  private getValidators(
+  getValidators(
     validators: ValidatorModel | null
   ): ValidatorFn[] | null {
     if (!validators) return null;
@@ -129,8 +129,11 @@ export class FormService {
       min: `${fieldName} value must be atleast  ${errorValue.min}`,
       email: 'Enter a valid email address',
       pattern: `The format of ${fieldName} is incorrect`,
+      matTimepickerMin:`${fieldName} value is too early`,
+      matTimepickerMax:`${fieldName} value is too late`,
+      matTimepickerParse:`${fieldName} value isn't a valid time`,
     };
-
+    //TODO Check why Parse is not working
     // Default fallback if error is not mapped
     return messages[errorName] || 'Invalid field.';
   }

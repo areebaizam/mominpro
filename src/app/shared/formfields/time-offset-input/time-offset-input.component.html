@@ -9,9 +9,10 @@
     @if(form.value.type == 'time'){
     <mat-form-field class="field-width" [style.flex]="control.colspan">
         <mat-label>{{ control.label }}</mat-label>
-        <input matInput formControlName="value" [matTimepicker]="picker" #value [value]="control.value.value" class="time-input" readonly>
-        <mat-timepicker-toggle matIconSuffix [for]="picker"  [disabled]="valueControl.disabled"/>
-        <mat-timepicker #picker interval="5m" (opened)="closeIfDisabled(picker)"/>
+        <input matInput formControlName="value" [matTimepicker]="picker" #value [value]="control.value.value"
+            class="time-input" [matTimepickerMin]="getMinTimeValue()" [matTimepickerMax]="getMaxTimeValue()" readonly>
+        <mat-timepicker-toggle matIconSuffix [for]="picker" [disabled]="valueControl.disabled" />
+        <mat-timepicker #picker interval="5m" (opened)="closeIfDisabled(picker)" />
         <mat-error>{{ getValidationError()}}</mat-error>
     </mat-form-field>
     }

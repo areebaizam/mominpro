@@ -27,6 +27,10 @@ export interface ValidatorModel {
     maxLength?: number;
     email?: boolean;
     pattern?: string;
+    matTimepickerMin?: string;
+    matTimepickerMax?: string;
+    matTimepickerParse?: boolean;
+
 }
 
 export interface BaseFormControlModel {
