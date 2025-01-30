@@ -279,6 +279,16 @@ export const HIJRI_FORM_SETTINGS_DATA = [
     },
 ] as FormControlModel[];
 
+export const ATHAN_FORM_DISPLAY_FLAG = [
+    {
+        type: "toggle",
+        name: 'display',
+        label: 'Show Athan on Display',
+        value: false,
+        colspan: eGridSpan.HALF,
+    },
+] as FormControlModel[];
+
 export const ATHAN_FORM_SALAH_DATA = [
     {
         type: "series",
@@ -378,21 +388,6 @@ export const ATHAN_FORM_REGULAR_DATA = [
 
 export const ATHAN_FORM_RAMADAN_DATA = [
     ...ATHAN_FORM_SALAH_DATA,
-    // {
-    //     type: "series",
-    //     name: 'taraweehOffset',
-    //     label: 'Taraweeh Iqama',
-    //     value: 5,
-    //     colspan: eGridSpan.ONE_THIRD,
-    //     validators: {
-    //         min: 0,
-    //         max: 60,
-    //     },
-    //     suffix: 'minutes after Iqama',
-    //     suffixUnit: 'minute after Iqama',
-    //     baseLabel: 'Soon after Isha',
-    //     recommendedValue: 10,
-    // },
     {
         type: "series",
         name: 'jumuahOffset',
@@ -576,6 +571,21 @@ export const SALAH_FORM_CONFIG_DATA = [
             },
         ]
     },
+] as FormControlModel[];
+
+export const IQAMAH_FORM_START_DATA = [
+    {
+        type: "date",
+        name: 'start',
+        label: 'Start date',
+        value: '',
+        hint:'MM/DD/YYYY',
+        colspan: eGridSpan.HALF,
+        validators: {
+            required: true,
+        }
+    },
+
 ] as FormControlModel[];
 
 export const IQAMAH_FORM_PRAYER_DATA = [
@@ -811,7 +821,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     label: '',
                     value: '',
                     colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',                    
+                    type: 'time',
                 }
             },
         ]
@@ -819,8 +829,8 @@ export const IQAMAH_FORM_PRAYER_DATA = [
     {
         type: "iqama",
         name: 'taraweeh',
-        label: 'Taraweeh',
-        value: { type: 'series', value: 5 },
+        label: 'Taraweeh (optional)',
+        value: { type: 'series', value: 10 },
         colspan: eGridSpan.ONE_THIRD,
         options: [
             {
@@ -853,6 +863,143 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     value: '',
                     colspan: eGridSpan.ONE_FOURTH,
                     type: 'time'
+                }
+            },
+        ]
+    },
+] as FormControlModel[];
+export const IQAMAH_FORM_JUMUAH_DATA = [
+    {
+        type: "iqama",
+        name: 'jumuah1',
+        label: 'First Jumuah (optional)',
+        value: { type: 'time', value: new Date(0, 0, 0, 12, 0) },
+        colspan: eGridSpan.ONE_THIRD,
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: '',
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time',
+                    validators: {
+                        matTimepickerMin: '11:00',
+                        matTimepickerMax: '16:00',
+                    },
+                }
+            },
+        ]
+    },
+    {
+        type: "iqama",
+        name: 'jumuah2',
+        label: 'Second Jumuah (optional)',
+        value: { type: 'time', value: new Date(0, 0, 0, 13, 0) },
+        colspan: eGridSpan.ONE_THIRD,
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: '',
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time',
+                    validators: {
+                        matTimepickerMin: '11:00',
+                        matTimepickerMax: '16:00',
+                    },
+                }
+            },
+        ]
+    },
+    {
+        type: "iqama",
+        name: 'jumuah3',
+        label: 'Third Jumuah (optional)',
+        value: { type: 'time', value: new Date(0, 0, 0, 14, 0) },
+        colspan: eGridSpan.ONE_THIRD,
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: '',
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time',
+                    validators: {
+                        matTimepickerMin: '11:00',
+                        matTimepickerMax: '16:00',
+                    },
                 }
             },
         ]
@@ -905,6 +1052,11 @@ export const HIJRI_FORM_DATA = [
 
 export const ATHAN_FORM_DATA = [
     {
+        key: "settings",
+        label: "Athan Display Settings",
+        data: ATHAN_FORM_DISPLAY_FLAG,
+    },
+    {
         key: "general",
         label: "Regular Timings",
         data: ATHAN_FORM_REGULAR_DATA,
@@ -933,16 +1085,25 @@ export const SALAH_FORM_DATA = [
 
 export const IQAMAH_FORM_DATA = [
     {
-        key: "iqama",
+        key: "start",
+        label: "Iqamah Change Date",
+        data: IQAMAH_FORM_START_DATA,
+    },
+    {
+        key: "iqamah",
         label: "Iqamah Timings",
         data: IQAMAH_FORM_PRAYER_DATA,
-    }
+    },
+    {
+        key: "jumuah",
+        label: "Jumuah Timings",
+        data: IQAMAH_FORM_JUMUAH_DATA,
+    },
 ] as ReactiveForm[];
 
 
 export const TIMINGS_TABS_DATA = [
     { id: 0, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },
-    // { id: 0, label: "Iqamah", editMode: true, forms: IQAMAH_FORM_DATA },
     { id: 1, label: "Iqamah", editMode: false, forms: IQAMAH_FORM_DATA },
     { id: 2, label: "Athan", editMode: false, forms: ATHAN_FORM_DATA },
 ] as TabModel[];

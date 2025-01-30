@@ -1,11 +1,13 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideNativeDateAdapter } from '@angular/material/core';
 //Material
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
@@ -19,7 +21,8 @@ import { FormControlModel } from '@shared/models';
 
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule];
-const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, MatSliderModule, MatIconModule, MatButtonModule, MatSelectModule, MatSlideToggleModule];
+const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, MatSliderModule,
+  MatIconModule, MatButtonModule, MatSelectModule, MatSlideToggleModule, MatDatepickerModule];
 const customControls = [TimeOffsetInput];
 
 //Reference:https://github.com/DMezhenskyi/shared-angular-forms/blob/implemented/src/app/address-group/address-group.component.ts
@@ -30,7 +33,8 @@ const customControls = [TimeOffsetInput];
     {
       provide: ControlContainer,
       useFactory: () => inject(ControlContainer, { skipSelf: true })
-    }
+    },
+    provideNativeDateAdapter(),
   ],
   templateUrl: './lib-form.component.html',
   styleUrl: './lib-form.component.scss'
@@ -66,7 +70,7 @@ export class LibFormComponent implements OnInit, OnDestroy {
   }
 
   getValidationError(field: FormControlModel): string {
-      return this.formService.getValidationError(this.form.get(field.name), field.label);
+    return this.formService.getValidationError(this.form.get(field.name), field.label);
   }
 
   onToggle(fieldName: string, value: boolean) {

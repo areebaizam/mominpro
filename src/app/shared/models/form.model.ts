@@ -7,9 +7,9 @@ export class TimeOffsetValue {
     constructor(public type: ControlType, public value: alphanumericbool | null) { }
 }
 export type alphanumericbool = string | number | boolean | Date;
-export type InputType = 'color' | 'date' | 'datetime-local' | 'email' | 'month' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
+export type InputType = 'color' | 'email' | 'month' | 'password' | 'search' | 'tel' | 'text' | 'url' | 'week';
 export type CustomType = 'iqama';
-export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle';
+export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time';
 export type ControlValue = alphanumericbool | TimeOffsetValue;
 export enum eGridSpan {
     FULL = '1 1 100%',
@@ -46,10 +46,16 @@ export interface InputModel extends BaseFormControlModel {
     type: InputType;
     placeholder: string;
 }
+//TextArea
 export interface TextAreaModel extends BaseFormControlModel {
     type: 'textarea';
     placeholder: string;
     rows: number;
+}
+//Date
+export interface DatePickerModel extends BaseFormControlModel {
+    type: 'date';
+    hint: string;
 }
 //Slider
 export interface SliderModel extends BaseFormControlModel {
@@ -99,7 +105,7 @@ export interface IqamaOptions {
     control: FormControlModel,
 }
 
-export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | TimeOffsetModel;
+export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | TimeOffsetModel | DatePickerModel;
 
 export interface ReactiveForm {
     key: string;

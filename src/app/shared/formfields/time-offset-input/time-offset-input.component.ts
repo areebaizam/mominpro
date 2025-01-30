@@ -44,6 +44,10 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
     return this.parentFormGroup.controls[this.key] as FormGroup
   }
 
+  get typeControl() {
+    return this.form.get('type') as FormControl;
+  }
+  
   get valueControl() {
     return this.form.get('value') as FormControl;
   }
@@ -176,7 +180,6 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
     });
 
     this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
-
       if (this.form.touched)
         this.touched.set(true);
 

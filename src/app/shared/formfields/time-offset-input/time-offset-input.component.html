@@ -1,6 +1,6 @@
 <div role="group" class="input-container" [formGroup]="form" [attr.aria-labelledby]="_formField?.getLabelId()"
     (focusin)="onFocusIn()" (focusout)="onFocusOut($event)" [class.read-only]="form.disabled">
-    <mat-radio-group formControlName="type" #type aria-label="Time Offset option">
+    <mat-radio-group [formControl]="typeControl" #type aria-label="Time Offset option">
         @for (option of control.options; track option) {
         <mat-radio-button [value]="option.type" [class.recommended]="option.recommended"><span>{{ option.typeLabel
                 }}</span></mat-radio-button>
@@ -9,7 +9,7 @@
     @if(form.value.type == 'time'){
     <mat-form-field class="field-width" [style.flex]="control.colspan">
         <mat-label>{{ control.label }}</mat-label>
-        <input matInput formControlName="value" [matTimepicker]="picker" #value [value]="control.value.value"
+        <input matInput [formControl]="valueControl" [matTimepicker]="picker" #value [value]="control.value.value"
             class="time-input" [matTimepickerMin]="getMinTimeValue()" [matTimepickerMax]="getMaxTimeValue()" readonly>
         <mat-timepicker-toggle matIconSuffix [for]="picker" [disabled]="valueControl.disabled" />
         <mat-timepicker #picker interval="5m" (opened)="closeIfDisabled(picker)" />
@@ -19,7 +19,7 @@
     @else if(form.value.type == 'series'){
     <mat-form-field class="field-width" [style.flex]="control.colspan">
         <mat-label>{{ control.label }}</mat-label>
-        <mat-select formControlName="value" #value [value]="control.value.value">
+        <mat-select [formControl]="valueControl" #value [value]="control.value.value">
             @for (option of options; track option) {
             <mat-option [value]="option.value" [class.recommended]="option.recommended">{{option.name}}</mat-option>
             }

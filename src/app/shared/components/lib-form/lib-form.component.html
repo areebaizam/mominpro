@@ -68,6 +68,16 @@
             [class.read-only]="!editMode">{{ field.label
             }}</span></mat-slide-toggle>
     }
+    @else if(field.type == 'date'){
+    <mat-form-field class="field-width" [style.flex]="field.colspan">
+        <mat-label>{{ field.label }}</mat-label>
+        <input matInput [matDatepicker]="dp" [formControl]="getFormControl(field.name)" [value]="field.value">
+        <mat-hint align="end" [class.read-only]="!editMode">{{ field.hint }}</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp></mat-datepicker>
+        <mat-error>{{ getValidationError(field)}}</mat-error>
+    </mat-form-field>
+    }
     @else if(field.type == 'iqama'){
     <tap-time-offset-input [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-time-offset-input>
     }

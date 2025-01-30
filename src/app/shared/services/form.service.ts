@@ -91,8 +91,6 @@ export class FormService {
   isInputType(type: ControlType): InputType | null {
     let isInputType = [
       "color",
-      "date",
-      "datetime-local",
       "email",
       "month",
       "number",
@@ -100,7 +98,6 @@ export class FormService {
       "search",
       "tel",
       "text",
-      "time",
       "url",
       "week",
     ].includes(type);
