@@ -108,13 +108,13 @@ export interface IqamaOptions {
 export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | TimeOffsetModel | DatePickerModel;
 
 export interface ReactiveForm {
-    key: string;
+    name: string;
     label: string;
     data: FormControlModel[];
 }
 
 export interface TabModel {
-    id: number;
+    id: string;
     label: string;
     editMode: boolean;
     forms: ReactiveForm[]

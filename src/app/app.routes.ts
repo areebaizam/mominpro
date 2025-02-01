@@ -2,28 +2,33 @@ import { Routes } from '@angular/router';
 //Components
 import { PageNotFoundComponent } from '@shared/pages';
 // Models
-import { eFeatureRouteURL } from '@shared/models';
+import { FeatureURLConstants } from '@shared/models';
 
 export const routes: Routes = [
     {
-        path: eFeatureRouteURL.HOME,
+        path: FeatureURLConstants.HOME,
         loadChildren: () => import("@features/home/routes"),
         data: { breadcrumb: 'Home' }
     },
     {
-        path: eFeatureRouteURL.TIMINGS,
+        path: FeatureURLConstants.TIMINGS,
         loadChildren: () => import("@features/timings/routes"),
-        data: { breadcrumb: eFeatureRouteURL.TIMINGS }
+        data: { breadcrumb: FeatureURLConstants.TIMINGS }
     },
     {
-        path: eFeatureRouteURL.SETTINGS,
+        path: FeatureURLConstants.SETTINGS,
         loadChildren: () => import("@features/settings/routes"),
-        data: { breadcrumb: eFeatureRouteURL.SETTINGS }
+        data: { breadcrumb: FeatureURLConstants.SETTINGS }
     },
     {
-        path: eFeatureRouteURL.TEST,
+        path: FeatureURLConstants.ACCOUNTS,
+        loadChildren: () => import("@features/accounts/routes"),
+        data: { breadcrumb: FeatureURLConstants.ACCOUNTS }
+    },
+    {
+        path: FeatureURLConstants.TEST,
         loadChildren: () => import("@test/routes"),
-        data: { breadcrumb: eFeatureRouteURL.TEST }
+        data: { breadcrumb: FeatureURLConstants.TEST }
     },
     // {
     //     path: "",

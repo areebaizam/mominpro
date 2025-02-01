@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { EventService, ThemeService } from '@core/services';
 import { SidenavService } from '@shared/services';
 //Models
-import { APP_TOGGLE_ICONS, BtnToggleModel, eBtnToggleType, eFeatureRouteURL } from '@shared/models';
+import { APP_TOGGLE_ICONS, BtnToggleModel, eBtnToggleType, FeatureURLConstants } from '@shared/models';
 import { Subscription } from 'rxjs';
 
 @Injectable({
@@ -57,7 +57,7 @@ export class ToggleService implements OnDestroy {
         this.eventService.toggleFullScreen();
         break;
       case eBtnToggleType.HOME:
-        this.router.navigateByUrl(eFeatureRouteURL.HOME);
+        this.router.navigateByUrl(FeatureURLConstants.HOME);
         break;
 
     }

@@ -2,12 +2,12 @@
     <div class="flex-center">
         @if(!mediaQuery.isLarge()){
         <tap-btn-toggle [type]="toggleType.SIDENAV"></tap-btn-toggle>
-        <a mat-button [routerLink]="sidenavService.homeData.url">AL Fatheh Mosque</a>
+        <a mat-button [routerLink]="sidenavService.homeData.url.toString()">AL Fatheh Mosque</a>
         }
     </div>
     <div>
         @if(mediaQuery.isLarge()){
-        <a mat-button [routerLink]="sidenavService.homeData.url">AL Fatheh Mosque</a>
+        <a mat-button [routerLink]="sidenavService.homeData.url.toString()">AL Fatheh Mosque</a>
         }
     </div>
     <div>

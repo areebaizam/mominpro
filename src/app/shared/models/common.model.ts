@@ -1,9 +1,4 @@
-export enum eFeatureRouteURL {
-    HOME = "",
-    TIMINGS = "timings",
-    SETTINGS = "settings",
-    TEST = "test",
-}
+import { FeatureURLConstants } from "./app.constants";
 
 export type MatDrawerPosition = "start" | "end";
 export enum eBtnToggleType {
@@ -33,6 +28,6 @@ export class BtnNavModel {
     parentId: number | null = null;
     icon: string = '';
     label: string = '';
-    url: eFeatureRouteURL = eFeatureRouteURL.HOME;
+    url: FeatureURLConstants = FeatureURLConstants.HOME;
     children: BtnNavModel[] | null = null;
   }

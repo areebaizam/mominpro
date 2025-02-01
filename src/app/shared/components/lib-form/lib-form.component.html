@@ -1,5 +1,5 @@
 @defer{
-<form [formGroupName]="controlKey" class="form-container">
+<form [formGroupName]="formGroupName" class="form-container">
     @for(field of formFields; track field){
     @if(field.type == formService.isInputType(field.type)){
     <mat-form-field class="field-width" [style.flex]="field.colspan">

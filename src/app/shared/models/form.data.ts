@@ -1,4 +1,5 @@
 import { eGridSpan, FormControlModel, ReactiveForm, TabModel } from "./form.model";
+import { TimingConstants, SettingConstants, AccountConstants } from "./app.constants";
 
 export const MOSQUE_FORM_GENERAL_DATA = [
     {
@@ -209,7 +210,7 @@ export const LOCATION_FORM_TIMEZONE_DATA = [
 export const LOCATION_FORM_SOLAR_DATA = [
     {
         type: "series",
-        name: 'sunriseOffset',
+        name: 'sunrise',
         label: 'Sunrise',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
@@ -224,7 +225,7 @@ export const LOCATION_FORM_SOLAR_DATA = [
     },
     {
         type: "series",
-        name: 'middayOffset',
+        name: 'midday',
         label: 'Midday',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
@@ -239,7 +240,7 @@ export const LOCATION_FORM_SOLAR_DATA = [
     },
     {
         type: "series",
-        name: 'sunsetOffset',
+        name: 'sunset',
         label: 'Sunset',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
@@ -257,7 +258,7 @@ export const LOCATION_FORM_SOLAR_DATA = [
 export const HIJRI_FORM_SETTINGS_DATA = [
     {
         type: "series",
-        name: 'hijri',
+        name: 'offset',
         label: 'Hijri Adjustment',
         value: 0,
         colspan: eGridSpan.HALF,
@@ -272,7 +273,7 @@ export const HIJRI_FORM_SETTINGS_DATA = [
     },
     {
         type: "toggle",
-        name: 'isHijri',
+        name: 'display',
         label: 'Show Hijri Calender',
         value: false,
         colspan: eGridSpan.HALF,
@@ -292,7 +293,7 @@ export const ATHAN_FORM_DISPLAY_FLAG = [
 export const ATHAN_FORM_SALAH_DATA = [
     {
         type: "series",
-        name: 'fajrOffset',
+        name: 'fajr',
         label: 'Fajr',
         value: 20,
         colspan: eGridSpan.ONE_THIRD,
@@ -307,7 +308,7 @@ export const ATHAN_FORM_SALAH_DATA = [
     },
     {
         type: "series",
-        name: 'dhurOffset',
+        name: 'dhur',
         label: 'Dhuhr',
         value: 10,
         colspan: eGridSpan.ONE_THIRD,
@@ -322,7 +323,7 @@ export const ATHAN_FORM_SALAH_DATA = [
     },
     {
         type: "series",
-        name: 'asrOffset',
+        name: 'asr',
         label: 'Asr',
         value: 30,
         colspan: eGridSpan.ONE_THIRD,
@@ -337,7 +338,7 @@ export const ATHAN_FORM_SALAH_DATA = [
     },
     {
         type: "series",
-        name: 'maghribOffset',
+        name: 'maghrib',
         label: 'Maghrib',
         value: 1,
         colspan: eGridSpan.ONE_THIRD,
@@ -352,7 +353,7 @@ export const ATHAN_FORM_SALAH_DATA = [
     },
     {
         type: "series",
-        name: 'ishaOffset',
+        name: 'isha',
         label: 'Isha',
         value: 10,
         colspan: eGridSpan.ONE_THIRD,
@@ -371,7 +372,7 @@ export const ATHAN_FORM_REGULAR_DATA = [
     ...ATHAN_FORM_SALAH_DATA,
     {
         type: "series",
-        name: 'jumuahOffset',
+        name: 'jumuah',
         label: 'Jumuah',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
@@ -390,7 +391,7 @@ export const ATHAN_FORM_RAMADAN_DATA = [
     ...ATHAN_FORM_SALAH_DATA,
     {
         type: "series",
-        name: 'jumuahOffset',
+        name: 'jumuah',
         label: 'Jumuah',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
@@ -405,10 +406,10 @@ export const ATHAN_FORM_RAMADAN_DATA = [
     },
 ] as FormControlModel[];
 
-export const SALAH_FORM_OVERRIDE_DATA = [
+export const SALAH_FORM_ADJUSTMENT_DATA = [
     {
         type: "series",
-        name: 'fajrOffset',
+        name: 'fajr',
         label: 'Fajr',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
@@ -423,7 +424,7 @@ export const SALAH_FORM_OVERRIDE_DATA = [
     },
     {
         type: "series",
-        name: 'dhurOffset',
+        name: 'dhur',
         label: 'Dhuhr',
         value: 2,
         colspan: eGridSpan.ONE_THIRD,
@@ -438,7 +439,7 @@ export const SALAH_FORM_OVERRIDE_DATA = [
     },
     {
         type: "series",
-        name: 'asrOffset',
+        name: 'asr',
         label: 'Asr',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
@@ -453,7 +454,7 @@ export const SALAH_FORM_OVERRIDE_DATA = [
     },
     {
         type: "series",
-        name: 'maghribOffset',
+        name: 'maghrib',
         label: 'Maghrib',
         value: 1,
         colspan: eGridSpan.ONE_THIRD,
@@ -468,7 +469,7 @@ export const SALAH_FORM_OVERRIDE_DATA = [
     },
     {
         type: "series",
-        name: 'ishaOffset',
+        name: 'isha',
         label: 'Isha',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
@@ -485,7 +486,7 @@ export const SALAH_FORM_OVERRIDE_DATA = [
 export const SALAH_FORM_CONFIG_DATA = [
     {
         type: "slider",
-        name: 'fajr',
+        name: 'fajrAngle',
         label: 'Fajr',
         value: 15,
         colspan: eGridSpan.HALF,
@@ -497,7 +498,7 @@ export const SALAH_FORM_CONFIG_DATA = [
     },
     {
         type: "slider",
-        name: 'isha',
+        name: 'ishaAngle',
         label: 'Isha',
         value: 15,
         colspan: eGridSpan.HALF,
@@ -529,25 +530,25 @@ export const SALAH_FORM_CONFIG_DATA = [
         type: "select",
         name: 'juristic',
         label: 'Asr Juristic (Madhab)',
-        value: '',
+        value: 0,
         colspan: eGridSpan.ONE_THIRD,
         validators: {
             required: true,
         },
         options: [
             {
-                value: 1,
+                value: 0,
                 name: 'Standard (Shafi\'i, Maliki \& Hanbali)'
             },
             {
-                value: 2,
+                value: 1,
                 name: 'Later Asr (Hanafi)'
             },
         ]
     },
     {
         type: "select",
-        name: 'ha',
+        name: 'rule',
         label: 'High Latitude Rule',
         value: 1,
         colspan: eGridSpan.ONE_THIRD,
@@ -576,10 +577,10 @@ export const SALAH_FORM_CONFIG_DATA = [
 export const IQAMAH_FORM_START_DATA = [
     {
         type: "date",
-        name: 'start',
+        name: 'date',
         label: 'Start date',
         value: '',
-        hint:'MM/DD/YYYY',
+        hint: 'MM/DD/YYYY',
         colspan: eGridSpan.HALF,
         validators: {
             required: true,
@@ -871,7 +872,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
 export const IQAMAH_FORM_JUMUAH_DATA = [
     {
         type: "iqama",
-        name: 'jumuah1',
+        name: 'first',
         label: 'First Jumuah (optional)',
         value: { type: 'time', value: new Date(0, 0, 0, 12, 0) },
         colspan: eGridSpan.ONE_THIRD,
@@ -916,7 +917,7 @@ export const IQAMAH_FORM_JUMUAH_DATA = [
     },
     {
         type: "iqama",
-        name: 'jumuah2',
+        name: 'second',
         label: 'Second Jumuah (optional)',
         value: { type: 'time', value: new Date(0, 0, 0, 13, 0) },
         colspan: eGridSpan.ONE_THIRD,
@@ -961,7 +962,7 @@ export const IQAMAH_FORM_JUMUAH_DATA = [
     },
     {
         type: "iqama",
-        name: 'jumuah3',
+        name: 'third',
         label: 'Third Jumuah (optional)',
         value: { type: 'time', value: new Date(0, 0, 0, 14, 0) },
         colspan: eGridSpan.ONE_THIRD,
@@ -1006,19 +1007,69 @@ export const IQAMAH_FORM_JUMUAH_DATA = [
     },
 ] as FormControlModel[];
 
+export const SALAH_FORM_DATA = [
+    {
+        name: "settings",
+        label: "Settings",
+        data: SALAH_FORM_CONFIG_DATA,
+    },
+    {
+        name: "offset",
+        label: "Start Time Adjustments",
+        data: SALAH_FORM_ADJUSTMENT_DATA,
+    },
+
+] as ReactiveForm[];
+
+export const IQAMAH_FORM_DATA = [
+    {
+        name: "settings",
+        label: "Iqamah Change Date",
+        data: IQAMAH_FORM_START_DATA,
+    },
+    {
+        name: "offset",
+        label: "Iqamah Timings",
+        data: IQAMAH_FORM_PRAYER_DATA,
+    },
+    {
+        name: "jumuah",
+        label: "Jumuah Timings",
+        data: IQAMAH_FORM_JUMUAH_DATA,
+    },
+] as ReactiveForm[];
+
+export const ATHAN_FORM_DATA = [
+    {
+        name: "settings",
+        label: "Athan Display Settings",
+        data: ATHAN_FORM_DISPLAY_FLAG,
+    },
+    {
+        name: "offset",
+        label: "Regular Timings",
+        data: ATHAN_FORM_REGULAR_DATA,
+    },
+    {
+        name: "ramadan",
+        label: "Ramadan Timings",
+        data: ATHAN_FORM_RAMADAN_DATA,
+    },
+] as ReactiveForm[]
+
 export const MOSQUE_FORM_DATA = [
     {
-        key: "general",
+        name: "information",
         label: "Information",
         data: MOSQUE_FORM_GENERAL_DATA,
     },
     {
-        key: "address",
+        name: "address",
         label: "Address",
         data: MOSQUE_FORM_ADDRESS_DATA,
     },
     {
-        key: "contact",
+        name: "contact",
         label: "Contact",
         data: MOSQUE_FORM_CONTACT_DATA,
     },
@@ -1026,90 +1077,41 @@ export const MOSQUE_FORM_DATA = [
 
 export const LOCATION_FORM_DATA = [
     {
-        key: "coordinates",
+        name: "coordinates",
         label: "Coordinates",
         data: LOCATION_FORM_COORD_DATA,
     },
     {
-        key: "timezone",
+        name: "timezone",
         label: "Timezone",
         data: LOCATION_FORM_TIMEZONE_DATA,
     },
     {
-        key: "solarOffset",
-        label: "Solar Adjustments",
+        name: "solar",
+        label: "Solar Settings",
         data: LOCATION_FORM_SOLAR_DATA,
     },
 ] as ReactiveForm[];
 
 export const HIJRI_FORM_DATA = [
     {
-        key: "hijri",
-        label: "Adjustments",
+        name: "settings",
+        label: "Settings",
         data: HIJRI_FORM_SETTINGS_DATA,
     }
-] as ReactiveForm[]
-
-export const ATHAN_FORM_DATA = [
-    {
-        key: "settings",
-        label: "Athan Display Settings",
-        data: ATHAN_FORM_DISPLAY_FLAG,
-    },
-    {
-        key: "general",
-        label: "Regular Timings",
-        data: ATHAN_FORM_REGULAR_DATA,
-    },
-    {
-        key: "ramadan",
-        label: "Ramadan Timings",
-        data: ATHAN_FORM_RAMADAN_DATA,
-    },
-] as ReactiveForm[]
-
-
-export const SALAH_FORM_DATA = [
-    {
-        key: "configuration",
-        label: "Configuration",
-        data: SALAH_FORM_CONFIG_DATA,
-    },
-    {
-        key: "overrides",
-        label: "Start Time Adjustments",
-        data: SALAH_FORM_OVERRIDE_DATA,
-    },
-
 ] as ReactiveForm[];
-
-export const IQAMAH_FORM_DATA = [
-    {
-        key: "start",
-        label: "Iqamah Change Date",
-        data: IQAMAH_FORM_START_DATA,
-    },
-    {
-        key: "iqamah",
-        label: "Iqamah Timings",
-        data: IQAMAH_FORM_PRAYER_DATA,
-    },
-    {
-        key: "jumuah",
-        label: "Jumuah Timings",
-        data: IQAMAH_FORM_JUMUAH_DATA,
-    },
-] as ReactiveForm[];
-
 
 export const TIMINGS_TABS_DATA = [
-    { id: 0, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },
-    { id: 1, label: "Iqamah", editMode: false, forms: IQAMAH_FORM_DATA },
-    { id: 2, label: "Athan", editMode: false, forms: ATHAN_FORM_DATA },
+    { id: TimingConstants.SALAH, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },
+    { id: TimingConstants.IQAMAH, label: "Iqamah", editMode: false, forms: IQAMAH_FORM_DATA },
+    { id: TimingConstants.ATHAN, label: "Athan", editMode: false, forms: ATHAN_FORM_DATA },
 ] as TabModel[];
 
 export const SETTINGS_TABS_DATA = [
-    { id: 0, label: "Mosque", editMode: true, forms: MOSQUE_FORM_DATA },
-    { id: 1, label: "Location", editMode: true, forms: LOCATION_FORM_DATA },
-    { id: 2, label: "Hijri", editMode: false, forms: HIJRI_FORM_DATA },
+    { id: SettingConstants.HIJRI, label: "Hijri", editMode: false, forms: HIJRI_FORM_DATA },
+] as TabModel[];
+
+export const ACCOUNTS_TABS_DATA = [
+    { id: AccountConstants.MOSQUE, label: "Mosque", editMode: true, forms: MOSQUE_FORM_DATA },
+    { id: AccountConstants.LOCATION, label: "Location", editMode: true, forms: LOCATION_FORM_DATA },
 ] as TabModel[];

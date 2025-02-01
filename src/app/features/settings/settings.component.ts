@@ -7,7 +7,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { ActionButtonsCESComponent } from "@shared/components";
 import { BaseFormComponent } from "@shared/pages";
 // Models
-import { eBtnActionCESType, SETTINGS_TABS_DATA, TabModel } from "@shared/models";
+import { eBtnActionCESType, SETTINGS_TABS_DATA, TabModel,SettingConstants } from "@shared/models";
 
 
 const materialModules = [MatTabsModule];
@@ -28,15 +28,15 @@ export default class SettingsComponent implements AfterViewInit, OnDestroy {
     tabs = signal<TabModel[]>(SETTINGS_TABS_DATA);
 
     // Active tab tracking
-    activeTabIndex = signal(0);
+    activeTabId = signal(SettingConstants.HIJRI);
 
     async ngAfterViewInit() {
-        this.onTabChange(this.activeTabIndex());
+        this.onTabChange(0);
     }
 
     async onTabChange(index: number): Promise<void> {
-        this.activeTabIndex.set(index);
-
+        this.activeTabId.set(SETTINGS_TABS_DATA[index]?.id);
+        
         // Clear the container before loading a new component
         if (this.formContainer) {
             this.formContainer.clear();
@@ -55,7 +55,7 @@ export default class SettingsComponent implements AfterViewInit, OnDestroy {
     }
 
     currentTab() {
-        return this.tabs().find((tab) => tab.id === this.activeTabIndex());
+        return this.tabs().find((tab) => tab.id === this.activeTabId());
     }
 
     destroyComponent() {
@@ -66,7 +66,7 @@ export default class SettingsComponent implements AfterViewInit, OnDestroy {
 
     toggleEditMode(edit: boolean) {
         const tabs = this.tabs();
-        const tabIndex = tabs.findIndex((tab) => tab.id === this.activeTabIndex());
+        const tabIndex = tabs.findIndex((tab) => tab.id === this.activeTabId());
         if (tabIndex !== -1) {
             tabs[tabIndex].editMode = edit;
             this.tabs.set(tabs);

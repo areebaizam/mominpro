@@ -3,11 +3,11 @@
     </div>
     <div>
         <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-            <a mat-tab-link [routerLink]="sidenavService.homeData.url" routerLinkActive #rla="routerLinkActive"
+            <a mat-tab-link [routerLink]="sidenavService.homeData.url.toString()" routerLinkActive #rla="routerLinkActive"
                 [active]="rla.isActive" [routerLinkActiveOptions]="{ exact: true }">
                 <tap-btn-nav-col [data]="sidenavService.homeData"></tap-btn-nav-col> </a>
             @for (link of sidenavService.navData; track $index) {
-            <a mat-tab-link [routerLink]="link.url" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            <a mat-tab-link [routerLink]="link.url.toString()" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
                 <tap-btn-nav-col [data]="link"></tap-btn-nav-col> </a>
             }
         </nav>

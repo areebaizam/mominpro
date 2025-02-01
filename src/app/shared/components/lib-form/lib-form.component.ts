@@ -41,7 +41,7 @@ const customControls = [TimeOffsetInput];
 })
 export class LibFormComponent implements OnInit, OnDestroy {
   @Input() editMode: boolean | undefined = true;
-  @Input({ required: true }) controlKey!: string;
+  @Input({ required: true }) formGroupName!: string;
   @Input({ required: true }) formFields!: FormControlModel[];
 
   formService = inject(FormService);
@@ -54,11 +54,11 @@ export class LibFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.form = this.formService.buildformControls(this.formFields);
     if (!this.editMode) this.form.disable();
-    this.parentFormGroup.addControl(this.controlKey, this.form);
+    this.parentFormGroup.addControl(this.formGroupName, this.form);
   }
 
   ngOnDestroy() {
-    this.parentFormGroup.removeControl(this.controlKey);
+    this.parentFormGroup.removeControl(this.formGroupName);
   }
 
   getFormControl(name: string): FormControl {
@@ -80,9 +80,9 @@ export class LibFormComponent implements OnInit, OnDestroy {
   }
 
   onSelect(fieldName: string, value: string) {
-    if (fieldName == 'method')
+    if (fieldName == 'method'){
       value == 'CUS' ? this.getFormControl('fajr').enable() : this.getFormControl('fajr').disable();
-    value == 'CUS' ? this.getFormControl('isha').enable() : this.getFormControl('isha').disable();
-
+      value == 'CUS' ? this.getFormControl('isha').enable() : this.getFormControl('isha').disable();
+    }
   }
 }

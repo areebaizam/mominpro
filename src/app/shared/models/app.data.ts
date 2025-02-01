@@ -1,4 +1,5 @@
-import { BtnNavModel, BtnToggleModel, eBtnToggleType, eFeatureRouteURL } from "./common.model";
+import { FeatureURLConstants } from "./app.constants";
+import { BtnNavModel, BtnToggleModel, eBtnToggleType } from "./common.model";
 
 export const APP_TOGGLE_ICONS = [
     {
@@ -20,16 +21,16 @@ export const APP_TOGGLE_ICONS = [
     {
         icon: "fullscreen_exit",
         iconAlt: "fullscreen",
-        tooltip:"Exit full screen (f)",
-        tooltipAlt:"Full screen (f)",
+        tooltip: "Exit full screen (f)",
+        tooltipAlt: "Full screen (f)",
         isActive: false,
         type: eBtnToggleType.FULLSCREEN,
     },
     {
         icon: "light_mode",
         iconAlt: "dark_mode",
-        tooltip:"Light mode (d)",
-        tooltipAlt:"Dark mode (d)",
+        tooltip: "Light mode (d)",
+        tooltipAlt: "Dark mode (d)",
         isActive: false,
         type: eBtnToggleType.THEME,
     },
@@ -38,40 +39,49 @@ export const APP_TOGGLE_ICONS = [
 export const APP_NAV_HOME_BTN = {
     order: 1,
     id: 1,
-    parentId:null,
+    parentId: null,
     icon: "mosque",
     label: "Home",
-    url: eFeatureRouteURL.HOME,
-    children:null
+    url: FeatureURLConstants.HOME,
+    children: null
 } as BtnNavModel;
 
 export const APP_NAV_TEST_BTN = {
     order: 9,
     id: 9,
-    parentId:null,
+    parentId: null,
     icon: "experiment",
     label: "Test",
-    url: eFeatureRouteURL.TEST,
-    children:null
+    url: FeatureURLConstants.TEST,
+    children: null
 } as BtnNavModel;
 
 export const APP_NAV_BTNS = [
     {
         order: 2,
         id: 2,
-        parentId:null,
+        parentId: null,
         icon: "schedule",
         label: "Timings",
-        url: eFeatureRouteURL.TIMINGS,
-        children:null
-    }, 
+        url: FeatureURLConstants.TIMINGS,
+        children: null
+    },
     {
         order: 3,
         id: 3,
-        parentId:null,
+        parentId: null,
         icon: "settings",
         label: "Settings",
-        url: eFeatureRouteURL.SETTINGS,
-        children:null
+        url: FeatureURLConstants.SETTINGS,
+        children: null
+    },
+    {
+        order: 4,
+        id: 4,
+        parentId: null,
+        icon: "manage_accounts",
+        label: "Accounts",
+        url: FeatureURLConstants.ACCOUNTS,
+        children: null
     },
 ] as BtnNavModel[];
