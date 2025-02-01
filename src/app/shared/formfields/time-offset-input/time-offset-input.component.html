@@ -2,8 +2,9 @@
     (focusin)="onFocusIn()" (focusout)="onFocusOut($event)" [class.read-only]="form.disabled">
     <mat-radio-group [formControl]="typeControl" #type aria-label="Time Offset option">
         @for (option of control.options; track option) {
-        <mat-radio-button [value]="option.type" [class.recommended]="option.recommended"><span>{{ option.typeLabel
-                }}</span></mat-radio-button>
+        <mat-radio-button [value]="option.type">
+            <span [class.recommended]="option?.recommended">{{ option.typeLabel}}</span>
+        </mat-radio-button>
         }
     </mat-radio-group>
     @if(form.value.type == 'time'){

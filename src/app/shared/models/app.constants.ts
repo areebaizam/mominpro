@@ -6,12 +6,12 @@ export class FeatureURLConstants {
   static readonly TEST = "test";
 }
 export class TimingConstants {
-  static readonly SALAH = 'salah';
   static readonly IQAMAH = 'iqamah';
-  static readonly ATHAN = 'athan';
-}
-export class SettingConstants {
   static readonly HIJRI = 'hijri';
+}
+export class SettingConstants {  
+  static readonly SALAH = 'salah';
+  static readonly ATHAN = 'athan';
 }
 export class AccountConstants {
   static readonly MOSQUE = 'mosque';

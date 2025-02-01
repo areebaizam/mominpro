@@ -28,7 +28,7 @@ export default class SettingsComponent implements AfterViewInit, OnDestroy {
     tabs = signal<TabModel[]>(SETTINGS_TABS_DATA);
 
     // Active tab tracking
-    activeTabId = signal(SettingConstants.HIJRI);
+    activeTabId = signal(SettingConstants.SALAH);
 
     async ngAfterViewInit() {
         this.onTabChange(0);

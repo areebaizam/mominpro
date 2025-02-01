@@ -187,7 +187,7 @@ export class TimeOffsetInput implements MatFormFieldControl<TimeOffsetValue>, Co
         this.form.patchValue({ value: null }, { emitEvent: false });
 
       }
-      const timeOffset = (this.form.enabled && this.form.valid) || this.form.value ? new TimeOffsetValue(this.form.value.type || 'time', this.form.value.value || null)
+      const timeOffset = (this.form.enabled && this.form.valid) || this.form.value ? new TimeOffsetValue(this.form.value.type ?? 'time', this.form.value.value ?? null)
         : new TimeOffsetValue(this.form.value.type || 'time', null);
       this._updateValue(timeOffset);
     });

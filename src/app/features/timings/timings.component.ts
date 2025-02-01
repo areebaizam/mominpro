@@ -28,7 +28,7 @@ export default class TimingsComponent implements AfterViewInit, OnDestroy {
     tabs = signal<TabModel[]>(TIMINGS_TABS_DATA);
 
     // Active tab tracking
-    activeTabId = signal(TimingConstants.SALAH);
+    activeTabId = signal(TimingConstants.IQAMAH);
 
     async ngAfterViewInit() {
         this.onTabChange(0);

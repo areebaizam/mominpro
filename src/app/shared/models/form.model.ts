@@ -13,9 +13,9 @@ export type ControlType = InputType | CustomType | 'number' | 'select' | 'textar
 export type ControlValue = alphanumericbool | TimeOffsetValue;
 export enum eGridSpan {
     FULL = '1 1 100%',
-    HALF = '1 1 calc(50% - 1.25rem)',
-    ONE_THIRD = '1 1 calc(33.33% - 1.25rem)',
-    ONE_FOURTH = '1 1 calc(25% - 1.25rem)',
+    HALF = '0 1 calc(50% - 1.25rem)',
+    ONE_THIRD = '0 1 calc(33.33% - 1.25rem)',
+    ONE_FOURTH = '0 1 calc(25% - 1.25rem)',
 }
 
 export interface ValidatorModel {
@@ -100,7 +100,7 @@ export interface TimeOffsetModel extends BaseFormControlModel {
 export interface IqamaOptions {
     type: ControlType,
     typeLabel: string,
-    recommended: boolean,
+    recommended?: boolean,
     value: IqamaValue,
     control: FormControlModel,
 }

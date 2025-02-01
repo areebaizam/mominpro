@@ -186,7 +186,7 @@ export const LOCATION_FORM_TIMEZONE_DATA = [
         name: 'timezone',
         label: 'Timezone',
         value: -480,
-        colspan: eGridSpan.FULL,
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
@@ -207,53 +207,6 @@ export const LOCATION_FORM_TIMEZONE_DATA = [
 
     },
 ] as FormControlModel[];
-export const LOCATION_FORM_SOLAR_DATA = [
-    {
-        type: "series",
-        name: 'sunrise',
-        label: 'Sunrise',
-        value: 0,
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            min: -30,
-            max: 30,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No change',
-        recommendedValue: 0,
-    },
-    {
-        type: "series",
-        name: 'midday',
-        label: 'Midday',
-        value: 0,
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            min: -30,
-            max: 30,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No change',
-        recommendedValue: 0,
-    },
-    {
-        type: "series",
-        name: 'sunset',
-        label: 'Sunset',
-        value: 0,
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            min: -30,
-            max: 30,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No change',
-        recommendedValue: 0,
-    },
-] as FormControlModel[];
 
 export const HIJRI_FORM_SETTINGS_DATA = [
     {
@@ -261,7 +214,7 @@ export const HIJRI_FORM_SETTINGS_DATA = [
         name: 'offset',
         label: 'Hijri Adjustment',
         value: 0,
-        colspan: eGridSpan.HALF,
+        colspan: eGridSpan.ONE_FOURTH,
         validators: {
             min: -3,
             max: 3,
@@ -276,7 +229,7 @@ export const HIJRI_FORM_SETTINGS_DATA = [
         name: 'display',
         label: 'Show Hijri Calender',
         value: false,
-        colspan: eGridSpan.HALF,
+        colspan: eGridSpan.ONE_FOURTH,
     },
 ] as FormControlModel[];
 
@@ -295,87 +248,83 @@ export const ATHAN_FORM_SALAH_DATA = [
         type: "series",
         name: 'fajr',
         label: 'Fajr',
-        value: 20,
-        colspan: eGridSpan.ONE_THIRD,
+        value: 10,
+        colspan: eGridSpan.HALF,
         validators: {
             min: 0,
             max: 60,
         },
-        suffix: 'minutes before Iqama',
-        suffixUnit: 'minute before Iqama',
-        baseLabel: 'Same as Iqama',
-        recommendedValue: 10,
+        suffix: 'minutes before Iqamah',
+        suffixUnit: 'minute before Iqamah',
+        baseLabel: 'Soon before Iqamah',
+        recommendedValue: null,
     },
     {
         type: "series",
         name: 'dhur',
         label: 'Dhuhr',
         value: 10,
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         validators: {
             min: 0,
             max: 60,
         },
-        suffix: 'minutes before Iqama',
-        suffixUnit: 'minute before Iqama',
-        baseLabel: 'Same as Iqama',
-        recommendedValue: 10,
+        suffix: 'minutes before Iqamah',
+        suffixUnit: 'minute before Iqamah',
+        baseLabel: 'Soon before Iqamah',
+        recommendedValue: null,
     },
     {
         type: "series",
         name: 'asr',
         label: 'Asr',
-        value: 30,
-        colspan: eGridSpan.ONE_THIRD,
+        value: 10,
+        colspan: eGridSpan.HALF,
         validators: {
             min: 0,
             max: 60,
         },
-        suffix: 'minutes before Iqama',
-        suffixUnit: 'minute before Iqama',
-        baseLabel: 'Same as Iqama',
-        recommendedValue: 10,
+        suffix: 'minutes before Iqamah',
+        suffixUnit: 'minute before Iqamah',
+        baseLabel: 'Soon before Iqamah',
+        recommendedValue: null,
     },
     {
         type: "series",
         name: 'maghrib',
         label: 'Maghrib',
-        value: 1,
-        colspan: eGridSpan.ONE_THIRD,
+        value: 0,
+        colspan: eGridSpan.HALF,
         validators: {
             min: 0,
             max: 60,
         },
-        suffix: 'minutes before Iqama',
-        suffixUnit: 'minute before Iqama',
-        baseLabel: 'Same as Iqama',
-        recommendedValue: 5,
+        suffix: 'minutes before Iqamah',
+        suffixUnit: 'minute before Iqamah',
+        baseLabel: 'Soon before Iqamah',
+        recommendedValue: 0,
     },
     {
         type: "series",
         name: 'isha',
         label: 'Isha',
         value: 10,
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         validators: {
             min: 0,
             max: 60,
         },
-        suffix: 'minutes before Iqama',
-        suffixUnit: 'minute before Iqama',
-        baseLabel: 'Same as Iqama',
+        suffix: 'minutes before Iqamah',
+        suffixUnit: 'minute before Iqamah',
+        baseLabel: 'Soon before Iqamah',
         recommendedValue: 5,
     },
-] as FormControlModel[];
-
-export const ATHAN_FORM_REGULAR_DATA = [
-    ...ATHAN_FORM_SALAH_DATA,
     {
         type: "series",
         name: 'jumuah',
         label: 'Jumuah',
         value: 0,
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         validators: {
             min: 0,
             max: 60,
@@ -383,26 +332,7 @@ export const ATHAN_FORM_REGULAR_DATA = [
         suffix: 'minutes before Khutbah',
         suffixUnit: 'minute before Khutbah',
         baseLabel: 'Soon before Khutbah',
-        recommendedValue: 0,
-    },
-] as FormControlModel[];
-
-export const ATHAN_FORM_RAMADAN_DATA = [
-    ...ATHAN_FORM_SALAH_DATA,
-    {
-        type: "series",
-        name: 'jumuah',
-        label: 'Jumuah',
-        value: 0,
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            min: 0,
-            max: 60,
-        },
-        suffix: 'minutes before Khutbah',
-        suffixUnit: 'minute before Khutbah',
-        baseLabel: 'Soon before Khutbah',
-        recommendedValue: 0,
+        recommendedValue: null,
     },
 ] as FormControlModel[];
 
@@ -412,7 +342,7 @@ export const SALAH_FORM_ADJUSTMENT_DATA = [
         name: 'fajr',
         label: 'Fajr',
         value: 0,
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         validators: {
             min: -90,
             max: 120,
@@ -427,7 +357,7 @@ export const SALAH_FORM_ADJUSTMENT_DATA = [
         name: 'dhur',
         label: 'Dhuhr',
         value: 2,
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         validators: {
             min: 1,
             max: 30,
@@ -442,7 +372,7 @@ export const SALAH_FORM_ADJUSTMENT_DATA = [
         name: 'asr',
         label: 'Asr',
         value: 0,
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         validators: {
             min: -90,
             max: 120,
@@ -456,8 +386,8 @@ export const SALAH_FORM_ADJUSTMENT_DATA = [
         type: "series",
         name: 'maghrib',
         label: 'Maghrib',
-        value: 1,
-        colspan: eGridSpan.ONE_THIRD,
+        value: 2,
+        colspan: eGridSpan.HALF,
         validators: {
             min: 0,
             max: 30,
@@ -465,14 +395,14 @@ export const SALAH_FORM_ADJUSTMENT_DATA = [
         suffix: 'minutes after Sunset',
         suffixUnit: 'minute after Sunset',
         baseLabel: 'At Sunset',
-        recommendedValue: 2,
+        recommendedValue: 0,
     },
     {
         type: "series",
         name: 'isha',
         label: 'Isha',
         value: 0,
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         validators: {
             min: 0,
             max: 60,
@@ -484,6 +414,112 @@ export const SALAH_FORM_ADJUSTMENT_DATA = [
     },
 ] as FormControlModel[];
 export const SALAH_FORM_CONFIG_DATA = [
+    {
+        type: "series",
+        name: 'sunrise',
+        label: 'Sunrise (Shuruq)',
+        value: 0,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: -30,
+            max: 30,
+        },
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No change',
+        recommendedValue: 0,
+    },
+    {
+        type: "series",
+        name: 'midday',
+        label: 'Midday (Zawal)',
+        value: 0,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: -30,
+            max: 30,
+        },
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No change',
+        recommendedValue: 0,
+    },
+    {
+        type: "series",
+        name: 'sunset',
+        label: 'Sunset (Ghuroob)',
+        value: 0,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: -30,
+            max: 30,
+        },
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No change',
+        recommendedValue: 0,
+    },
+    {
+        type: "select",
+        name: 'juristic',
+        label: 'Asr Juristic (Madhab)',
+        value: 0,
+        colspan: eGridSpan.HALF,
+        options: [
+            {
+                value: 0,
+                name: 'Standard (Shafi\'i, Maliki \& Hanbali)'
+            },
+            {
+                value: 1,
+                name: 'Later Asr (Hanafi)'
+            },
+        ]
+    },
+    {
+        type: "select",
+        name: 'rule',
+        label: 'High Latitude Rule',
+        value: 1,
+        colspan: eGridSpan.HALF,
+        options: [
+            {
+                value: 0,
+                name: 'NONE'
+            },
+            {
+                value: 1,
+                name: 'Twilight Angle (Recommended)',
+                recommended: true,
+            },
+            {
+                value: 2,
+                name: 'Middle of the Night',
+            },
+            {
+                value: 3,
+                name: 'Seventh of the Night'
+            },
+        ]
+    },
+    {
+        type: "select",
+        name: 'method',
+        label: 'Calculation Method',
+        value: 'CUS',
+        colspan: eGridSpan.HALF,
+        options: [
+            {
+                value: 'ISNA',
+                name: 'Islamic Society of North America'
+            },
+            {
+                value: 'CUS',
+                name: 'Custom (Set Fajr/Isha Angles)'
+            },
+        ]
+
+    },
     {
         type: "slider",
         name: 'fajrAngle',
@@ -508,70 +544,6 @@ export const SALAH_FORM_CONFIG_DATA = [
         },
         step: .1,
     },
-    {
-        type: "select",
-        name: 'method',
-        label: 'Calculation Method',
-        value: 'CUS',
-        colspan: eGridSpan.ONE_THIRD,
-        options: [
-            {
-                value: 'ISNA',
-                name: 'Islamic Society of North America'
-            },
-            {
-                value: 'CUS',
-                name: 'Custom (Set Fajr/Isha Angles)'
-            },
-        ]
-
-    },
-    {
-        type: "select",
-        name: 'juristic',
-        label: 'Asr Juristic (Madhab)',
-        value: 0,
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            required: true,
-        },
-        options: [
-            {
-                value: 0,
-                name: 'Standard (Shafi\'i, Maliki \& Hanbali)'
-            },
-            {
-                value: 1,
-                name: 'Later Asr (Hanafi)'
-            },
-        ]
-    },
-    {
-        type: "select",
-        name: 'rule',
-        label: 'High Latitude Rule',
-        value: 1,
-        colspan: eGridSpan.ONE_THIRD,
-        options: [
-            {
-                value: 0,
-                name: 'NONE'
-            },
-            {
-                value: 1,
-                name: 'Twilight Angle (Recommended)',
-                recommended: true,
-            },
-            {
-                value: 2,
-                name: 'Middle of the Night',
-            },
-            {
-                value: 3,
-                name: 'Seventh of the Night'
-            },
-        ]
-    },
 ] as FormControlModel[];
 
 export const IQAMAH_FORM_START_DATA = [
@@ -581,7 +553,7 @@ export const IQAMAH_FORM_START_DATA = [
         label: 'Start date',
         value: '',
         hint: 'MM/DD/YYYY',
-        colspan: eGridSpan.HALF,
+        colspan: eGridSpan.ONE_THIRD,
         validators: {
             required: true,
         }
@@ -595,7 +567,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         name: 'fajr',
         label: 'Fajr',
         value: { type: 'time', value: new Date(0, 0, 0, 4, 0) },
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
@@ -603,7 +575,6 @@ export const IQAMAH_FORM_PRAYER_DATA = [
             {
                 type: 'series',
                 typeLabel: 'Offset',
-                recommended: false,
                 control: {
                     name: 'value',
                     label: '',
@@ -617,7 +588,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     suffix: 'minutes after start time',
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
-                    recommendedValue: 20,
+                    recommendedValue: null,
                 }
             },
             {
@@ -646,12 +617,11 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         validators: {
             required: true,
         },
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         options: [
             {
                 type: 'series',
                 typeLabel: 'Offset',
-                recommended: false,
                 control: {
                     name: 'value',
                     label: '',
@@ -665,7 +635,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     suffix: 'minutes after start time',
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
-                    recommendedValue: 20,
+                    recommendedValue: null,
                 }
             },
             {
@@ -694,13 +664,12 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         validators: {
             required: true,
         },
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         options: [
 
             {
                 type: 'series',
                 typeLabel: 'Offset',
-                recommended: false,
                 control: {
                     name: 'value',
                     label: '',
@@ -714,7 +683,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     suffix: 'minutes after start time',
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
-                    recommendedValue: 20,
+                    recommendedValue: null,
                 }
             },
             {
@@ -739,8 +708,8 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         type: "iqama",
         name: 'maghrib',
         label: 'Maghrib',
-        value: { type: 'series', value: 3 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { type: 'series', value: 0 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
@@ -748,7 +717,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
             {
                 type: 'series',
                 typeLabel: 'Offset',
-                recommended: false,
+                recommended: true,
                 control: {
                     name: 'value',
                     label: '',
@@ -762,13 +731,12 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     suffix: 'minutes after start time',
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
-                    recommendedValue: 5,
+                    recommendedValue: 0,
                 }
             },
             {
                 type: 'time',
                 typeLabel: 'Fixed',
-                recommended: true,
                 control: {
                     name: 'value',
                     label: '',
@@ -791,12 +759,11 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         validators: {
             required: true,
         },
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         options: [
             {
                 type: 'series',
                 typeLabel: 'Offset',
-                recommended: false,
                 control: {
                     name: 'value',
                     label: '',
@@ -810,7 +777,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     suffix: 'minutes after start time',
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
-                    recommendedValue: 20,
+                    recommendedValue: null,
                 }
             },
             {
@@ -832,12 +799,12 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         name: 'taraweeh',
         label: 'Taraweeh (optional)',
         value: { type: 'series', value: 10 },
-        colspan: eGridSpan.ONE_THIRD,
+        colspan: eGridSpan.HALF,
         options: [
             {
                 type: 'series',
                 typeLabel: 'Offset',
-                recommended: false,
+                recommended: true,
                 control: {
                     name: 'value',
                     label: '',
@@ -851,13 +818,12 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     suffix: 'minutes after Isha Iqamah',
                     suffixUnit: 'minute after Isha Iqamah',
                     baseLabel: 'Soon after Isha',
-                    recommendedValue: 10,
+                    recommendedValue: null,
                 }
             },
             {
                 type: 'time',
                 typeLabel: 'Fixed',
-                recommended: true,
                 control: {
                     name: 'time',
                     label: '',
@@ -1008,6 +974,8 @@ export const IQAMAH_FORM_JUMUAH_DATA = [
 ] as FormControlModel[];
 
 export const SALAH_FORM_DATA = [
+    
+    
     {
         name: "settings",
         label: "Settings",
@@ -1015,7 +983,7 @@ export const SALAH_FORM_DATA = [
     },
     {
         name: "offset",
-        label: "Start Time Adjustments",
+        label: "Start Time",
         data: SALAH_FORM_ADJUSTMENT_DATA,
     },
 
@@ -1042,18 +1010,18 @@ export const IQAMAH_FORM_DATA = [
 export const ATHAN_FORM_DATA = [
     {
         name: "settings",
-        label: "Athan Display Settings",
+        label: "Settings",
         data: ATHAN_FORM_DISPLAY_FLAG,
     },
     {
         name: "offset",
         label: "Regular Timings",
-        data: ATHAN_FORM_REGULAR_DATA,
+        data: ATHAN_FORM_SALAH_DATA,
     },
     {
         name: "ramadan",
         label: "Ramadan Timings",
-        data: ATHAN_FORM_RAMADAN_DATA,
+        data: ATHAN_FORM_SALAH_DATA,
     },
 ] as ReactiveForm[]
 
@@ -1086,11 +1054,6 @@ export const LOCATION_FORM_DATA = [
         label: "Timezone",
         data: LOCATION_FORM_TIMEZONE_DATA,
     },
-    {
-        name: "solar",
-        label: "Solar Settings",
-        data: LOCATION_FORM_SOLAR_DATA,
-    },
 ] as ReactiveForm[];
 
 export const HIJRI_FORM_DATA = [
@@ -1102,13 +1065,14 @@ export const HIJRI_FORM_DATA = [
 ] as ReactiveForm[];
 
 export const TIMINGS_TABS_DATA = [
-    { id: TimingConstants.SALAH, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },
     { id: TimingConstants.IQAMAH, label: "Iqamah", editMode: false, forms: IQAMAH_FORM_DATA },
-    { id: TimingConstants.ATHAN, label: "Athan", editMode: false, forms: ATHAN_FORM_DATA },
+    { id: TimingConstants.HIJRI, label: "Hijri", editMode: false, forms: HIJRI_FORM_DATA },
+    
 ] as TabModel[];
 
 export const SETTINGS_TABS_DATA = [
-    { id: SettingConstants.HIJRI, label: "Hijri", editMode: false, forms: HIJRI_FORM_DATA },
+    { id: SettingConstants.SALAH, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },    
+    { id: SettingConstants.ATHAN, label: "Athan", editMode: false, forms: ATHAN_FORM_DATA },
 ] as TabModel[];
 
 export const ACCOUNTS_TABS_DATA = [
