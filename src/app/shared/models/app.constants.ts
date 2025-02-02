@@ -7,10 +7,9 @@ export class FeatureURLConstants {
 }
 export class TimingConstants {
   static readonly IQAMAH = 'iqamah';
-  static readonly HIJRI = 'hijri';
+  static readonly GENERAL = 'general';
 }
 export class SettingConstants {
-  static readonly LOCATION = 'location';
   static readonly SALAH = 'salah';
   static readonly ATHAN = 'athan';
 }

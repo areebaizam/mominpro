@@ -7,12 +7,12 @@ export const PLACEHOLDER_FORM_FIELD = {
     label: '',
     value: null,
     colspan: eGridSpan.HALF,
-    validators:null,
+    validators: null,
 } as FormControlModel;
 
 export function createPlaceholderFormField(colspan: eGridSpan): FormControlModel {
     return { ...PLACEHOLDER_FORM_FIELD, colspan };
-  }
+}
 
 export const IQAMAH_FORM_SETTINGS_DATA = [
     {
@@ -26,7 +26,8 @@ export const IQAMAH_FORM_SETTINGS_DATA = [
             required: true,
         }
     },
-    createPlaceholderFormField(eGridSpan.TWO_THIRD),
+    createPlaceholderFormField(eGridSpan.ONE_THIRD),
+    createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
 
 export const IQAMAH_FORM_PRAYER_DATA = [
@@ -265,13 +266,13 @@ export const IQAMAH_FORM_PRAYER_DATA = [
     createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
 
-export const HIJRI_FORM_SETTINGS_DATA = [
+export const GENERAL_FORM_HIJRI_DATA = [
     {
         type: "series",
-        name: 'offset',
-        label: 'Hijri Adjustment',
+        name: 'hijri',
+        label: 'Hijri Adjustments',
         value: 0,
-        colspan: eGridSpan.ONE_FOURTH,
+        colspan: eGridSpan.ONE_THIRD,
         validators: {
             min: -3,
             max: 3,
@@ -286,12 +287,211 @@ export const HIJRI_FORM_SETTINGS_DATA = [
         name: 'display',
         label: 'Show Hijri Calender',
         value: false,
-        colspan: eGridSpan.ONE_FOURTH,
+        colspan: eGridSpan.ONE_THIRD,
     },
-    PLACEHOLDER_FORM_FIELD,
+    createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
 
-export const LOCATION_FORM_SETTINGS_DATA = [
+export const GENERAL_FORM_JUMUAH_DATA = [
+    {
+        type: "iqama",
+        name: 'first',
+        label: 'First Jumuah (optional)',
+        value: { type: 'time', value: new Date(0, 0, 0, 12, 0) },
+        colspan: eGridSpan.ONE_THIRD,
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: null,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time',
+                    validators: {
+                        matTimepickerMin: '11:00',
+                        matTimepickerMax: '16:00',
+                    },
+                }
+            },
+        ]
+    },    
+    {
+        type: "iqama",
+        name: 'second',
+        label: 'Second Jumuah (optional)',
+        value: { type: 'time', value: new Date(0, 0, 0, 13, 30) },
+        colspan: eGridSpan.ONE_THIRD,
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: null,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time',
+                    validators: {
+                        matTimepickerMin: '11:00',
+                        matTimepickerMax: '16:00',
+                    },
+                }
+            },
+        ]
+    },
+    {
+        type: "iqama",
+        name: 'third',
+        label: 'Third Jumuah (optional)',
+        value: { type: 'time', value: new Date(0, 0, 0, 14, 45) },
+        colspan: eGridSpan.ONE_THIRD,
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: false,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: 20,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: null,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time',
+                    validators: {
+                        matTimepickerMin: '11:00',
+                        matTimepickerMax: '16:00',
+                    },
+                }
+            },
+        ]
+    },
+    
+    {
+        type: "toggle",
+        name: 'display',
+        label: 'Show Taraweeh Timings',
+        value: false,
+        colspan: eGridSpan.ONE_THIRD,
+    },
+    
+    createPlaceholderFormField(eGridSpan.ONE_THIRD),
+] as FormControlModel[];
+
+export const GENERAL_FORM_TARAWEEH_DATA = [
+    {
+        type: "iqama",
+        name: 'taraweeh',
+        label: 'Taraweeh',
+        value: { type: 'series', value: 10 },
+        colspan: eGridSpan.ONE_THIRD,
+        options: [
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                recommended: true,
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 5,
+                        max: 60,
+                    },
+                    suffix: 'minutes after Isha Iqamah',
+                    suffixUnit: 'minute after Isha Iqamah',
+                    baseLabel: 'Soon after Isha',
+                    recommendedValue: null,
+                }
+            },
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: null,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time'
+                }
+            },
+        ]
+    },
+    {
+        type: "toggle",
+        name: 'display',
+        label: 'Show Taraweeh Timings',
+        value: false,
+        colspan: eGridSpan.ONE_THIRD,
+    },
+    createPlaceholderFormField(eGridSpan.ONE_THIRD),
+] as FormControlModel[];
+
+export const SALAH_FORM_LOCATION_DATA = [
     {
         type: 'number',
         name: 'latitude',
@@ -346,55 +546,6 @@ export const LOCATION_FORM_SETTINGS_DATA = [
             },
         ]
 
-    },
-    createPlaceholderFormField(eGridSpan.ONE_THIRD),
-] as FormControlModel[];
-
-export const LOCATION_FORM_SOLAR_DATA = [
-    {
-        type: "series",
-        name: 'sunrise',
-        label: 'Sunrise (Shuruq)',
-        value: 0,
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            min: -30,
-            max: 30,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No change',
-        recommendedValue: 0,
-    },
-    {
-        type: "series",
-        name: 'midday',
-        label: 'Midday (Zawal)',
-        value: 0,
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            min: -30,
-            max: 30,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No change',
-        recommendedValue: 0,
-    },
-    {
-        type: "series",
-        name: 'sunset',
-        label: 'Sunset (Ghuroob)',
-        value: 0,
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            min: -30,
-            max: 30,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No change',
-        recommendedValue: 0,
     },
     createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
@@ -506,6 +657,21 @@ export const SALAH_FORM_OFFSET_DATA = [
     },
     {
         type: "series",
+        name: 'sunrise',
+        label: 'Sunrise (Shuruq)',
+        value: 0,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: -30,
+            max: 30,
+        },
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No change',
+        recommendedValue: 0,
+    },
+    {
+        type: "series",
         name: 'dhur',
         label: 'Dhuhr',
         value: 2,
@@ -564,197 +730,6 @@ export const SALAH_FORM_OFFSET_DATA = [
         baseLabel: 'No Change',
         recommendedValue: 0,
     },
-    createPlaceholderFormField(eGridSpan.ONE_THIRD),    
-] as FormControlModel[];
-
-export const SALAH_FORM_JUMUAH_DATA = [
-    {
-        type: "iqama",
-        name: 'first',
-        label: 'First Jumuah (optional)',
-        value: { type: 'time', value: new Date(0, 0, 0, 12, 0) },
-        colspan: eGridSpan.ONE_THIRD,
-        options: [
-            {
-                type: 'series',
-                typeLabel: 'Offset',
-                recommended: false,
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 60,
-                    },
-                    suffix: 'minutes after start time',
-                    suffixUnit: 'minute after start time',
-                    baseLabel: 'At start time',
-                    recommendedValue: 20,
-                }
-            },
-            {
-                type: 'time',
-                typeLabel: 'Fixed',
-                recommended: true,
-                control: {
-                    name: 'time',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
-                    validators: {
-                        matTimepickerMin: '11:00',
-                        matTimepickerMax: '16:00',
-                    },
-                }
-            },
-        ]
-    },
-    {
-        type: "iqama",
-        name: 'second',
-        label: 'Second Jumuah (optional)',
-        value: { type: 'time', value: new Date(0, 0, 0, 13, 0) },
-        colspan: eGridSpan.ONE_THIRD,
-        options: [
-            {
-                type: 'series',
-                typeLabel: 'Offset',
-                recommended: false,
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 60,
-                    },
-                    suffix: 'minutes after start time',
-                    suffixUnit: 'minute after start time',
-                    baseLabel: 'At start time',
-                    recommendedValue: 20,
-                }
-            },
-            {
-                type: 'time',
-                typeLabel: 'Fixed',
-                recommended: true,
-                control: {
-                    name: 'time',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
-                    validators: {
-                        matTimepickerMin: '11:00',
-                        matTimepickerMax: '16:00',
-                    },
-                }
-            },
-        ]
-    },
-    {
-        type: "iqama",
-        name: 'third',
-        label: 'Third Jumuah (optional)',
-        value: { type: 'time', value: new Date(0, 0, 0, 14, 0) },
-        colspan: eGridSpan.ONE_THIRD,
-        options: [
-            {
-                type: 'series',
-                typeLabel: 'Offset',
-                recommended: false,
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 60,
-                    },
-                    suffix: 'minutes after start time',
-                    suffixUnit: 'minute after start time',
-                    baseLabel: 'At start time',
-                    recommendedValue: 20,
-                }
-            },
-            {
-                type: 'time',
-                typeLabel: 'Fixed',
-                recommended: true,
-                control: {
-                    name: 'time',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
-                    validators: {
-                        matTimepickerMin: '11:00',
-                        matTimepickerMax: '16:00',
-                    },
-                }
-            },
-        ]
-    },
-    createPlaceholderFormField(eGridSpan.ONE_THIRD),
-] as FormControlModel[];
-
-export const SALAH_FORM_TARAWEEH_DATA = [
-    {
-        type: "iqama",
-        name: 'taraweeh',
-        label: 'Taraweeh (optional)',
-        value: { type: 'series', value: 10 },
-        colspan: eGridSpan.ONE_THIRD,
-        options: [
-            {
-                type: 'series',
-                typeLabel: 'Offset',
-                recommended: true,
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 5,
-                        max: 60,
-                    },
-                    suffix: 'minutes after Isha Iqamah',
-                    suffixUnit: 'minute after Isha Iqamah',
-                    baseLabel: 'Soon after Isha',
-                    recommendedValue: null,
-                }
-            },
-            {
-                type: 'time',
-                typeLabel: 'Fixed',
-                control: {
-                    name: 'time',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time'
-                }
-            },
-        ]
-    },
-    {
-        type: "toggle",
-        name: 'display',
-        label: 'Show Taraweeh timings',
-        value: false,
-        colspan: eGridSpan.ONE_THIRD,
-    },
-    createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
 
 export const ATHAN_FORM_SETTINGS_FLAG = [
@@ -765,7 +740,8 @@ export const ATHAN_FORM_SETTINGS_FLAG = [
         value: false,
         colspan: eGridSpan.ONE_THIRD,
     },
-    createPlaceholderFormField(eGridSpan.TWO_THIRD),
+    createPlaceholderFormField(eGridSpan.ONE_THIRD),
+    createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
 
 export const ATHAN_FORM_SALAH_DATA = [
@@ -1007,28 +983,30 @@ export const IQAMAH_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
-export const HIJRI_FORM_DATA = [
+export const GENERAL_FORM_DATA = [
     {
-        name: "settings",
-        label: "Settings",
-        data: HIJRI_FORM_SETTINGS_DATA,
-    }
-] as ReactiveForm[];
-
-export const LOCATION_FORM_DATA = [
-    {
-        name: "settings",
-        label: "Settings",
-        data: LOCATION_FORM_SETTINGS_DATA,
+        name: "hijri",
+        label: "Hijri Date",
+        data: GENERAL_FORM_HIJRI_DATA,
     },
     {
-        name: "offset",
-        label: "Solar Offset",
-        data: LOCATION_FORM_SOLAR_DATA,
+        name: "jumuah",
+        label: "",
+        data: GENERAL_FORM_JUMUAH_DATA,
+    },
+    {
+        name: "taraweeh",
+        label: "Taraweeh Timings",
+        data: GENERAL_FORM_TARAWEEH_DATA,
     },
 ] as ReactiveForm[];
 
 export const SALAH_FORM_DATA = [
+    {
+        name: "location",
+        label: "Location",
+        data: SALAH_FORM_LOCATION_DATA,
+    },
     {
         name: "settings",
         label: "Settings",
@@ -1036,20 +1014,9 @@ export const SALAH_FORM_DATA = [
     },
     {
         name: "offset",
-        label: "Salah Timings Offset",
+        label: "Start Time Adjustments",
         data: SALAH_FORM_OFFSET_DATA,
-    },    
-    {
-        name: "jumuah",
-        label: "Jumuah Timings",
-        data: SALAH_FORM_JUMUAH_DATA,
     },
-    {
-        name: "ramadan",
-        label: "Taraweeh",
-        data: SALAH_FORM_TARAWEEH_DATA,
-    },
-
 ] as ReactiveForm[];
 
 export const ATHAN_FORM_DATA = [
@@ -1085,11 +1052,10 @@ export const MOSQUE_FORM_DATA = [
 
 export const TIMINGS_TABS_DATA = [
     { id: TimingConstants.IQAMAH, label: "Iqamah", editMode: false, forms: IQAMAH_FORM_DATA },
-    { id: TimingConstants.HIJRI, label: "Hijri", editMode: false, forms: HIJRI_FORM_DATA },
+    { id: TimingConstants.GENERAL, label: "General", editMode: false, forms: GENERAL_FORM_DATA },
 ] as TabModel[];
 
 export const SETTINGS_TABS_DATA = [
-    { id: SettingConstants.LOCATION, label: "Location", editMode: true, forms: LOCATION_FORM_DATA },
     { id: SettingConstants.SALAH, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },
     { id: SettingConstants.ATHAN, label: "Athan", editMode: false, forms: ATHAN_FORM_DATA },
 ] as TabModel[];
