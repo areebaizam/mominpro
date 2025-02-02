@@ -78,6 +78,9 @@
         <mat-error>{{ getValidationError(field)}}</mat-error>
     </mat-form-field>
     }
+    @else if(field.type == 'placeholder'){
+        <div class="field-width" [style.flex]="field.colspan"></div>
+    }
     @else if(field.type == 'iqama'){
     <tap-time-offset-input [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-time-offset-input>
     }

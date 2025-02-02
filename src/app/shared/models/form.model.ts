@@ -9,10 +9,11 @@ export class TimeOffsetValue {
 export type alphanumericbool = string | number | boolean | Date;
 export type InputType = 'color' | 'email' | 'month' | 'password' | 'search' | 'tel' | 'text' | 'url' | 'week';
 export type CustomType = 'iqama';
-export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time';
+export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder';
 export type ControlValue = alphanumericbool | TimeOffsetValue;
 export enum eGridSpan {
     FULL = '1 1 calc(100% - 1.25rem)',
+    TWO_THIRD = '1 1 calc(66.67% - 1.25rem)',
     HALF = '1 1 calc(50% - 1.25rem)',
     ONE_THIRD = '1 1 calc(33.33% - 1.25rem)',
     ONE_FOURTH = '1 1 calc(25% - 1.25rem)',
@@ -36,7 +37,7 @@ export interface ValidatorModel {
 export interface BaseFormControlModel {
     name: string;
     label: string;
-    value: ControlValue;
+    value: ControlValue | null;
     colspan: eGridSpan;
     validators: ValidatorModel | null;
     type: ControlType;
@@ -67,19 +68,20 @@ export interface SelectModel extends BaseFormControlModel {
     type: 'select';
     options: SelectOptionModel[];
 }
-
+//Option
 export interface SelectOptionModel {
     value: alphanumericbool | null;
     name: string;
     recommended: boolean;
 }
-
+//Number Model
 export interface NumberModel extends BaseFormControlModel {
     type: 'number',
     placeholder: string;
     suffix: string,
     step: number;
 }
+//Series
 export interface SeriesModel extends BaseFormControlModel {
     type: 'series',
     suffix: string,
@@ -87,10 +89,16 @@ export interface SeriesModel extends BaseFormControlModel {
     baseLabel: string,
     recommendedValue: alphanumericbool | null,
 }
+//Toggle
 export interface ToggleModel extends BaseFormControlModel {
     type: 'toggle',
 }
+//Emty Placeholder
+export interface PlaceholderModel extends BaseFormControlModel {
+    type: 'placeholder',
+}
 
+//Iqamah
 export interface TimeOffsetModel extends BaseFormControlModel {
     type: 'iqama',
     value: IqamaValue,
@@ -105,7 +113,7 @@ export interface IqamaOptions {
     control: FormControlModel,
 }
 
-export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | TimeOffsetModel | DatePickerModel;
+export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | TimeOffsetModel | DatePickerModel | PlaceholderModel;
 
 export interface ReactiveForm {
     name: string;
