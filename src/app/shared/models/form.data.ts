@@ -1,552 +1,7 @@
 import { eGridSpan, FormControlModel, ReactiveForm, TabModel } from "./form.model";
 import { TimingConstants, SettingConstants, AccountConstants } from "./app.constants";
 
-export const MOSQUE_FORM_GENERAL_DATA = [
-    {
-        type: "text",
-        name: 'name',
-        label: 'Mosque Name',
-        value: '',
-        placeholder: 'Ex: Al Hidaya Center',
-        colspan: eGridSpan.HALF,
-        validators: {
-            required: true,
-            minLength: 3,
-            maxLength: 100
-        }
-    },
-    {
-        type: "text",
-        name: 'meta',
-        label: 'Meta Tags (optional)',
-        value: '',
-        placeholder: 'Ex: Add tags separated by comma',
-        colspan: eGridSpan.HALF,
-        validators: {
-            maxLength: 100
-        }
-    }
-] as FormControlModel[];
-
-export const MOSQUE_FORM_ADDRESS_DATA = [
-    {
-        type: "textarea",
-        name: 'address',
-        label: 'Address',
-        value: '',
-        placeholder: 'Ex: 4/189 Montogemery St.',
-        colspan: eGridSpan.FULL,
-        validators: {
-            required: true,
-            minLength: 3,
-            maxLength: 500,
-        },
-        min: 2,
-    },
-    {
-        type: "text",
-        name: 'city',
-        label: 'City',
-        value: '',
-        placeholder: 'Ex: San Franciso',
-        colspan: eGridSpan.HALF,
-        validators: {
-            required: true,
-            minLength: 3,
-            maxLength: 100
-        }
-    },
-    {
-        type: "text",
-        name: 'state',
-        label: 'State / Province',
-        value: '',
-        placeholder: 'Ex: California',
-        colspan: eGridSpan.HALF,
-        validators: {
-            required: true,
-            minLength: 3,
-            maxLength: 100
-        }
-    },
-    {
-        type: "text",
-        name: 'code',
-        label: 'Postal Code / Zip Code',
-        value: '',
-        placeholder: 'Ex: USA',
-        colspan: eGridSpan.HALF,
-        validators: {
-            required: true,
-            minLength: 3,
-            maxLength: 20
-        }
-    },
-    {
-        type: "select",
-        name: 'country',
-        label: 'Country',
-        value: 'CA',
-        colspan: eGridSpan.HALF,
-        validators: {
-            required: true,
-        },
-        options: [
-            {
-                value: '',
-                name: 'Select Country'
-            },
-            {
-                value: 'US',
-                name: 'United States of America'
-            },
-            {
-                value: 'CA',
-                name: 'Canada'
-            },
-        ]
-
-    },
-] as FormControlModel[];
-
-export const MOSQUE_FORM_CONTACT_DATA = [
-    {
-        type: "text",
-        name: 'phone',
-        label: 'Phone (Optional)',
-        prefix: '+',
-        value: '',
-        placeholder: 'Ex: +1 604 500 500',
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            maxLength: 100
-        }
-    },
-    {
-        type: "email",
-        name: 'email',
-        label: 'Email (Optional)',
-        value: '',
-        placeholder: 'Ex: mosque@gmail.com',
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            email: true,
-            maxLength: 100
-        }
-    },
-    {
-        type: "text",
-        name: 'website',
-        label: 'Website (Optional)',
-        value: '',
-        placeholder: 'Ex: www.my-mosque.com',
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            maxLength: 100,
-        }
-    },
-] as FormControlModel[];
-
-export const LOCATION_FORM_COORD_DATA = [
-    {
-        type: 'number',
-        name: 'latitude',
-        label: 'Latitude',
-        value: '',
-        placeholder: 'Ex: 40.7128',
-        colspan: eGridSpan.HALF,
-        step: 2,
-        validators: {
-            required: true,
-            maxLength: 20,
-            min: -90,
-            max: 90,
-        }
-    },
-    {
-        type: 'number',
-        name: 'longitude',
-        label: 'Longitude',
-        value: '',
-        placeholder: 'Ex: -74.0060',
-        colspan: eGridSpan.HALF,
-        step: 2,
-        validators: {
-            required: true,
-            min: -180,
-            max: 180,
-            maxLength: 20,
-        }
-    },
-] as FormControlModel[];
-
-export const LOCATION_FORM_TIMEZONE_DATA = [
-    {
-        type: "select",
-        name: 'timezone',
-        label: 'Timezone',
-        value: -480,
-        colspan: eGridSpan.HALF,
-        validators: {
-            required: true,
-        },
-        options: [
-            {
-                value: '',
-                name: 'Select Timezone'
-            },
-            {
-                value: -300,
-                name: 'Eastern (GMT -05:00)'
-            },
-            {
-                value: -480,
-                name: 'Pacific (GMT -08:00)'
-            },
-        ]
-
-    },
-] as FormControlModel[];
-
-export const HIJRI_FORM_SETTINGS_DATA = [
-    {
-        type: "series",
-        name: 'offset',
-        label: 'Hijri Adjustment',
-        value: 0,
-        colspan: eGridSpan.ONE_FOURTH,
-        validators: {
-            min: -3,
-            max: 3,
-        },
-        suffix: 'days',
-        suffixUnit: 'day',
-        baseLabel: 'No change',
-        recommendedValue: null,
-    },
-    {
-        type: "toggle",
-        name: 'display',
-        label: 'Show Hijri Calender',
-        value: false,
-        colspan: eGridSpan.ONE_FOURTH,
-    },
-] as FormControlModel[];
-
-export const ATHAN_FORM_DISPLAY_FLAG = [
-    {
-        type: "toggle",
-        name: 'display',
-        label: 'Show Athan on Display',
-        value: false,
-        colspan: eGridSpan.HALF,
-    },
-] as FormControlModel[];
-
-export const ATHAN_FORM_SALAH_DATA = [
-    {
-        type: "series",
-        name: 'fajr',
-        label: 'Fajr',
-        value: 10,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 60,
-        },
-        suffix: 'minutes before Iqamah',
-        suffixUnit: 'minute before Iqamah',
-        baseLabel: 'Soon before Iqamah',
-        recommendedValue: null,
-    },
-    {
-        type: "series",
-        name: 'dhur',
-        label: 'Dhuhr',
-        value: 10,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 60,
-        },
-        suffix: 'minutes before Iqamah',
-        suffixUnit: 'minute before Iqamah',
-        baseLabel: 'Soon before Iqamah',
-        recommendedValue: null,
-    },
-    {
-        type: "series",
-        name: 'asr',
-        label: 'Asr',
-        value: 10,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 60,
-        },
-        suffix: 'minutes before Iqamah',
-        suffixUnit: 'minute before Iqamah',
-        baseLabel: 'Soon before Iqamah',
-        recommendedValue: null,
-    },
-    {
-        type: "series",
-        name: 'maghrib',
-        label: 'Maghrib',
-        value: 0,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 60,
-        },
-        suffix: 'minutes before Iqamah',
-        suffixUnit: 'minute before Iqamah',
-        baseLabel: 'Soon before Iqamah',
-        recommendedValue: 0,
-    },
-    {
-        type: "series",
-        name: 'isha',
-        label: 'Isha',
-        value: 10,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 60,
-        },
-        suffix: 'minutes before Iqamah',
-        suffixUnit: 'minute before Iqamah',
-        baseLabel: 'Soon before Iqamah',
-        recommendedValue: 5,
-    },
-    {
-        type: "series",
-        name: 'jumuah',
-        label: 'Jumuah',
-        value: 0,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 60,
-        },
-        suffix: 'minutes before Khutbah',
-        suffixUnit: 'minute before Khutbah',
-        baseLabel: 'Soon before Khutbah',
-        recommendedValue: null,
-    },
-] as FormControlModel[];
-
-export const SALAH_FORM_ADJUSTMENT_DATA = [
-    {
-        type: "series",
-        name: 'fajr',
-        label: 'Fajr',
-        value: 0,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: -90,
-            max: 120,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No Change',
-        recommendedValue: 0,
-    },
-    {
-        type: "series",
-        name: 'dhur',
-        label: 'Dhuhr',
-        value: 2,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 1,
-            max: 30,
-        },
-        suffix: 'minutes after Zawal',
-        suffixUnit: 'minute after Zawal',
-        baseLabel: 'At Zawal',
-        recommendedValue: 2,
-    },
-    {
-        type: "series",
-        name: 'asr',
-        label: 'Asr',
-        value: 0,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: -90,
-            max: 120,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No Change',
-        recommendedValue: 0,
-    },
-    {
-        type: "series",
-        name: 'maghrib',
-        label: 'Maghrib',
-        value: 2,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 30,
-        },
-        suffix: 'minutes after Sunset',
-        suffixUnit: 'minute after Sunset',
-        baseLabel: 'At Sunset',
-        recommendedValue: 0,
-    },
-    {
-        type: "series",
-        name: 'isha',
-        label: 'Isha',
-        value: 0,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 60,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No Change',
-        recommendedValue: 0,
-    },
-] as FormControlModel[];
-export const SALAH_FORM_CONFIG_DATA = [
-    {
-        type: "series",
-        name: 'sunrise',
-        label: 'Sunrise (Shuruq)',
-        value: 0,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: -30,
-            max: 30,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No change',
-        recommendedValue: 0,
-    },
-    {
-        type: "series",
-        name: 'midday',
-        label: 'Midday (Zawal)',
-        value: 0,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: -30,
-            max: 30,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No change',
-        recommendedValue: 0,
-    },
-    {
-        type: "series",
-        name: 'sunset',
-        label: 'Sunset (Ghuroob)',
-        value: 0,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: -30,
-            max: 30,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No change',
-        recommendedValue: 0,
-    },
-    {
-        type: "select",
-        name: 'juristic',
-        label: 'Asr Juristic (Madhab)',
-        value: 0,
-        colspan: eGridSpan.HALF,
-        options: [
-            {
-                value: 0,
-                name: 'Standard (Shafi\'i, Maliki \& Hanbali)'
-            },
-            {
-                value: 1,
-                name: 'Later Asr (Hanafi)'
-            },
-        ]
-    },
-    {
-        type: "select",
-        name: 'rule',
-        label: 'High Latitude Rule',
-        value: 1,
-        colspan: eGridSpan.HALF,
-        options: [
-            {
-                value: 0,
-                name: 'NONE'
-            },
-            {
-                value: 1,
-                name: 'Twilight Angle (Recommended)',
-                recommended: true,
-            },
-            {
-                value: 2,
-                name: 'Middle of the Night',
-            },
-            {
-                value: 3,
-                name: 'Seventh of the Night'
-            },
-        ]
-    },
-    {
-        type: "select",
-        name: 'method',
-        label: 'Calculation Method',
-        value: 'CUS',
-        colspan: eGridSpan.HALF,
-        options: [
-            {
-                value: 'ISNA',
-                name: 'Islamic Society of North America'
-            },
-            {
-                value: 'CUS',
-                name: 'Custom (Set Fajr/Isha Angles)'
-            },
-        ]
-
-    },
-    {
-        type: "slider",
-        name: 'fajrAngle',
-        label: 'Fajr',
-        value: 15,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 10,
-            max: 20,
-        },
-        step: .1,
-    },
-    {
-        type: "slider",
-        name: 'ishaAngle',
-        label: 'Isha',
-        value: 15,
-        colspan: eGridSpan.HALF,
-        validators: {
-            min: 10,
-            max: 20,
-        },
-        step: .1,
-    },
-] as FormControlModel[];
-
-export const IQAMAH_FORM_START_DATA = [
+export const IQAMAH_FORM_SETTINGS_DATA = [
     {
         type: "date",
         name: 'date',
@@ -558,7 +13,6 @@ export const IQAMAH_FORM_START_DATA = [
             required: true,
         }
     },
-
 ] as FormControlModel[];
 
 export const IQAMAH_FORM_PRAYER_DATA = [
@@ -835,6 +289,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         ]
     },
 ] as FormControlModel[];
+
 export const IQAMAH_FORM_JUMUAH_DATA = [
     {
         type: "iqama",
@@ -973,27 +428,560 @@ export const IQAMAH_FORM_JUMUAH_DATA = [
     },
 ] as FormControlModel[];
 
-export const SALAH_FORM_DATA = [
-    
-    
+export const HIJRI_FORM_SETTINGS_DATA = [
     {
-        name: "settings",
-        label: "Settings",
-        data: SALAH_FORM_CONFIG_DATA,
+        type: "series",
+        name: 'offset',
+        label: 'Hijri Adjustment',
+        value: 0,
+        colspan: eGridSpan.ONE_FOURTH,
+        validators: {
+            min: -3,
+            max: 3,
+        },
+        suffix: 'days',
+        suffixUnit: 'day',
+        baseLabel: 'No change',
+        recommendedValue: null,
     },
     {
-        name: "offset",
-        label: "Start Time",
-        data: SALAH_FORM_ADJUSTMENT_DATA,
+        type: "toggle",
+        name: 'display',
+        label: 'Show Hijri Calender',
+        value: false,
+        colspan: eGridSpan.ONE_FOURTH,
     },
+] as FormControlModel[];
 
-] as ReactiveForm[];
+export const LOCATION_FORM_COORD_DATA = [
+    {
+        type: 'number',
+        name: 'latitude',
+        label: 'Latitude',
+        value: '',
+        placeholder: 'Ex: 40.7128',
+        colspan: eGridSpan.HALF,
+        step: 2,
+        validators: {
+            required: true,
+            maxLength: 20,
+            min: -90,
+            max: 90,
+        }
+    },
+    {
+        type: 'number',
+        name: 'longitude',
+        label: 'Longitude',
+        value: '',
+        placeholder: 'Ex: -74.0060',
+        colspan: eGridSpan.HALF,
+        step: 2,
+        validators: {
+            required: true,
+            min: -180,
+            max: 180,
+            maxLength: 20,
+        }
+    },
+] as FormControlModel[];
+
+export const LOCATION_FORM_TIMEZONE_DATA = [
+    {
+        type: "select",
+        name: 'timezone',
+        label: 'Timezone',
+        value: -480,
+        colspan: eGridSpan.HALF,
+        validators: {
+            required: true,
+        },
+        options: [
+            {
+                value: '',
+                name: 'Select Timezone'
+            },
+            {
+                value: -300,
+                name: 'Eastern (GMT -05:00)'
+            },
+            {
+                value: -480,
+                name: 'Pacific (GMT -08:00)'
+            },
+        ]
+
+    },
+] as FormControlModel[];
+
+export const LOCATION_FORM_SOLAR_DATA = [
+    {
+        type: "series",
+        name: 'sunrise',
+        label: 'Sunrise (Shuruq)',
+        value: 0,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: -30,
+            max: 30,
+        },
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No change',
+        recommendedValue: 0,
+    },
+    {
+        type: "series",
+        name: 'midday',
+        label: 'Midday (Zawal)',
+        value: 0,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: -30,
+            max: 30,
+        },
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No change',
+        recommendedValue: 0,
+    },
+    {
+        type: "series",
+        name: 'sunset',
+        label: 'Sunset (Ghuroob)',
+        value: 0,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: -30,
+            max: 30,
+        },
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No change',
+        recommendedValue: 0,
+    },
+] as FormControlModel[];
+
+export const SALAH_FORM_SETTINGS_DATA = [
+    {
+        type: "select",
+        name: 'method',
+        label: 'Calculation Method',
+        value: 'CUS',
+        colspan: eGridSpan.ONE_THIRD,
+        options: [
+            {
+                value: 'ISNA',
+                name: 'Islamic Society of North America'
+            },
+            {
+                value: 'CUS',
+                name: 'Custom (Set Fajr/Isha Angles)'
+            },
+        ]
+
+    },
+    {
+        type: "slider",
+        name: 'fajrAngle',
+        label: 'Fajr',
+        value: 15,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: 10,
+            max: 20,
+        },
+        step: .1,
+    },
+    {
+        type: "slider",
+        name: 'ishaAngle',
+        label: 'Isha',
+        value: 15,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            min: 10,
+            max: 20,
+        },
+        step: .1,
+    },
+    {
+        type: "select",
+        name: 'juristic',
+        label: 'Asr Juristic (Madhab)',
+        value: 0,
+        colspan: eGridSpan.HALF,
+        options: [
+            {
+                value: 0,
+                name: 'Standard (Shafi\'i, Maliki \& Hanbali)'
+            },
+            {
+                value: 1,
+                name: 'Later Asr (Hanafi)'
+            },
+        ]
+    },
+    {
+        type: "select",
+        name: 'rule',
+        label: 'High Latitude Rule',
+        value: 1,
+        colspan: eGridSpan.HALF,
+        options: [
+            {
+                value: 0,
+                name: 'NONE'
+            },
+            {
+                value: 1,
+                name: 'Twilight Angle (Recommended)',
+                recommended: true,
+            },
+            {
+                value: 2,
+                name: 'Middle of the Night',
+            },
+            {
+                value: 3,
+                name: 'Seventh of the Night'
+            },
+        ]
+    },
+] as FormControlModel[];
+
+export const SALAH_FORM_OFFSET_DATA = [
+    {
+        type: "series",
+        name: 'fajr',
+        label: 'Fajr',
+        value: 0,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: -90,
+            max: 120,
+        },
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No Change',
+        recommendedValue: 0,
+    },
+    {
+        type: "series",
+        name: 'dhur',
+        label: 'Dhuhr',
+        value: 2,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: 1,
+            max: 30,
+        },
+        suffix: 'minutes after Zawal',
+        suffixUnit: 'minute after Zawal',
+        baseLabel: 'At Zawal',
+        recommendedValue: 2,
+    },
+    {
+        type: "series",
+        name: 'asr',
+        label: 'Asr',
+        value: 0,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: -90,
+            max: 120,
+        },
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No Change',
+        recommendedValue: 0,
+    },
+    {
+        type: "series",
+        name: 'maghrib',
+        label: 'Maghrib',
+        value: 2,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: 0,
+            max: 30,
+        },
+        suffix: 'minutes after Sunset',
+        suffixUnit: 'minute after Sunset',
+        baseLabel: 'At Sunset',
+        recommendedValue: 0,
+    },
+    {
+        type: "series",
+        name: 'isha',
+        label: 'Isha',
+        value: 0,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes',
+        suffixUnit: 'minute',
+        baseLabel: 'No Change',
+        recommendedValue: 0,
+    },
+] as FormControlModel[];
+
+export const ATHAN_FORM_SETTINGS_FLAG = [
+    {
+        type: "toggle",
+        name: 'display',
+        label: 'Show Athan on Display',
+        value: false,
+        colspan: eGridSpan.HALF,
+    },
+] as FormControlModel[];
+
+export const ATHAN_FORM_SALAH_DATA = [
+    {
+        type: "series",
+        name: 'fajr',
+        label: 'Fajr',
+        value: 10,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Iqamah',
+        suffixUnit: 'minute before Iqamah',
+        baseLabel: 'Soon before Iqamah',
+        recommendedValue: null,
+    },
+    {
+        type: "series",
+        name: 'dhur',
+        label: 'Dhuhr',
+        value: 10,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Iqamah',
+        suffixUnit: 'minute before Iqamah',
+        baseLabel: 'Soon before Iqamah',
+        recommendedValue: null,
+    },
+    {
+        type: "series",
+        name: 'asr',
+        label: 'Asr',
+        value: 10,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Iqamah',
+        suffixUnit: 'minute before Iqamah',
+        baseLabel: 'Soon before Iqamah',
+        recommendedValue: null,
+    },
+    {
+        type: "series",
+        name: 'maghrib',
+        label: 'Maghrib',
+        value: 0,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Iqamah',
+        suffixUnit: 'minute before Iqamah',
+        baseLabel: 'Soon before Iqamah',
+        recommendedValue: 0,
+    },
+    {
+        type: "series",
+        name: 'isha',
+        label: 'Isha',
+        value: 10,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Iqamah',
+        suffixUnit: 'minute before Iqamah',
+        baseLabel: 'Soon before Iqamah',
+        recommendedValue: 5,
+    },
+    {
+        type: "series",
+        name: 'jumuah',
+        label: 'Jumuah',
+        value: 0,
+        colspan: eGridSpan.HALF,
+        validators: {
+            min: 0,
+            max: 60,
+        },
+        suffix: 'minutes before Khutbah',
+        suffixUnit: 'minute before Khutbah',
+        baseLabel: 'Soon before Khutbah',
+        recommendedValue: null,
+    },
+] as FormControlModel[];
+
+export const MOSQUE_FORM_GENERAL_DATA = [
+    {
+        type: "text",
+        name: 'name',
+        label: 'Mosque Name',
+        value: '',
+        placeholder: 'Ex: Al Hidaya Center',
+        colspan: eGridSpan.HALF,
+        validators: {
+            required: true,
+            minLength: 3,
+            maxLength: 100
+        }
+    },
+    {
+        type: "text",
+        name: 'meta',
+        label: 'Meta Tags (optional)',
+        value: '',
+        placeholder: 'Ex: Add tags separated by comma',
+        colspan: eGridSpan.HALF,
+        validators: {
+            maxLength: 100
+        }
+    }
+] as FormControlModel[];
+
+export const MOSQUE_FORM_ADDRESS_DATA = [
+    {
+        type: "textarea",
+        name: 'address',
+        label: 'Address',
+        value: '',
+        placeholder: 'Ex: 4/189 Montogemery St.',
+        colspan: eGridSpan.FULL,
+        validators: {
+            required: true,
+            minLength: 3,
+            maxLength: 500,
+        },
+        min: 2,
+    },
+    {
+        type: "text",
+        name: 'city',
+        label: 'City',
+        value: '',
+        placeholder: 'Ex: San Franciso',
+        colspan: eGridSpan.HALF,
+        validators: {
+            required: true,
+            minLength: 3,
+            maxLength: 100
+        }
+    },
+    {
+        type: "text",
+        name: 'state',
+        label: 'State / Province',
+        value: '',
+        placeholder: 'Ex: California',
+        colspan: eGridSpan.HALF,
+        validators: {
+            required: true,
+            minLength: 3,
+            maxLength: 100
+        }
+    },
+    {
+        type: "text",
+        name: 'code',
+        label: 'Postal Code / Zip Code',
+        value: '',
+        placeholder: 'Ex: USA',
+        colspan: eGridSpan.HALF,
+        validators: {
+            required: true,
+            minLength: 3,
+            maxLength: 20
+        }
+    },
+    {
+        type: "select",
+        name: 'country',
+        label: 'Country',
+        value: 'CA',
+        colspan: eGridSpan.HALF,
+        validators: {
+            required: true,
+        },
+        options: [
+            {
+                value: '',
+                name: 'Select Country'
+            },
+            {
+                value: 'US',
+                name: 'United States of America'
+            },
+            {
+                value: 'CA',
+                name: 'Canada'
+            },
+        ]
+
+    },
+] as FormControlModel[];
+
+export const MOSQUE_FORM_CONTACT_DATA = [
+    {
+        type: "text",
+        name: 'phone',
+        label: 'Phone (Optional)',
+        prefix: '+',
+        value: '',
+        placeholder: 'Ex: +1 604 500 500',
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            maxLength: 100
+        }
+    },
+    {
+        type: "email",
+        name: 'email',
+        label: 'Email (Optional)',
+        value: '',
+        placeholder: 'Ex: mosque@gmail.com',
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            email: true,
+            maxLength: 100
+        }
+    },
+    {
+        type: "text",
+        name: 'website',
+        label: 'Website (Optional)',
+        value: '',
+        placeholder: 'Ex: www.my-mosque.com',
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            maxLength: 100,
+        }
+    },
+] as FormControlModel[];
 
 export const IQAMAH_FORM_DATA = [
     {
         name: "settings",
         label: "Iqamah Change Date",
-        data: IQAMAH_FORM_START_DATA,
+        data: IQAMAH_FORM_SETTINGS_DATA,
     },
     {
         name: "offset",
@@ -1007,11 +995,51 @@ export const IQAMAH_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
+export const HIJRI_FORM_DATA = [
+    {
+        name: "settings",
+        label: "Settings",
+        data: HIJRI_FORM_SETTINGS_DATA,
+    }
+] as ReactiveForm[];
+
+export const LOCATION_FORM_DATA = [
+    {
+        name: "coordinates",
+        label: "Coordinates",
+        data: LOCATION_FORM_COORD_DATA,
+    },
+    {
+        name: "timezone",
+        label: "Timezone",
+        data: LOCATION_FORM_TIMEZONE_DATA,
+    },
+    {
+        name: "offset",
+        label: "Solar Adjustments",
+        data: LOCATION_FORM_SOLAR_DATA,
+    },
+] as ReactiveForm[];
+
+export const SALAH_FORM_DATA = [
+    {
+        name: "settings",
+        label: "Settings",
+        data: SALAH_FORM_SETTINGS_DATA,
+    },
+    {
+        name: "offset",
+        label: "Start Time",
+        data: SALAH_FORM_OFFSET_DATA,
+    },
+
+] as ReactiveForm[];
+
 export const ATHAN_FORM_DATA = [
     {
         name: "settings",
         label: "Settings",
-        data: ATHAN_FORM_DISPLAY_FLAG,
+        data: ATHAN_FORM_SETTINGS_FLAG,
     },
     {
         name: "offset",
@@ -1043,39 +1071,17 @@ export const MOSQUE_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
-export const LOCATION_FORM_DATA = [
-    {
-        name: "coordinates",
-        label: "Coordinates",
-        data: LOCATION_FORM_COORD_DATA,
-    },
-    {
-        name: "timezone",
-        label: "Timezone",
-        data: LOCATION_FORM_TIMEZONE_DATA,
-    },
-] as ReactiveForm[];
-
-export const HIJRI_FORM_DATA = [
-    {
-        name: "settings",
-        label: "Settings",
-        data: HIJRI_FORM_SETTINGS_DATA,
-    }
-] as ReactiveForm[];
-
 export const TIMINGS_TABS_DATA = [
     { id: TimingConstants.IQAMAH, label: "Iqamah", editMode: false, forms: IQAMAH_FORM_DATA },
     { id: TimingConstants.HIJRI, label: "Hijri", editMode: false, forms: HIJRI_FORM_DATA },
-    
 ] as TabModel[];
 
 export const SETTINGS_TABS_DATA = [
-    { id: SettingConstants.SALAH, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },    
+    { id: SettingConstants.LOCATION, label: "Location", editMode: true, forms: LOCATION_FORM_DATA },
+    { id: SettingConstants.SALAH, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },
     { id: SettingConstants.ATHAN, label: "Athan", editMode: false, forms: ATHAN_FORM_DATA },
 ] as TabModel[];
 
 export const ACCOUNTS_TABS_DATA = [
     { id: AccountConstants.MOSQUE, label: "Mosque", editMode: true, forms: MOSQUE_FORM_DATA },
-    { id: AccountConstants.LOCATION, label: "Location", editMode: true, forms: LOCATION_FORM_DATA },
 ] as TabModel[];

@@ -9,12 +9,12 @@ export class TimingConstants {
   static readonly IQAMAH = 'iqamah';
   static readonly HIJRI = 'hijri';
 }
-export class SettingConstants {  
+export class SettingConstants {
+  static readonly LOCATION = 'location';
   static readonly SALAH = 'salah';
   static readonly ATHAN = 'athan';
 }
 export class AccountConstants {
-  static readonly MOSQUE = 'mosque';
-  static readonly LOCATION = 'location';
+  static readonly MOSQUE = 'mosque';  
   static readonly USER = 'users';
 }
