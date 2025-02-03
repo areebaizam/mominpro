@@ -92,7 +92,11 @@ export interface SeriesModel extends BaseFormControlModel {
 export interface ToggleModel extends BaseFormControlModel {
     type: 'toggle',
 }
-//Emty Placeholder
+//Time
+export interface TimeModel extends BaseFormControlModel {
+    type: 'time',
+}
+//Empty
 export interface PlaceholderModel extends BaseFormControlModel {
     type: 'placeholder',
 }
@@ -112,7 +116,7 @@ export interface IqamaOptions {
     control: FormControlModel,
 }
 
-export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | TimeOffsetModel | DatePickerModel | PlaceholderModel;
+export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | TimeOffsetModel | TimeModel | DatePickerModel | PlaceholderModel;
 
 export interface ReactiveForm {
     name: string;

@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatTimepicker, MatTimepickerModule } from '@angular/material/timepicker';
 //Custom Form Fields
 import { TimeOffsetInput } from '@shared/formfields';
 import { IqamaComponent } from '@shared/formfields';
@@ -22,7 +23,7 @@ import { FormControlModel } from '@shared/models';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule];
 const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, MatSliderModule,
-  MatIconModule, MatButtonModule, MatSelectModule, MatSlideToggleModule, MatDatepickerModule];
+  MatIconModule, MatButtonModule, MatSelectModule, MatSlideToggleModule, MatDatepickerModule, MatTimepickerModule];
 const customControls = [TimeOffsetInput];
 
 //Reference:https://github.com/DMezhenskyi/shared-angular-forms/blob/implemented/src/app/address-group/address-group.component.ts
@@ -80,9 +81,23 @@ export class LibFormComponent implements OnInit, OnDestroy {
   }
 
   onSelect(fieldName: string, value: string) {
-    if (fieldName == 'method'){
+    if (fieldName == 'method') {
       value == 'CUS' ? this.getFormControl('fajr').enable() : this.getFormControl('fajr').disable();
       value == 'CUS' ? this.getFormControl('isha').enable() : this.getFormControl('isha').disable();
     }
   }
+
+  getMinTimeValue(min: string | undefined): string {
+    return !!min ? min : '00:00';
+  }
+  
+  getMaxTimeValue(max: string | undefined): string {
+    return !!max ? max : '23:59';
+  }
+
+  closeIfDisabled(picker: MatTimepicker<any>) {
+    if (!this.editMode)
+      picker.close()
+  }
+
 }
