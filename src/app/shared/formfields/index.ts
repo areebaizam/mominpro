@@ -1,2 +1,1 @@
-export * from './iqama/iqama.component';
-export * from './time-offset-input/time-offset-input.component';
+export * from './iqamah-form-field/iqamah-form-field.component';

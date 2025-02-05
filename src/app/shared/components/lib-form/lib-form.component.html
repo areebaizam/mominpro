@@ -91,8 +91,8 @@
     @else if(field.type == 'placeholder'){
         <div class="field-width" [style.flex]="field.colspan"></div>
     }
-    @else if(field.type == 'iqama'){
-    <tap-time-offset-input [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-time-offset-input>
+    @else if(field.type == 'iqamah'){
+    <tap-iqamah-form-field [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-iqamah-form-field>
     }
 }
 </form>

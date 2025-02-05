@@ -13,8 +13,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTimepicker, MatTimepickerModule } from '@angular/material/timepicker';
 //Custom Form Fields
-import { TimeOffsetInput } from '@shared/formfields';
-import { IqamaComponent } from '@shared/formfields';
+import { IqamahFormField } from '@shared/formfields';
 //Services
 import { FormService } from '@shared/services';
 //Models
@@ -24,7 +23,7 @@ import { FormControlModel } from '@shared/models';
 const formModules = [FormsModule, ReactiveFormsModule];
 const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, MatSliderModule,
   MatIconModule, MatButtonModule, MatSelectModule, MatSlideToggleModule, MatDatepickerModule, MatTimepickerModule];
-const customControls = [TimeOffsetInput];
+const customControls = [IqamahFormField];
 
 //Reference:https://github.com/DMezhenskyi/shared-angular-forms/blob/implemented/src/app/address-group/address-group.component.ts
 @Component({

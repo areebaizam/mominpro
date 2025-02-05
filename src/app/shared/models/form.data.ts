@@ -32,7 +32,7 @@ export const IQAMAH_FORM_SETTINGS_DATA = [
 
 export const IQAMAH_FORM_PRAYER_DATA = [
     {
-        type: "iqama",
+        type: "iqamah",
         name: 'fajr',
         label: 'Fajr',
         value: { type: 'time', value: new Date(0, 0, 0, 4, 0) },
@@ -79,7 +79,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         ]
     },
     {
-        type: "iqama",
+        type: "iqamah",
         name: 'dhur',
         label: 'Dhuhr',
         value: { type: 'time', value: new Date(0, 0, 0, 12, 0) },
@@ -126,7 +126,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         ]
     },
     {
-        type: "iqama",
+        type: "iqamah",
         name: 'asr',
         label: 'Asr',
         value: { type: 'time', value: new Date(0, 0, 0, 16, 0) },
@@ -174,7 +174,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         ]
     },
     {
-        type: "iqama",
+        type: "iqamah",
         name: 'maghrib',
         label: 'Maghrib',
         value: { type: 'series', value: 0 },
@@ -221,7 +221,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         ]
     },
     {
-        type: "iqama",
+        type: "iqamah",
         name: 'isha',
         label: 'Isha',
         value: { type: 'time', value: new Date(0, 0, 0, 19, 0) },

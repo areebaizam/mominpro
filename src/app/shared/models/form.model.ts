@@ -1,21 +1,19 @@
 
-// TODO Remove this
-export class IqamaValue {
-    constructor(public type: ControlType, public value: alphanumericbool) { }
-}
-export class TimeOffsetValue {
-    constructor(public type: ControlType, public value: alphanumericbool | null) { }
-}
+
 export type alphanumericbool = string | number | boolean | Date;
 export type InputType = 'color' | 'email' | 'month' | 'password' | 'search' | 'tel' | 'text' | 'url' | 'week';
-export type CustomType = 'iqama';
+export type CustomType = 'iqamah' | 'athan';
 export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder';
-export type ControlValue = alphanumericbool | TimeOffsetValue;
+export type ControlValue = alphanumericbool | ControlTypeValue;
 export enum eGridSpan {
     FULL = '1 1 calc(100% - 1.25rem)',
     HALF = '1 1 calc(50% - 1.25rem)',
     ONE_THIRD = '1 1 calc(33.33% - 1.25rem)',
     ONE_FOURTH = '1 1 calc(25% - 1.25rem)',
+}
+
+export class ControlTypeValue {
+    constructor(public type: ControlType, public value: alphanumericbool | null) { }
 }
 
 export interface ValidatorModel {
@@ -101,22 +99,29 @@ export interface PlaceholderModel extends BaseFormControlModel {
     type: 'placeholder',
 }
 
+
+export interface ControlTypeValueModel extends BaseFormControlModel {
+    value: ControlTypeValue,
+    options: ControlTypeValueOptions[];
+}
 //Iqamah
-export interface TimeOffsetModel extends BaseFormControlModel {
-    type: 'iqama',
-    value: IqamaValue,
-    options: IqamaOptions[];
+export interface IqamahModel extends ControlTypeValueModel {
+    type: 'iqamah',
+}
+//Iqamah
+export interface AthanModel extends ControlTypeValueModel {
+    type: 'athan',
 }
 
-export interface IqamaOptions {
+export interface ControlTypeValueOptions {
     type: ControlType,
     typeLabel: string,
     recommended?: boolean,
-    value: IqamaValue,
+    value: ControlTypeValue,
     control: FormControlModel,
 }
 
-export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | TimeOffsetModel | TimeModel | DatePickerModel | PlaceholderModel;
+export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | IqamahModel | AthanModel | TimeModel | DatePickerModel | PlaceholderModel;
 
 export interface ReactiveForm {
     name: string;
