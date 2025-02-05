@@ -3,8 +3,9 @@
 export type alphanumericbool = string | number | boolean | Date;
 export type InputType = 'color' | 'email' | 'month' | 'password' | 'search' | 'tel' | 'text' | 'url' | 'week';
 export type CustomType = 'iqamah' | 'athan';
+export type AthanType = 'iqamah' | 'salah';
 export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder';
-export type ControlValue = alphanumericbool | ControlTypeValue;
+export type ControlValue = alphanumericbool | ControlTypeValue | AthanTypeValue;
 export enum eGridSpan {
     FULL = '1 1 calc(100% - 1.25rem)',
     HALF = '1 1 calc(50% - 1.25rem)',
@@ -14,6 +15,9 @@ export enum eGridSpan {
 
 export class ControlTypeValue {
     constructor(public type: ControlType, public value: alphanumericbool | null) { }
+}
+export class AthanTypeValue {
+    constructor(public type: AthanType, public value: alphanumericbool | null) { }
 }
 
 export interface ValidatorModel {
@@ -102,15 +106,19 @@ export interface PlaceholderModel extends BaseFormControlModel {
 
 export interface ControlTypeValueModel extends BaseFormControlModel {
     value: ControlTypeValue,
+
+}
+//Iqamah
+export interface IqamahModel extends BaseFormControlModel {
+    type: 'iqamah',
+    value: ControlTypeValue;
     options: ControlTypeValueOptions[];
 }
-//Iqamah
-export interface IqamahModel extends ControlTypeValueModel {
-    type: 'iqamah',
-}
-//Iqamah
-export interface AthanModel extends ControlTypeValueModel {
+//Athaan
+export interface AthanModel extends BaseFormControlModel {
     type: 'athan',
+    value: AthanTypeValue;
+    options: AthanControlTypeValueOptions[];
 }
 
 export interface ControlTypeValueOptions {
@@ -119,6 +127,15 @@ export interface ControlTypeValueOptions {
     recommended?: boolean,
     value: ControlTypeValue,
     control: FormControlModel,
+}
+
+export interface AthanControlTypeValueOptions {
+    value: AthanType;
+    type: ControlType,
+    typeLabel: string,
+    recommended?: boolean,
+    control: FormControlModel,
+    subtype: AthanType;
 }
 
 export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | IqamahModel | AthanModel | TimeModel | DatePickerModel | PlaceholderModel;

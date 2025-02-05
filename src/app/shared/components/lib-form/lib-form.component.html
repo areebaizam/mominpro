@@ -81,19 +81,23 @@
     @else if(field.type == 'time'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
-        <input matInput [matTimepicker]="picker" [formControl]="getFormControl(field.name)" [value]="field.value" readonly=""
-            class="time-input" [matTimepickerMin]="getMinTimeValue(field.validators?.matTimepickerMin)" [matTimepickerMax]="getMaxTimeValue(field.validators?.matTimepickerMax)" readonly>
-        <mat-timepicker-toggle matIconSuffix [for]="picker" [disabled]="!editMode"/>
-        <mat-timepicker #picker interval="5m" (opened)="closeIfDisabled(picker)"/>
+        <input matInput [matTimepicker]="picker" [formControl]="getFormControl(field.name)" [value]="field.value"
+            [matTimepickerMin]="getMinTimeValue(field.validators?.matTimepickerMin)"
+            [matTimepickerMax]="getMaxTimeValue(field.validators?.matTimepickerMax)">
+        <mat-timepicker-toggle matIconSuffix [for]="picker" [disabled]="!editMode" />
+        <mat-timepicker #picker interval="5m" (opened)="closeIfDisabled(picker)" />
         <mat-error>{{ getValidationError(field)}}</mat-error>
     </mat-form-field>
     }
     @else if(field.type == 'placeholder'){
-        <div class="field-width" [style.flex]="field.colspan"></div>
+    <div class="field-width" [style.flex]="field.colspan"></div>
     }
     @else if(field.type == 'iqamah'){
     <tap-iqamah-form-field [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-iqamah-form-field>
     }
-}
+    @else if(field.type == 'athan'){
+    <tap-athan-form-field [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-athan-form-field>
+    }
+    }
 </form>
 }
