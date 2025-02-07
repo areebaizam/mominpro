@@ -2,10 +2,10 @@
 
 export type alphanumericbool = string | number | boolean | Date;
 export type InputType = 'color' | 'email' | 'month' | 'password' | 'search' | 'tel' | 'text' | 'url' | 'week';
-export type CustomType = 'iqamah' | 'athan';
+export type CustomType = 'iqamah' | 'athan' | 'flag';
 export type AthanType = 'iqamah' | 'salah';
 export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder';
-export type ControlValue = alphanumericbool | ControlTypeValue | AthanTypeValue;
+export type ControlValue = alphanumericbool | ControlTypeValue | AthanTypeValue | FlagTypeValue;
 export enum eGridSpan {
     FULL = '1 1 calc(100% - 1.25rem)',
     HALF = '1 1 calc(50% - 1.25rem)',
@@ -18,6 +18,9 @@ export class ControlTypeValue {
 }
 export class AthanTypeValue {
     constructor(public type: AthanType, public value: alphanumericbool | null) { }
+}
+export class FlagTypeValue {
+    constructor(public type: boolean, public value: alphanumericbool | null) { }
 }
 
 export interface ValidatorModel {
@@ -121,6 +124,13 @@ export interface AthanModel extends BaseFormControlModel {
     options: AthanControlTypeValueOptions[];
 }
 
+export interface FlagModel extends BaseFormControlModel {
+    type: 'flag',
+    typeLabel: string,
+    value: FlagTypeValue;
+    series: SeriesModel;
+}
+
 export interface ControlTypeValueOptions {
     type: ControlType,
     typeLabel: string,
@@ -138,7 +148,7 @@ export interface AthanControlTypeValueOptions {
     subtype: AthanType;
 }
 
-export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | IqamahModel | AthanModel | TimeModel | DatePickerModel | PlaceholderModel;
+export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | IqamahModel | AthanModel | FlagModel | TimeModel | DatePickerModel | PlaceholderModel;
 
 export interface ReactiveForm {
     name: string;

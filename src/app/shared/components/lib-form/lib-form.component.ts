@@ -13,7 +13,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTimepicker, MatTimepickerModule } from '@angular/material/timepicker';
 //Custom Form Fields
-import { AthanFormField, IqamahFormField } from '@shared/formfields';
+import { AthanFormField, IqamahFormField, FlagFormField } from '@shared/formfields';
 //Services
 import { FormService } from '@shared/services';
 //Models
@@ -23,7 +23,7 @@ import { FormControlModel } from '@shared/models';
 const formModules = [FormsModule, ReactiveFormsModule];
 const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, MatSliderModule,
   MatIconModule, MatButtonModule, MatSelectModule, MatSlideToggleModule, MatDatepickerModule, MatTimepickerModule];
-const customControls = [AthanFormField, IqamahFormField];
+const customControls = [AthanFormField, IqamahFormField, FlagFormField];
 
 //Reference:https://github.com/DMezhenskyi/shared-angular-forms/blob/implemented/src/app/address-group/address-group.component.ts
 @Component({
@@ -89,7 +89,7 @@ export class LibFormComponent implements OnInit, OnDestroy {
   getMinTimeValue(min: string | undefined): string {
     return !!min ? min : '00:00';
   }
-  
+
   getMaxTimeValue(max: string | undefined): string {
     return !!max ? max : '23:59';
   }

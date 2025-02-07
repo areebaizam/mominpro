@@ -98,6 +98,9 @@
     @else if(field.type == 'athan'){
     <tap-athan-form-field [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-athan-form-field>
     }
+    @else if(field.type == 'flag'){
+    <tap-flag-form-field [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-flag-form-field>
+    }
     }
 </form>
 }

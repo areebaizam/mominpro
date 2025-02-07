@@ -1,30 +1,28 @@
-import { ChangeDetectionStrategy, Component, effect, inject, Input, OnDestroy, OnInit, untracked, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, Input, OnDestroy, OnInit, signal, untracked, viewChild } from '@angular/core';
 //Form
 import { ControlContainer, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Material
-import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTimepicker, MatTimepickerModule } from '@angular/material/timepicker';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 //Services
 import { FormService } from '@shared/services';
 //Models
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { alphanumericbool, ControlType, ControlTypeValue, IqamahModel, SelectOptionModel, SeriesModel } from '@shared/models';
+import { alphanumericbool, FlagModel, AthanType, FlagTypeValue, SelectOptionModel, SeriesModel } from '@shared/models';
 import { BaseFormField } from '../base-form-field';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule, MatFormFieldModule];
-const materialModules = [MatInputModule, MatSelectModule, MatTimepickerModule, MatRadioModule];
+const materialModules = [MatInputModule, MatSelectModule, MatSlideToggleModule, MatIconModule];
 
 @Component({
-  selector: 'tap-iqamah-form-field',
+  selector: 'tap-flag-form-field',
   imports: [...formModules, ...materialModules],
-  templateUrl: './iqamah-form-field.component.html',
-  styleUrl: './iqamah-form-field.component.scss',
-  providers: [{ provide: MatFormFieldControl, useExisting: IqamahFormField }, provideNativeDateAdapter(),
+  templateUrl: './flag-form-field.component.html',
+  styleUrl: './flag-form-field.component.scss',
+  providers: [{ provide: MatFormFieldControl, useExisting: FlagFormField },
   {
     provide: ControlContainer,
     useFactory: () => inject(ControlContainer, { skipSelf: true })
@@ -32,27 +30,24 @@ const materialModules = [MatInputModule, MatSelectModule, MatTimepickerModule, M
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IqamahFormField extends BaseFormField<ControlTypeValue> implements OnInit, OnDestroy {
+export class FlagFormField extends BaseFormField<FlagTypeValue> implements OnInit, OnDestroy {
   //Input
-  @Input({ required: true }) control!: IqamahModel;
+  @Input({ required: true }) control!: FlagModel;
   @Input() editMode: boolean | undefined = true;
   //Services
   formService = inject(FormService);
-  //HTML Elements
+  //HTML ELements  
   readonly typeInput = viewChild.required<HTMLInputElement>('type');
   readonly valueInput = viewChild.required<HTMLInputElement>('value');
   //Variables
   options: SelectOptionModel[] = [];
 
-
-
   ngOnInit() {
-    //TODO Remove this hard coding
-    let seriesField = this.control.options[0].control as SeriesModel;
+    let seriesField = this.control.series as SeriesModel;
     this.options = this.formService.getSeriesOptions(seriesField);
     this.form.setValue(this.control.value);
+    console.log('ngOnInit', this.form.value)
     this.valueControl.setValidators(this.formService.getValidators(this.control.validators));
-
   }
 
   ngAfterViewInit() {
@@ -60,9 +55,9 @@ export class IqamahFormField extends BaseFormField<ControlTypeValue> implements 
   }
 
   constructor() {
-    super();    
+    super();
     let form = new FormGroup({
-      type: new FormControl<ControlType>('time'),
+      type: new FormControl<boolean>(false),
       value: new FormControl<alphanumericbool | null>(null),
     });
     this.parentFormGroup.addControl(this.key, form);
@@ -78,7 +73,7 @@ export class IqamahFormField extends BaseFormField<ControlTypeValue> implements 
     });
 
     effect(() => {
-      const value = this._value() || new ControlTypeValue('time', null);
+      const value = this._value() || new FlagTypeValue(false, 0);
       untracked(() => this.form.setValue(value));
     });
 
@@ -86,44 +81,33 @@ export class IqamahFormField extends BaseFormField<ControlTypeValue> implements 
       this.stateChanges.next();
     });
 
-    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((value: FlagTypeValue) => {
       if (this.form.touched)
         this.touched.set(true);
-
-      if (this._value() && (value.type != this._value()?.type)) {
-        this.form.patchValue({ value: null }, { emitEvent: false });
-
-      }
-      const timeOffset = (this.form.enabled && this.form.valid) || this.form.value ? new ControlTypeValue(this.form.value.type ?? 'time', this.form.value.value ?? null)
-        : new ControlTypeValue('time', null);
-      this._updateValue(timeOffset);
+      
+      const flagValue = (this.form.enabled && this.form.valid) || this.form.value ? new FlagTypeValue(this.form.value.type ?? false, this.form.value.value ?? 0)
+        : new FlagTypeValue(false, 0);
+      this._updateValue(flagValue);
     });
   }
 
-  protected override isEmptyValue(value: ControlTypeValue | null): boolean {
+  protected override isEmptyValue(value: FlagTypeValue | null): boolean {
     return !value?.type && !value?.value;
   }
 
-  protected override _updateValue(timeOffset: ControlTypeValue | null) {
+  protected override _updateValue(flagValue: FlagTypeValue | null) {
     const current = this._value();
     if (
-      timeOffset === current ||
-      (timeOffset?.type === current?.type &&
-        timeOffset?.value === current?.value)
+      flagValue === current ||
+      (flagValue?.type === current?.type &&
+        flagValue?.value === current?.value)
     ) {
       return;
     }
-    this._value.set(timeOffset);
+    this._value.set(flagValue);
   }
 
-  getMinTimeValue(): string {
-    let min = this.control.options.find(x => x.type == 'time')?.control?.validators?.matTimepickerMin;
-    return !!min ? min : '00:00';
-  }
-  getMaxTimeValue(): string {
-    let max = this.control.options.find(x => x.type == 'time')?.control?.validators?.matTimepickerMax;
-    return !!max ? max : '23:59';
-  }
+
   ngOnDestroy() {
     this.stateChanges.complete();
     this._focusMonitor.stopMonitoring(this._elementRef);
@@ -142,9 +126,5 @@ export class IqamahFormField extends BaseFormField<ControlTypeValue> implements 
   getValidationError(): string {
     return this.formService.getValidationError(this.valueControl, this.control.label);
   }
-
-  closeIfDisabled(picker: MatTimepicker<any>) {
-    if (this.valueControl.disabled)
-      picker.close()
-  }
 }
+

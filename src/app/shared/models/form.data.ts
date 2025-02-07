@@ -26,13 +26,6 @@ export const IQAMAH_FORM_SETTINGS_DATA = [
             required: true,
         }
     },
-    {
-        type: "toggle",
-        name: 'annual',
-        label: 'Same Every Year',
-        value: false,
-        colspan: eGridSpan.ONE_THIRD,
-    },
     createPlaceholderFormField(eGridSpan.ONE_THIRD),
     createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
@@ -310,94 +303,101 @@ export const IQAMAH_FORM_JUMUAH_DATA = [
     createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
 
-export const RAMADAN_FORM_SALAH_DATA = [
+export const OVERRIDES_FORM_HIJRI_DATA = [
     {
-        type: "series",
+        type: "flag",
+        typeLabel:"Show",
+        name: 'hijri',
+        label: 'Days',
+        value: { type: false, value: 0 },
+        colspan: eGridSpan.HALF,
+        series: {
+            validators: {
+                min: -3,
+                max: 3,
+            },
+            suffix: 'days',
+            suffixUnit: 'day',
+            baseLabel: 'No change',
+            recommendedValue: null,
+        }
+    },
+    PLACEHOLDER_FORM_FIELD,
+] as FormControlModel[];
+
+export const OVERRIDES_FORM_RAMADAN_DATA = [
+    {
+        type: "flag",
+        typeLabel:"Enable",
         name: 'fajr',
         label: 'Fajr',
-        value: 20,
+        value: { type: false, value: 20 },
         colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 60,
-        },
-        suffix: 'minutes after start time',
-        suffixUnit: 'minute after start time',
-        baseLabel: 'At start time',
-        recommendedValue: 20,
+        series: {
+            validators: {
+                min: 0,
+                max: 60,
+            },
+            suffix: 'minutes after start time',
+            suffixUnit: 'minute after start time',
+            baseLabel: 'At start time',
+            recommendedValue: 20,
+        }
     },
     {
-        type: "toggle",
-        name: 'overrideFajr',
-        label: 'Enable',
-        value: false,
-        colspan: eGridSpan.HALF,
-    },
-    {
-        type: "series",
+        type: "flag",
+        typeLabel:"Enable",
         name: 'maghrib',
-        label: 'Maghrib',
-        value: 0,
+        label: 'Maghrib (optional)',
+        value: { type: true, value: 0 },
         colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 30,
-        },
-        suffix: 'minutes after start time',
-        suffixUnit: 'minute after start time',
-        baseLabel: 'At start time',
-        recommendedValue: 10,
+        series: {
+            validators: {
+                min: 0,
+                max: 30,
+            },
+            suffix: 'minutes after start time',
+            suffixUnit: 'minute after start time',
+            baseLabel: 'At start time',
+            recommendedValue: 20,
+        }
     },
     {
-        type: "toggle",
-        name: 'overrideMaghrib',
-        label: 'Enable',
-        value: false,
-        colspan: eGridSpan.HALF,
-    },
-    {
-        type: "series",
+        type: "flag",
+        typeLabel:"Enable",
         name: 'isha',
         label: 'Isha',
-        value: 0,
+        value: { type: false, value: 0 },
         colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 60,
-        },
-        suffix: 'minutes after start time',
-        suffixUnit: 'minute after start time',
-        baseLabel: 'At start time',
-        recommendedValue: 0,
+        series: {
+            validators: {
+                required:true,
+                min: 0,
+                max: 30,
+            },
+            suffix: 'minutes after start time',
+            suffixUnit: 'minute after start time',
+            baseLabel: 'At start time',
+            recommendedValue: 20,
+        }
     },
     {
-        type: "toggle",
-        name: 'overrideIsha',
-        label: 'Enable',
-        value: false,
-        colspan: eGridSpan.HALF,
-    },
-    {
-        type: "series",
+        type: "flag",
+        typeLabel:"Enable",
         name: 'taraweeh',
         label: 'Taraweeh',
-        value: 10,
+        value: { type: true, value: 10 },
         colspan: eGridSpan.HALF,
-        validators: {
-            min: 0,
-            max: 30,
-        },
-        suffix: 'minutes after Isha Iqamah',
-        suffixUnit: 'minute after Isha Iqamah',
-        baseLabel: 'soon after Isha Iqamah',
-        recommendedValue: 10,
-    },
-    {
-        type: "toggle",
-        name: 'overrideTaraweeh',
-        label: 'Enable',
-        value: false,
-        colspan: eGridSpan.HALF,
+        series: {
+            validators: {
+                min: 0,
+                max: 30,
+            },
+            suffix: 'minutes after Isha Iqamah',
+            suffixUnit: 'minute after Isha Iqamah',
+            baseLabel: 'Soon after Isha Iqamah',
+            recommendedValue: 10,
+        }
     },
 ] as FormControlModel[];
 
@@ -910,35 +910,35 @@ export const PREFERENCES_FORM_DISPLAY_FLAGS = [
     {
         type: "toggle",
         name: 'salah',
-        label: 'Show Salah on Display',
+        label: 'Show Salah (Start) Timings',
         value: false,
         colspan: eGridSpan.FULL,
     },
     {
         type: "toggle",
         name: 'athan',
-        label: 'Show Athan on Display',
+        label: 'Show Athan Timings',
         value: true,
         colspan: eGridSpan.FULL,
     },
     {
         type: "toggle",
         name: 'hijri',
-        label: 'Show Hijri Date on Display',
+        label: 'Show Hijri Date',
         value: true,
-        colspan: eGridSpan.FULL,
-    },    
-] as FormControlModel[];
-
-export const PREFERENCES_FORM_APP_SETTINGS = [
-    {
-        type: "toggle",
-        name: 'dst',
-        label: 'Use Auto Daylight Savings',
-        value: false,
         colspan: eGridSpan.FULL,
     },
 ] as FormControlModel[];
+
+// export const PREFERENCES_FORM_APP_SETTINGS = [
+//     {
+//         type: "toggle",
+//         name: 'dst',
+//         label: 'Use Auto Daylight Savings',
+//         value: false,
+//         colspan: eGridSpan.FULL,
+//     },
+// ] as FormControlModel[];
 
 export const ATHAN_FORM_RAMADAN_DATA = [
     {
@@ -1369,11 +1369,16 @@ export const IQAMAH_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
-export const RAMADAN_FORM_DATA = [
+export const OVERRIDES_FORM_DATA = [    
+    {
+        name: "hijri",
+        label: "Hijri Days Adjustments",
+        data: OVERRIDES_FORM_HIJRI_DATA,
+    },
     {
         name: "iqamah",
-        label: "Iqamah Timings",
-        data: RAMADAN_FORM_SALAH_DATA,
+        label: "Ramadan Iqamah Timings",
+        data: OVERRIDES_FORM_RAMADAN_DATA,
     },
 ] as ReactiveForm[];
 
@@ -1414,11 +1419,11 @@ export const PREFERENCES_FORM_DATA = [
         label: "Display Settings",
         data: PREFERENCES_FORM_DISPLAY_FLAGS,
     },
-    {
-        name: "app",
-        label: "Application Settings",
-        data: PREFERENCES_FORM_APP_SETTINGS,
-    },
+    // {
+    //     name: "app",
+    //     label: "Application Settings",
+    //     data: PREFERENCES_FORM_APP_SETTINGS,
+    // },
 ] as ReactiveForm[];
 
 export const MOSQUE_FORM_DATA = [
@@ -1439,9 +1444,9 @@ export const MOSQUE_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
-export const TIMINGS_TABS_DATA = [
+export const TIMINGS_TABS_DATA = [    
+    { id: TimingConstants.OVERRIDES, label: "Overrides", editMode: false, forms: OVERRIDES_FORM_DATA },
     { id: TimingConstants.IQAMAH, label: "Iqamah", editMode: false, forms: IQAMAH_FORM_DATA },
-    { id: TimingConstants.RAMADAN, label: "Ramadan", editMode: false, forms: RAMADAN_FORM_DATA },
 ] as TabModel[];
 
 export const SETTINGS_TABS_DATA = [

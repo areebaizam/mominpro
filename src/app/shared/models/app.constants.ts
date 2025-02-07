@@ -7,7 +7,7 @@ export class FeatureURLConstants {
 }
 export class TimingConstants {
   static readonly IQAMAH = 'iqamah';
-  static readonly RAMADAN = 'ramadan';
+  static readonly OVERRIDES = 'overrides';
   
 }
 export class SettingConstants {

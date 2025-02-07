@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, inject, Input, OnDestroy, OnInit, signal, untracked, viewChild } from '@angular/core';
 //Form
-import { ControlContainer, FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ControlContainer, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Material
-import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -12,19 +11,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormService } from '@shared/services';
 //Models
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { alphanumericbool, AthanModel, ControlType, AthanTypeValue, SelectOptionModel, SeriesModel, AthanType } from '@shared/models';
+import { alphanumericbool, AthanModel, AthanType, AthanTypeValue, SelectOptionModel, SeriesModel } from '@shared/models';
 import { BaseFormField } from '../base-form-field';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule, MatFormFieldModule];
 const materialModules = [MatInputModule, MatSelectModule, MatRadioModule, MatIconModule];
-
 
 @Component({
   selector: 'tap-athan-form-field',
   imports: [...formModules, ...materialModules],
   templateUrl: './athan-form-field.component.html',
   styleUrl: './athan-form-field.component.scss',
-  providers: [{ provide: MatFormFieldControl, useExisting: AthanFormField }, provideNativeDateAdapter(),
+  providers: [{ provide: MatFormFieldControl, useExisting: AthanFormField },
   {
     provide: ControlContainer,
     useFactory: () => inject(ControlContainer, { skipSelf: true })
@@ -33,18 +31,16 @@ const materialModules = [MatInputModule, MatSelectModule, MatRadioModule, MatIco
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AthanFormField extends BaseFormField<AthanTypeValue> implements OnInit, OnDestroy {
-
-  protected override isEmptyValue(value: AthanTypeValue | null): boolean {
-    return !value?.type && !value?.value;
-  }
-
+  //Input
   @Input({ required: true }) control!: AthanModel;
   @Input() editMode: boolean | undefined = true;
-
-  options = signal<SelectOptionModel[]>([]);
+  //Services
+  formService = inject(FormService);
+  //HTML ELements  
   readonly typeInput = viewChild.required<HTMLInputElement>('type');
   readonly valueInput = viewChild.required<HTMLInputElement>('value');
-  formService = inject(FormService);
+  //Variables
+  options = signal<SelectOptionModel[]>([]);
 
   ngOnInit() {
     this.getOptions(this.control.value.type);
@@ -63,11 +59,10 @@ export class AthanFormField extends BaseFormField<AthanTypeValue> implements OnI
 
   constructor() {
     super();
-    let form = inject(FormBuilder).group({
-      type: FormControl<ControlType>,
-      value: FormControl<alphanumericbool | null>,
+    let form = new FormGroup({
+      type: new FormControl<AthanType>('iqamah'),
+      value: new FormControl<alphanumericbool | null>(null),
     });
-
     this.parentFormGroup.addControl(this.key, form);
 
     effect(() => {
@@ -95,14 +90,19 @@ export class AthanFormField extends BaseFormField<AthanTypeValue> implements OnI
 
       if (this._value() && (value.type != this._value()?.type)) {
         //TODO Handle focus Read Material guideline
-        this.getOptions(value.type);
+        if (value.type)
+          this.getOptions(value.type);
         this.form.patchValue({ value: null }, { emitEvent: false });
       }
 
       const timeOffset = (this.form.enabled && this.form.valid) || this.form.value ? new AthanTypeValue(this.form.value.type ?? 'iqamah', this.form.value.value ?? null)
-        : new AthanTypeValue(this.form.value.type || 'iqamah', null);
+        : new AthanTypeValue('iqamah', null);
       this._updateValue(timeOffset);
     });
+  }
+
+  protected override isEmptyValue(value: AthanTypeValue | null): boolean {
+    return !value?.type && !value?.value;
   }
 
   protected override _updateValue(timeOffset: AthanTypeValue | null) {
