@@ -7,13 +7,11 @@ export class FeatureURLConstants {
 }
 export class TimingConstants {
   static readonly IQAMAH = 'iqamah';
-  static readonly OVERRIDES = 'overrides';
-  
+  static readonly PREFERENCE = 'preferences';
 }
 export class SettingConstants {
   static readonly SALAH = 'salah';
-  static readonly ATHAN = 'athan';
-  static readonly PREFERENCE = 'settings';
+  static readonly ATHAN = 'athan';  
 }
 export class AccountConstants {
   static readonly MOSQUE = 'mosque';  

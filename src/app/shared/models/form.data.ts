@@ -1,5 +1,5 @@
-import { alphanumericbool, AthanType, eGridSpan, FormControlModel, ReactiveForm, TabModel } from "./form.model";
-import { TimingConstants, SettingConstants, AccountConstants } from "./app.constants";
+import { AccountConstants, SettingConstants, TimingConstants } from "./app.constants";
+import { eGridSpan, FormControlModel, ReactiveForm, TabModel } from "./form.model";
 
 export const PLACEHOLDER_FORM_FIELD = {
     type: "placeholder",
@@ -17,7 +17,7 @@ export function createPlaceholderFormField(colspan: eGridSpan): FormControlModel
 export const IQAMAH_FORM_SETTINGS_DATA = [
     {
         type: "date",
-        name: 'date',
+        name: 'startDate',
         label: 'Start date',
         value: null,
         hint: 'MM/DD/YYYY',
@@ -40,7 +40,23 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         validators: {
             required: true,
         },
-        options: [
+        options: [            
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: null,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time',
+                    validators: {
+                        matTimepickerMin: '02:00',
+                        matTimepickerMax: '10:00',
+                    },
+                }
+            },
             {
                 type: 'series',
                 typeLabel: 'Offset',
@@ -60,22 +76,6 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     recommendedValue: null,
                 }
             },
-            {
-                type: 'time',
-                typeLabel: 'Fixed',
-                recommended: true,
-                control: {
-                    name: 'time',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
-                    validators: {
-                        matTimepickerMin: '02:00',
-                        matTimepickerMax: '10:00',
-                    },
-                }
-            },
         ]
     },
     {
@@ -87,26 +87,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
             required: true,
         },
         colspan: eGridSpan.ONE_THIRD,
-        options: [
-            {
-                type: 'series',
-                typeLabel: 'Offset',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 60,
-                    },
-                    suffix: 'minutes after start time',
-                    suffixUnit: 'minute after start time',
-                    baseLabel: 'At start time',
-                    recommendedValue: null,
-                }
-            },
+        options: [            
             {
                 type: 'time',
                 typeLabel: 'Fixed',
@@ -123,19 +104,6 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     },
                 }
             },
-        ]
-    },
-    {
-        type: "iqamah",
-        name: 'asr',
-        label: 'Asr',
-        value: { type: 'time', value: new Date(0, 0, 0, 16, 0) },
-        validators: {
-            required: true,
-        },
-        colspan: eGridSpan.ONE_THIRD,
-        options: [
-
             {
                 type: 'series',
                 typeLabel: 'Offset',
@@ -155,6 +123,18 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     recommendedValue: null,
                 }
             },
+        ]
+    },
+    {
+        type: "iqamah",
+        name: 'asr',
+        label: 'Asr',
+        value: { type: 'time', value: new Date(0, 0, 0, 16, 0) },
+        validators: {
+            required: true,
+        },
+        colspan: eGridSpan.ONE_THIRD,
+        options: [            
             {
                 type: 'time',
                 typeLabel: 'Fixed',
@@ -171,6 +151,25 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     },
                 }
             },
+            {
+                type: 'series',
+                typeLabel: 'Offset',
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: 20,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'series',
+                    validators: {
+                        min: 0,
+                        max: 60,
+                    },
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommendedValue: null,
+                }
+            },
         ]
     },
     {
@@ -183,6 +182,21 @@ export const IQAMAH_FORM_PRAYER_DATA = [
             required: true,
         },
         options: [
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                control: {
+                    name: 'value',
+                    label: '',
+                    value: null,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time',
+                    validators: {
+                        matTimepickerMin: '14:00',
+                        matTimepickerMax: '22:00',
+                    },
+                }
+            },
             {
                 type: 'series',
                 typeLabel: 'Offset',
@@ -202,22 +216,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     baseLabel: 'At start time',
                     recommendedValue: null,
                 }
-            },
-            {
-                type: 'time',
-                typeLabel: 'Fixed',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
-                    validators: {
-                        matTimepickerMin: '14:00',
-                        matTimepickerMax: '22:00',
-                    },
-                }
-            },
+            },            
         ]
     },
     {
@@ -229,7 +228,19 @@ export const IQAMAH_FORM_PRAYER_DATA = [
             required: true,
         },
         colspan: eGridSpan.ONE_THIRD,
-        options: [
+        options: [           
+            {
+                type: 'time',
+                typeLabel: 'Fixed',
+                recommended: true,
+                control: {
+                    name: 'time',
+                    label: '',
+                    value: null,
+                    colspan: eGridSpan.ONE_FOURTH,
+                    type: 'time',
+                }
+            },
             {
                 type: 'series',
                 typeLabel: 'Offset',
@@ -247,18 +258,6 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
                     recommendedValue: null,
-                }
-            },
-            {
-                type: 'time',
-                typeLabel: 'Fixed',
-                recommended: true,
-                control: {
-                    name: 'time',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
                 }
             },
         ]
@@ -303,11 +302,11 @@ export const IQAMAH_FORM_JUMUAH_DATA = [
     createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
 
-export const OVERRIDES_FORM_HIJRI_DATA = [
+export const PREFERENCES_FORM_HIJRI_DATA = [
     {
         type: "flag",
         typeLabel:"Show",
-        name: 'hijri',
+        name: 'days',
         label: 'Days',
         value: { type: false, value: 0 },
         colspan: eGridSpan.HALF,
@@ -325,7 +324,7 @@ export const OVERRIDES_FORM_HIJRI_DATA = [
     PLACEHOLDER_FORM_FIELD,
 ] as FormControlModel[];
 
-export const OVERRIDES_FORM_RAMADAN_DATA = [
+export const PREFERENCES_FORM_RAMADAN_DATA = [
     {
         type: "flag",
         typeLabel:"Enable",
@@ -348,7 +347,7 @@ export const OVERRIDES_FORM_RAMADAN_DATA = [
         type: "flag",
         typeLabel:"Enable",
         name: 'maghrib',
-        label: 'Maghrib (optional)',
+        label: 'Maghrib',
         value: { type: true, value: 0 },
         colspan: eGridSpan.HALF,
         series: {
@@ -359,7 +358,7 @@ export const OVERRIDES_FORM_RAMADAN_DATA = [
             suffix: 'minutes after start time',
             suffixUnit: 'minute after start time',
             baseLabel: 'At start time',
-            recommendedValue: 20,
+            recommendedValue: 0,
         }
     },
     {
@@ -373,7 +372,7 @@ export const OVERRIDES_FORM_RAMADAN_DATA = [
             validators: {
                 required:true,
                 min: 0,
-                max: 30,
+                max: 60,
             },
             suffix: 'minutes after start time',
             suffixUnit: 'minute after start time',
@@ -396,7 +395,7 @@ export const OVERRIDES_FORM_RAMADAN_DATA = [
             suffix: 'minutes after Isha Iqamah',
             suffixUnit: 'minute after Isha Iqamah',
             baseLabel: 'Soon after Isha Iqamah',
-            recommendedValue: 10,
+            recommendedValue: null,
         }
     },
 ] as FormControlModel[];
@@ -906,40 +905,6 @@ export const ATHAN_FORM_SALAH_DATA = [
     createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
 
-export const PREFERENCES_FORM_DISPLAY_FLAGS = [
-    {
-        type: "toggle",
-        name: 'salah',
-        label: 'Show Salah (Start) Timings',
-        value: false,
-        colspan: eGridSpan.FULL,
-    },
-    {
-        type: "toggle",
-        name: 'athan',
-        label: 'Show Athan Timings',
-        value: true,
-        colspan: eGridSpan.FULL,
-    },
-    {
-        type: "toggle",
-        name: 'hijri',
-        label: 'Show Hijri Date',
-        value: true,
-        colspan: eGridSpan.FULL,
-    },
-] as FormControlModel[];
-
-// export const PREFERENCES_FORM_APP_SETTINGS = [
-//     {
-//         type: "toggle",
-//         name: 'dst',
-//         label: 'Use Auto Daylight Savings',
-//         value: false,
-//         colspan: eGridSpan.FULL,
-//     },
-// ] as FormControlModel[];
-
 export const ATHAN_FORM_RAMADAN_DATA = [
     {
         type: "athan",
@@ -1353,7 +1318,7 @@ export const MOSQUE_FORM_CONTACT_DATA = [
 
 export const IQAMAH_FORM_DATA = [
     {
-        name: "settings",
+        name: "start",
         label: "Iqamah Change Date",
         data: IQAMAH_FORM_SETTINGS_DATA,
     },
@@ -1369,16 +1334,16 @@ export const IQAMAH_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
-export const OVERRIDES_FORM_DATA = [    
+export const PREFERENCES_FORM_DATA = [    
     {
         name: "hijri",
         label: "Hijri Days Adjustments",
-        data: OVERRIDES_FORM_HIJRI_DATA,
+        data: PREFERENCES_FORM_HIJRI_DATA,
     },
     {
-        name: "iqamah",
+        name: "ramadan",
         label: "Ramadan Iqamah Timings",
-        data: OVERRIDES_FORM_RAMADAN_DATA,
+        data: PREFERENCES_FORM_RAMADAN_DATA,
     },
 ] as ReactiveForm[];
 
@@ -1413,19 +1378,6 @@ export const ATHAN_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
-export const PREFERENCES_FORM_DATA = [
-    {
-        name: "display",
-        label: "Display Settings",
-        data: PREFERENCES_FORM_DISPLAY_FLAGS,
-    },
-    // {
-    //     name: "app",
-    //     label: "Application Settings",
-    //     data: PREFERENCES_FORM_APP_SETTINGS,
-    // },
-] as ReactiveForm[];
-
 export const MOSQUE_FORM_DATA = [
     {
         name: "information",
@@ -1444,15 +1396,15 @@ export const MOSQUE_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
-export const TIMINGS_TABS_DATA = [    
-    { id: TimingConstants.OVERRIDES, label: "Overrides", editMode: false, forms: OVERRIDES_FORM_DATA },
+export const TIMINGS_TABS_DATA = [
     { id: TimingConstants.IQAMAH, label: "Iqamah", editMode: false, forms: IQAMAH_FORM_DATA },
+    { id: TimingConstants.PREFERENCE, label: "Preferences", editMode: false, forms: PREFERENCES_FORM_DATA },
+    
 ] as TabModel[];
 
 export const SETTINGS_TABS_DATA = [
     { id: SettingConstants.SALAH, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },
     { id: SettingConstants.ATHAN, label: "Athan", editMode: false, forms: ATHAN_FORM_DATA },
-    { id: SettingConstants.PREFERENCE, label: "Preferences", editMode: false, forms: PREFERENCES_FORM_DATA },
 ] as TabModel[];
 
 export const ACCOUNTS_TABS_DATA = [

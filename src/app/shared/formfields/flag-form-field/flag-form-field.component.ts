@@ -46,7 +46,6 @@ export class FlagFormField extends BaseFormField<FlagTypeValue> implements OnIni
     let seriesField = this.control.series as SeriesModel;
     this.options = this.formService.getSeriesOptions(seriesField);
     this.form.setValue(this.control.value);
-    console.log('ngOnInit', this.form.value)
     this.valueControl.setValidators(this.formService.getValidators(this.control.validators));
   }
 
