@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from '@core/guards';
 //Components
 import { PageNotFoundComponent } from '@shared/pages';
 // Models
 import { FeatureURLConstants } from '@shared/models';
+
 
 export const routes: Routes = [
     {
@@ -23,7 +25,8 @@ export const routes: Routes = [
     {
         path: FeatureURLConstants.ACCOUNTS,
         loadChildren: () => import("@features/accounts/routes"),
-        data: { breadcrumb: FeatureURLConstants.ACCOUNTS }
+        canMatch:[AuthGuard],
+        data: { breadcrumb: FeatureURLConstants.ACCOUNTS, role:"Admin" }
     },
     {
         path: FeatureURLConstants.TEST,
