@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '@core/guards';
 //Components
-import { PageNotFoundComponent } from '@shared/pages';
+import { LoginComponent, PageNotFoundComponent } from '@shared/pages';
 // Models
-import { FeatureURLConstants } from '@shared/models';
+import { FeatureURLConstants, PagesURLConstants } from '@shared/models';
 
 
 export const routes: Routes = [
@@ -26,18 +26,21 @@ export const routes: Routes = [
         path: FeatureURLConstants.ACCOUNTS,
         loadChildren: () => import("@features/accounts/routes"),
         canMatch:[AuthGuard],
-        data: { breadcrumb: FeatureURLConstants.ACCOUNTS, role:"Admin" }
+        data: { breadcrumb: FeatureURLConstants.ACCOUNTS }
     },
     {
         path: FeatureURLConstants.TEST,
         loadChildren: () => import("@test/routes"),
         data: { breadcrumb: FeatureURLConstants.TEST }
     },
-    // {
-    //     path: "",
-    //     redirectTo: eFeatureRouteURL.HOME,
-    //     pathMatch: "full",
-    // },
+    {
+        path: PagesURLConstants.FORBIDDEN,
+        component:PageNotFoundComponent,
+    },
+    {
+        path: PagesURLConstants.LOGIN,
+        component:LoginComponent,
+    },
     {
         path: "**",
         component:PageNotFoundComponent

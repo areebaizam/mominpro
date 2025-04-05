@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SidenavComponent } from '@shared/pages';
+import { SidenavComponent } from '@shared/components';
 
 @Component({
     selector: 'tap-root',

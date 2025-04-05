@@ -4,8 +4,7 @@ import { Subscription } from "rxjs/internal/Subscription";
 //Materials
 import { MatTabsModule } from "@angular/material/tabs";
 //Components
-import { ActionButtonsCESComponent } from "@shared/components";
-import { BaseFormComponent } from "@shared/pages";
+import { ActionButtonsCESComponent, BaseFormComponent } from "@shared/components";
 // Models
 import { eBtnActionCESType, SETTINGS_TABS_DATA, TabModel,SettingConstants } from "@shared/models";
 

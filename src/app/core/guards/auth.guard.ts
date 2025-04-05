@@ -4,26 +4,26 @@ import { AuthStatusModel, HttpResponseModel } from '@core/models';
 import { AuthService } from '@core/services/auth.service';
 import { map } from 'rxjs/internal/operators/map';
 //Models
-// import { PagesURLConstants } from '@shared/models';
+import { PagesURLConstants } from '@shared/models';
 
 export const AuthGuard: CanMatchFn = (route, segments) => {
   const authService = inject(AuthService) as AuthService;
+  const router = inject(Router);
   return authService.checkAuthStatus().pipe(
     map((response: HttpResponseModel<AuthStatusModel>) => {
-      let isAuthenticated: boolean = response.status.isSuccess && response.next ? response.next.isAuthenticated : false;
-      let requiredRole = route.data ? route.data['role'] : 'Guest';
-
-      if (!isAuthenticated) {
-        console.log('Authentication Failed')
-        // router.navigateByUrl(`${PagesURLConstants.PAGES}/${PagesURLConstants.UNAUTHORIZED}`);
-        return false;
+      let isSuccess:boolean = response && response.status && response.status.isSuccess;
+      if(!isSuccess){
+        let statusCode = response && response.status && response.status.statusCode;
+        switch(statusCode){
+          //TODO SET ENUMS
+          case 401:
+            router.navigateByUrl(`${PagesURLConstants.LOGIN}`);
+            break;
+          case 403:
+            router.navigateByUrl(`${PagesURLConstants.FORBIDDEN}`);
+            break;
+        }
       }
-      
-      if (!authService.hasRole(requiredRole)) {
-        console.log('Authorisation Failed')
-        // router.navigateByUrl(`${PagesURLConstants.PAGES}/${PagesURLConstants.FORBIDDEN}`);
-        return false;
-      }
-      return true;
+      return isSuccess;
     }));
 };

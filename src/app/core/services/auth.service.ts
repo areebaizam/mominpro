@@ -21,7 +21,6 @@ export class AuthService {
         //   //TODO Move Claims to contants
         }),
         catchError(error => {  
-          // console.log('error hihihi',error);
           //TODO Log ERROR
           this.isAuthenticated.set(false); 
           this.userRoles = [];
