@@ -1,4 +1,4 @@
-import { AccountConstants, SettingConstants, TimingConstants } from "./app.constants";
+import { AccountConstants, SettingConstants, TimingConstants } from "./app.constant";
 import { eGridSpan, FormControlModel, ReactiveForm, TabModel } from "./form.model";
 
 export const PLACEHOLDER_FORM_FIELD = {

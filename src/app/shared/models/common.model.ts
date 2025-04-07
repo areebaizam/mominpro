@@ -1,4 +1,4 @@
-import { FeatureURLConstants } from "./app.constants";
+import { FeatureURLConstants } from "./app.constant";
 
 export type MatDrawerPosition = "start" | "end";
 export enum eBtnToggleType {

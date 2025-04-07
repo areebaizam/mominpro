@@ -1,4 +1,4 @@
-import { FeatureURLConstants } from "./app.constants";
+import { FeatureURLConstants } from "./app.constant";
 import { BtnNavModel, BtnToggleModel, eBtnToggleType } from "./common.model";
 
 export const APP_TOGGLE_ICONS = [

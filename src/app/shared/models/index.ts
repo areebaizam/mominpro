@@ -1,4 +1,4 @@
-export * from './app.constants';
+export * from './app.constant';
 export * from './app.data';
 export * from './common.model';
 export * from './form.data';

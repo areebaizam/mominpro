@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { AuthStatusModel, HttpResponseModel, ApiURL } from '@core/models';
+import { AuthStatusModel, HttpResponseModel, ApiURL, ClaimType } from '@core/models';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -17,11 +17,11 @@ export class AuthService {
         tap(response => {
           let result = this.getResult(response);
           this.isAuthenticated.set(result ? result.isAuthenticated : false);
-          this.userRoles = result ? result.claims.filter(claim => claim.type = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role').map(claim => claim.value) : [];
-        //   //TODO Move Claims to contants
+          this.userRoles = result ? result.claims.filter(claim => claim.type = ClaimType.ROLE).map(claim => claim.value) : [];
         }),
         catchError(error => {  
           //TODO Log ERROR
+          console.log('Error in AuthService:', error);
           this.isAuthenticated.set(false); 
           this.userRoles = [];
           return this.handleHttpError<AuthStatusModel>(error);
