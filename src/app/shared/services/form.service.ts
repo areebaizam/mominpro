@@ -60,6 +60,10 @@ export class FormService {
   buildformControls(formFields: FormControlModel[]): FormGroup {
     let form = this.fb.group({});
     formFields.forEach((control: FormControlModel) => {
+      // Placeholder is not added in Form Control
+      if (control.type == "placeholder") 
+        return;
+
       const newControl = new FormControl(
         control.value,
         this.getValidators(control.validators)
@@ -126,9 +130,9 @@ export class FormService {
       min: `${fieldName} value must be atleast  ${errorValue.min}`,
       email: 'Enter a valid email address',
       pattern: `The format of ${fieldName} is incorrect`,
-      matTimepickerMin:`${fieldName} value is too early`,
-      matTimepickerMax:`${fieldName} value is too late`,
-      matTimepickerParse:`${fieldName} value isn't a valid time`,
+      matTimepickerMin: `${fieldName} value is too early`,
+      matTimepickerMax: `${fieldName} value is too late`,
+      matTimepickerParse: `${fieldName} value isn't a valid time`,
     };
     //TODO Check why Parse is not working
     // Default fallback if error is not mapped

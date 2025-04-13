@@ -1,46 +1,80 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-import { AuthStatusModel, HttpResponseModel, ApiURL, ClaimType } from '@core/models';
-import { catchError, Observable, of, tap, throwError } from 'rxjs';
-@Injectable({
-  providedIn: 'root'
-})
+import { HttpClient } from '@angular/common/http';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { catchError, firstValueFrom, Observable, of, tap } from 'rxjs';
+import { ApiURL, AuthProfile, AuthProfileModel, AuthStatusModel, ClaimModel, ClaimType, defaultAuthProfile, HttpResponseModel } from '@core/models';
+import { getResult } from '@core/utilities';
+
+@Injectable({ providedIn: 'root' })
+
 export class AuthService {
 
   private http = inject(HttpClient);
-  private userRoles: string[] = [];
+  private authProfile = signal<AuthProfile>(defaultAuthProfile);
+  private claims: ClaimModel[] = [];
   isAuthenticated = signal<boolean>(false);
 
-  checkAuthStatus(): Observable<HttpResponseModel<AuthStatusModel>> {
-    return this.http.get<HttpResponseModel<AuthStatusModel>>(ApiURL.getAuthStatusUrl)
+  get userName() {
+    return this.authProfile().userName;
+  }
+
+  get isAdmin() {
+    return this.authProfile().isAdmin;
+  }
+
+  get organisationId() {
+    return this.authProfile().organisationId;
+  }
+
+  constructor() {
+    // 👇 effect to reset authState when isAuthenticated becomes false
+    effect(() => {
+      if (!this.isAuthenticated()) {
+        this.authProfile.set(defaultAuthProfile);
+      }
+    });
+  }
+
+  getAuthProfile(): Observable<HttpResponseModel<AuthProfileModel>> {
+    return this.http.get<HttpResponseModel<AuthProfileModel>>(ApiURL.getAuthProfileUrl)
       .pipe(
         tap(response => {
-          let result = this.getResult(response);
-          this.isAuthenticated.set(result ? result.isAuthenticated : false);
-          this.userRoles = result ? result.claims.filter(claim => claim.type = ClaimType.ROLE).map(claim => claim.value) : [];
-        }),
-        catchError(error => {  
-          //TODO Log ERROR
-          console.log('Error in AuthService:', error);
-          this.isAuthenticated.set(false); 
-          this.userRoles = [];
-          return this.handleHttpError<AuthStatusModel>(error);
+          let next = getResult(response);
+          if (next) {
+            this.isAuthenticated.set(true);
+            this.claims = next.claims;
+            this.authProfile.update(state => ({
+              ...state,
+              isAdmin: this.hasClaimValue(ClaimType.ROLE, 'Admin') ? true : false,
+              userName: next.userName,
+              organisationId: next.organisationId
+            }));
+          }
         })
-
       );
   }
 
-  hasRole(role: string): boolean {
-    return this.userRoles.includes(role);
+  private hasClaimValue(type: ClaimType, value: string): ClaimModel | null {
+    return this.claims.find(claim => claim.type == type && value == value) ?? null;
   }
 
-  //TODO move to utility
-  getResult<T>(resp: HttpResponseModel<T>): T | null {
-    return resp.status.isSuccess ? resp.next : null;
+  async getStatus(): Promise<HttpResponseModel<AuthStatusModel> | void> {
+    return firstValueFrom(
+      this.http.get<HttpResponseModel<AuthStatusModel>>(ApiURL.getAuthStatusUrl).pipe(
+        // handle any errors and still allow app to load
+        //TODO LOG ERROR
+        catchError((err) => {
+          console.warn('Auth init error', err);
+          return of(null); // fallback
+        })
+      )
+    ).then((response) => {
+      this.isAuthenticated.set(response?.next?.isAuthenticated ?? false);
+      if (this.isAuthenticated())
+        firstValueFrom(this.getAuthProfile());//TODO Verify no leak
+    });
   }
 
-  handleHttpError<T>(error: HttpErrorResponse): Observable<HttpResponseModel<T>> {
-    //TODO Log Error
-    return of({ errors: null, next: null, status: { isSuccess: false, message: 'Failure', statusCode: error.status, timeStamp: new Date().toISOString() } });
-  };
+  logout() {
+    this.isAuthenticated.set(false);
+  }
 }

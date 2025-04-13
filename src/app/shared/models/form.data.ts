@@ -40,7 +40,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
         validators: {
             required: true,
         },
-        options: [            
+        options: [
             {
                 type: 'time',
                 typeLabel: 'Fixed',
@@ -87,7 +87,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
             required: true,
         },
         colspan: eGridSpan.ONE_THIRD,
-        options: [            
+        options: [
             {
                 type: 'time',
                 typeLabel: 'Fixed',
@@ -134,7 +134,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
             required: true,
         },
         colspan: eGridSpan.ONE_THIRD,
-        options: [            
+        options: [
             {
                 type: 'time',
                 typeLabel: 'Fixed',
@@ -216,7 +216,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
                     baseLabel: 'At start time',
                     recommendedValue: null,
                 }
-            },            
+            },
         ]
     },
     {
@@ -228,7 +228,7 @@ export const IQAMAH_FORM_PRAYER_DATA = [
             required: true,
         },
         colspan: eGridSpan.ONE_THIRD,
-        options: [           
+        options: [
             {
                 type: 'time',
                 typeLabel: 'Fixed',
@@ -305,7 +305,7 @@ export const IQAMAH_FORM_JUMUAH_DATA = [
 export const PREFERENCES_FORM_HIJRI_DATA = [
     {
         type: "flag",
-        typeLabel:"Show",
+        typeLabel: "Show",
         name: 'days',
         label: 'Days',
         value: { type: false, value: 0 },
@@ -327,7 +327,7 @@ export const PREFERENCES_FORM_HIJRI_DATA = [
 export const PREFERENCES_FORM_RAMADAN_DATA = [
     {
         type: "flag",
-        typeLabel:"Enable",
+        typeLabel: "Enable",
         name: 'fajr',
         label: 'Fajr',
         value: { type: false, value: 20 },
@@ -345,7 +345,7 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
     },
     {
         type: "flag",
-        typeLabel:"Enable",
+        typeLabel: "Enable",
         name: 'maghrib',
         label: 'Maghrib',
         value: { type: true, value: 0 },
@@ -363,14 +363,14 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
     },
     {
         type: "flag",
-        typeLabel:"Enable",
+        typeLabel: "Enable",
         name: 'isha',
         label: 'Isha',
         value: { type: false, value: 0 },
         colspan: eGridSpan.HALF,
         series: {
             validators: {
-                required:true,
+                required: true,
                 min: 0,
                 max: 60,
             },
@@ -382,7 +382,7 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
     },
     {
         type: "flag",
-        typeLabel:"Enable",
+        typeLabel: "Enable",
         name: 'taraweeh',
         label: 'Taraweeh',
         value: { type: true, value: 10 },
@@ -398,65 +398,6 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
             recommendedValue: null,
         }
     },
-] as FormControlModel[];
-
-export const SALAH_FORM_LOCATION_DATA = [
-    {
-        type: 'number',
-        name: 'latitude',
-        label: 'Latitude',
-        value: null,
-        placeholder: 'Ex: 40.7128',
-        colspan: eGridSpan.ONE_THIRD,
-        step: 2,
-        validators: {
-            required: true,
-            maxLength: 20,
-            min: -90,
-            max: 90,
-        }
-    },
-    {
-        type: 'number',
-        name: 'longitude',
-        label: 'Longitude',
-        value: null,
-        placeholder: 'Ex: -74.0060',
-        colspan: eGridSpan.ONE_THIRD,
-        step: 2,
-        validators: {
-            required: true,
-            min: -180,
-            max: 180,
-            maxLength: 20,
-        }
-    },
-    {
-        type: "select",
-        name: 'timezone',
-        label: 'Timezone',
-        value: null,
-        colspan: eGridSpan.ONE_THIRD,
-        validators: {
-            required: true,
-        },
-        options: [
-            {
-                value: null,
-                name: 'Select timezone'
-            },
-            {
-                value: -300,
-                name: 'Eastern (GMT -05:00)'
-            },
-            {
-                value: -480,
-                name: 'Pacific (GMT -08:00)'
-            },
-        ]
-
-    },
-    createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
 
 export const SALAH_FORM_SETTINGS_DATA = [
@@ -1171,6 +1112,14 @@ export const ATHAN_FORM_RAMADAN_DATA = [
 
 export const MOSQUE_FORM_GENERAL_DATA = [
     {
+        type: "hidden",
+        name: 'organisationId',
+        label: 'Organisation ID',
+        value: null,
+        colspan: eGridSpan.HIDDEN,
+        validators: null
+    },
+    {
         type: "text",
         name: 'name',
         label: 'Mosque Name',
@@ -1185,13 +1134,14 @@ export const MOSQUE_FORM_GENERAL_DATA = [
     },
     {
         type: "text",
-        name: 'meta',
-        label: 'Meta Tags (optional)',
+        name: 'alternateId',
+        label: 'Public URL',
         value: null,
         placeholder: 'Ex: Add tags separated by comma',
         colspan: eGridSpan.HALF,
         validators: {
-            maxLength: 100
+            maxLength: 100,
+            required: true,
         }
     }
 ] as FormControlModel[];
@@ -1277,6 +1227,65 @@ export const MOSQUE_FORM_ADDRESS_DATA = [
     },
 ] as FormControlModel[];
 
+export const MOSQUE_FORM_COORDINATE_DATA = [
+    {
+        type: 'number',
+        name: 'latitude',
+        label: 'Latitude',
+        value: null,
+        placeholder: 'Ex: 40.7128',
+        colspan: eGridSpan.ONE_THIRD,
+        step: 2,
+        validators: {
+            required: true,
+            maxLength: 20,
+            min: -90,
+            max: 90,
+        }
+    },
+    {
+        type: 'number',
+        name: 'longitude',
+        label: 'Longitude',
+        value: null,
+        placeholder: 'Ex: -74.0060',
+        colspan: eGridSpan.ONE_THIRD,
+        step: 2,
+        validators: {
+            required: true,
+            min: -180,
+            max: 180,
+            maxLength: 20,
+        }
+    },
+    {
+        type: "select",
+        name: 'timezoneId',
+        label: 'Timezone',
+        value: null,
+        colspan: eGridSpan.ONE_THIRD,
+        validators: {
+            required: true,
+        },
+        options: [
+            {
+                value: null,
+                name: 'Select timezone'
+            },
+            {
+                value: 'America/New_York',
+                name: 'Eastern Time(GMT -05:00)'
+            },
+            {
+                value: 'America/Vancouver',
+                name: 'Pacific Time(GMT -08:00)'
+            },
+        ]
+
+    },
+    createPlaceholderFormField(eGridSpan.ONE_THIRD),
+] as FormControlModel[];
+
 export const MOSQUE_FORM_CONTACT_DATA = [
     {
         type: "text",
@@ -1334,7 +1343,7 @@ export const IQAMAH_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
-export const PREFERENCES_FORM_DATA = [    
+export const PREFERENCES_FORM_DATA = [
     {
         name: "hijri",
         label: "Hijri Days Adjustments",
@@ -1348,11 +1357,6 @@ export const PREFERENCES_FORM_DATA = [
 ] as ReactiveForm[];
 
 export const SALAH_FORM_DATA = [
-    {
-        name: "location",
-        label: "Location",
-        data: SALAH_FORM_LOCATION_DATA,
-    },
     {
         name: "settings",
         label: "Settings",
@@ -1385,6 +1389,11 @@ export const MOSQUE_FORM_DATA = [
         data: MOSQUE_FORM_GENERAL_DATA,
     },
     {
+        name: "coordinate",
+        label: "Location",
+        data: MOSQUE_FORM_COORDINATE_DATA,
+    },
+    {
         name: "address",
         label: "Address",
         data: MOSQUE_FORM_ADDRESS_DATA,
@@ -1399,7 +1408,7 @@ export const MOSQUE_FORM_DATA = [
 export const TIMINGS_TABS_DATA = [
     { id: TimingConstants.IQAMAH, label: "Iqamah", editMode: false, forms: IQAMAH_FORM_DATA },
     { id: TimingConstants.PREFERENCE, label: "Preferences", editMode: false, forms: PREFERENCES_FORM_DATA },
-    
+
 ] as TabModel[];
 
 export const SETTINGS_TABS_DATA = [

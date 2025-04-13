@@ -15,6 +15,7 @@ const components = [LibFormComponent];
 })
 export class BaseFormComponent {
   @Output() toggleEditMode = new EventEmitter<boolean>();
+  @Output() canSaveForm = new EventEmitter<any>();
 
   editMode: boolean = false;
   form: FormGroup = new FormGroup({});
@@ -40,8 +41,12 @@ export class BaseFormComponent {
 
   private save() {
     console.log('Form', this.form.value);
-    if (!this.canSave())
-      return;    
+    if (!this.canSave()){
+      this.canSaveForm.emit(false);
+      return;
+    }
+      
+    this.canSaveForm.emit(this.form.value);
     this.disable();
   }
 

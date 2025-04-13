@@ -1,12 +1,15 @@
-import { AfterViewInit, Component, ComponentRef, OnDestroy, signal, ViewChild, ViewContainerRef } from "@angular/core";
+import { AfterViewInit, Component, ComponentRef, DestroyRef, inject, OnDestroy, signal, ViewChild, ViewContainerRef } from "@angular/core";
 //RXJS
 import { Subscription } from "rxjs/internal/Subscription";
 //Materials
 import { MatTabsModule } from "@angular/material/tabs";
 //Components
-import { ActionButtonsCESComponent,BaseFormComponent } from "@shared/components";
+import { ActionButtonsCESComponent, BaseFormComponent } from "@shared/components";
 // Models
-import { eBtnActionCESType, ACCOUNTS_TABS_DATA, TabModel, AccountConstants } from "@shared/models";
+import { eBtnActionCESType, ACCOUNTS_TABS_DATA, TabModel, AccountConstants, AddOrgRequestModel } from "@shared/models";
+import { OrganisationService } from "@shared/services";
+import { AuthService } from "@core/services";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 
 const materialModules = [MatTabsModule];
@@ -24,6 +27,10 @@ export default class AccountsComponent implements AfterViewInit, OnDestroy {
     private componentRef!: ComponentRef<BaseFormComponent>;
     private subscriptions: Subscription = new Subscription();
 
+    destroyRef = inject(DestroyRef);
+    authService = inject(AuthService);
+    orgService = inject(OrganisationService);
+
     tabs = signal<TabModel[]>(ACCOUNTS_TABS_DATA);
 
     // Active tab tracking
@@ -31,6 +38,32 @@ export default class AccountsComponent implements AfterViewInit, OnDestroy {
 
     async ngAfterViewInit() {
         this.onTabChange(0);
+        if (this.authService.organisationId) {
+            this.orgService.getOrganisation()
+            .pipe(
+                takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe(
+                resp => {
+                    //TODO Error Handling
+                    if (resp.next) {
+                        const patch: any = {
+                            information: resp.next.information,
+                            coordinate: resp.next.coordinate
+                        };
+
+                        if (resp.next?.address) {
+                            patch.address = resp.next.address;
+                        }
+
+                        if (resp.next?.contact) {
+                            patch.contact = resp.next.contact;
+                        }
+                        this.componentRef.instance.form.patchValue(patch);
+                    }
+                }
+            );
+        }
     }
 
     async onTabChange(index: number): Promise<void> {
@@ -46,10 +79,24 @@ export default class AccountsComponent implements AfterViewInit, OnDestroy {
         if (tab) {
             this.componentRef.instance.editMode = tab.editMode;
             this.componentRef.instance.forms = tab.forms;
+
         }
         this.subscriptions.add(this.componentRef.instance.toggleEditMode.subscribe((toggle) => {
             this.toggleEditMode(toggle);
         }));
+        this.subscriptions.add(this.componentRef.instance.canSaveForm.subscribe((canSave) => {
+            // console.log('canSave',canSave);
+            if (canSave) {
+                this.addOrganisation(canSave);
+            }
+        }));
+
+    }
+
+    private addOrganisation(req: AddOrgRequestModel) {
+        this.subscriptions.add(
+            this.orgService.addOrganisation(req).subscribe()
+        );
 
     }
 

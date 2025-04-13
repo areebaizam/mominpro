@@ -5,8 +5,9 @@ export class FeatureURLConstants {
   static readonly ACCOUNTS = "accounts";
   static readonly TEST = "test";
 }
-export class PagesURLConstants {
+export class PageURLConstants {
   static readonly FORBIDDEN = "404";
+  static readonly ERROR = "500";
   static readonly LOGIN = "login";
 }
 export class TimingConstants {

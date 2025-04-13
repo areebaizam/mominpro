@@ -4,13 +4,14 @@ export type alphanumericbool = string | number | boolean | Date;
 export type InputType = 'color' | 'email' | 'month' | 'password' | 'search' | 'tel' | 'text' | 'url' | 'week';
 export type CustomType = 'iqamah' | 'athan' | 'flag';
 export type AthanType = 'iqamah' | 'salah';
-export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder';
+export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder' | 'hidden';
 export type ControlValue = alphanumericbool | ControlTypeValue | AthanTypeValue | FlagTypeValue;
 export enum eGridSpan {
     FULL = '1 1 calc(100% - 1.25rem)',
     HALF = '1 1 calc(50% - 1.25rem)',
     ONE_THIRD = '1 1 calc(33.33% - 1.25rem)',
     ONE_FOURTH = '1 1 calc(25% - 1.25rem)',
+    HIDDEN = '',//TODO Check the value
 }
 
 export class ControlTypeValue {
@@ -105,6 +106,10 @@ export interface TimeModel extends BaseFormControlModel {
 export interface PlaceholderModel extends BaseFormControlModel {
     type: 'placeholder',
 }
+//Empty
+export interface HiddenModel extends BaseFormControlModel {
+    type: 'hidden',
+}
 
 
 export interface ControlTypeValueModel extends BaseFormControlModel {
@@ -148,7 +153,7 @@ export interface AthanControlTypeValueOptions {
     subtype: AthanType;
 }
 
-export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | IqamahModel | AthanModel | FlagModel | TimeModel | DatePickerModel | PlaceholderModel;
+export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | IqamahModel | AthanModel | FlagModel | TimeModel | DatePickerModel | PlaceholderModel | HiddenModel;
 
 export interface ReactiveForm {
     name: string;

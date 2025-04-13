@@ -1,10 +1,27 @@
-export interface AuthStatusModel {
+import { ClaimType } from "./core.constant";
+
+export interface AuthProfileModel {
     isAuthenticated: boolean;
-    username: string;
-    claims: ClaimsModel[];
+    userName: string;
+    organisationId: string;
+    claims: ClaimModel[];
 }
 
-export interface ClaimsModel {
-    type: string;
+export interface ClaimModel {
+    type: ClaimType;
     value: string;
 }
+export interface AuthStatusModel{
+    isAuthenticated:boolean;
+}
+export interface AuthProfile{
+    isAdmin: boolean;
+    userName: string;
+    organisationId: string | null;
+}
+
+export const defaultAuthProfile: AuthProfile = {
+    isAdmin: false,
+    userName: 'Guest',
+    organisationId: null,
+  };

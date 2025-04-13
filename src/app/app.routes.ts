@@ -3,7 +3,7 @@ import { AuthGuard } from '@core/guards';
 //Components
 import { LoginComponent, PageNotFoundComponent } from '@shared/pages';
 // Models
-import { FeatureURLConstants, PagesURLConstants } from '@shared/models';
+import { FeatureURLConstants, PageURLConstants } from '@shared/models';
 
 
 export const routes: Routes = [
@@ -34,15 +34,24 @@ export const routes: Routes = [
         data: { breadcrumb: FeatureURLConstants.TEST }
     },
     {
-        path: PagesURLConstants.FORBIDDEN,
+        path: PageURLConstants.FORBIDDEN,
         component:PageNotFoundComponent,
+        data: { breadcrumb: PageURLConstants.FORBIDDEN } //Change it to label
     },
     {
-        path: PagesURLConstants.LOGIN,
+        path: PageURLConstants.ERROR,
+        component:PageNotFoundComponent,//TODO Make it broken server error
+        data: { breadcrumb: PageURLConstants.ERROR } //Change it to label
+    },
+    {
+        path: PageURLConstants.LOGIN,
         component:LoginComponent,
+        data: { breadcrumb: PageURLConstants.LOGIN }
     },
     {
         path: "**",
-        component:PageNotFoundComponent
+        component:PageNotFoundComponent,
+        data: { breadcrumb: PageURLConstants.FORBIDDEN }
+        //TODO rectify this
     },    
 ];
