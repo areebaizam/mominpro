@@ -10,8 +10,8 @@ interface HttpResponseError {
     message: string;
 }
 
-export interface HttpResponseModel<T> {
-    next: T | null;
+export interface HttpResponseModel<T = unknown> {
+    next: T;
     status: HttpResponseStatus;
     errors: HttpResponseError[] | null;
 }

@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn, HttpResponse,  } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpResponseModel } from '@core/models';
@@ -20,6 +20,14 @@ export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
                 case 403:
                     router.navigateByUrl(`${PageURLConstants.FORBIDDEN}`);
                     break;
+                case 409:
+                    //TODO make it generic for all other errors
+                    return of(
+                        new HttpResponse<HttpResponseModel>({
+                            body:{errors:null,next:null, status:error.error.status},
+                            status:409
+                        })
+                    );
                 default:
                     router.navigateByUrl(`${PageURLConstants.ERROR}`);
                     break;

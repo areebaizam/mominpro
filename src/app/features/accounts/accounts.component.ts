@@ -6,10 +6,11 @@ import { MatTabsModule } from "@angular/material/tabs";
 //Components
 import { ActionButtonsCESComponent, BaseFormComponent } from "@shared/components";
 // Models
-import { eBtnActionCESType, ACCOUNTS_TABS_DATA, TabModel, AccountConstants, AddOrgRequestModel } from "@shared/models";
+import { eBtnActionCESType, ACCOUNTS_TABS_DATA, TabModel, AccountConstants, OrgRequestModel } from "@shared/models";
 import { OrganisationService } from "@shared/services";
 import { AuthService } from "@core/services";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { getResult } from "@core/utilities";
 
 
 const materialModules = [MatTabsModule];
@@ -38,33 +39,11 @@ export default class AccountsComponent implements AfterViewInit, OnDestroy {
 
     async ngAfterViewInit() {
         this.onTabChange(0);
-        if (this.authService.organisationId) {
-            this.orgService.getOrganisation()
-            .pipe(
-                takeUntilDestroyed(this.destroyRef)
-            )
-            .subscribe(
-                resp => {
-                    //TODO Error Handling
-                    if (resp.next) {
-                        const patch: any = {
-                            information: resp.next.information,
-                            coordinate: resp.next.coordinate
-                        };
-
-                        if (resp.next?.address) {
-                            patch.address = resp.next.address;
-                        }
-
-                        if (resp.next?.contact) {
-                            patch.contact = resp.next.contact;
-                        }
-                        this.componentRef.instance.form.patchValue(patch);
-                    }
-                }
-            );
-        }
+        if (this.authService.organisationId)
+            this.fetchOrgData();
     }
+
+
 
     async onTabChange(index: number): Promise<void> {
         this.activeTabId.set(ACCOUNTS_TABS_DATA[index]?.id);
@@ -85,23 +64,63 @@ export default class AccountsComponent implements AfterViewInit, OnDestroy {
             this.toggleEditMode(toggle);
         }));
         this.subscriptions.add(this.componentRef.instance.canSaveForm.subscribe((canSave) => {
-            // console.log('canSave',canSave);
             if (canSave) {
-                this.addOrganisation(canSave);
+                // extract ID
+                const { organisationId, ...restInformation } = canSave.information;
+                // Now build the payload
+                const request = { ...canSave, information: restInformation };
+                this.addUpdateOrganisation(organisationId, request);
             }
         }));
 
     }
 
-    private addOrganisation(req: AddOrgRequestModel) {
-        this.subscriptions.add(
-            this.orgService.addOrganisation(req).subscribe()
-        );
-
-    }
-
     currentTab() {
         return this.tabs().find((tab) => tab.id === this.activeTabId());
+    }
+
+    private fetchOrgData(): void {
+        this.orgService.getOrganisation()
+            .pipe(
+                takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe(
+                resp => {
+                    //TODO Error Handling
+                    const next = getResult(resp)
+                    if (next) {
+                        const patch: any = {
+                            information: next.information,
+                            coordinate: next.coordinate
+                        };
+
+                        if (next?.address) {
+                            patch.address = next.address;
+                        }
+
+                        if (next?.contact) {
+                            patch.contact = next.contact;
+                        }
+                        this.componentRef.instance.form.patchValue(patch);
+                    }
+                }
+            );
+    }
+
+    private addUpdateOrganisation(orgId: string, req: OrgRequestModel) {
+        if (orgId)
+            this.subscriptions.add(
+                this.orgService.updateOrganisation(orgId, req).subscribe()
+            );
+        else
+            this.subscriptions.add(
+                this.orgService.createOrganisation(req).subscribe(
+                    resp => {
+                        if (resp.status.isSuccess && resp.next)
+                            this.authService.organisationId = resp.next?.organisationId ?? null
+                    }
+                )
+            );
     }
 
     destroyComponent() {

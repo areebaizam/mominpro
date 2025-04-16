@@ -21,25 +21,25 @@ export interface InformationModel {
     alternateId: string;
 }
 
-export interface InformationResponseModel extends InformationModel {
+export interface InformationIdModel extends InformationModel {
     organisationId: string;
 }
 
-export interface OrgRequestResponseModel {
+export interface OrganisationDetailModel {
     coordinate: CoordinateModel;
     address:AddressModel | null;
     contact: ContactModel | null;
 }
-//Add
-export interface AddOrgRequestModel extends OrgRequestResponseModel{
-    information: InformationModel;
+//Add & Update
+export interface OrgRequestModel extends OrganisationDetailModel{
+    information: InformationModel;//no Org ID
 }
 export interface AddOrgResponseModel{
     organisationId: string;
 }
 //Get
-export interface GetOrgResponseModel extends OrgRequestResponseModel{
-    information: InformationResponseModel;
+export interface GetOrgResponseModel extends OrganisationDetailModel{
+    information: InformationIdModel;
 }
 
 

@@ -25,12 +25,18 @@ export class AuthService {
     return this.authProfile().organisationId;
   }
 
+  set organisationId(value:string|null) {
+    this.authProfile.update(state => ({
+      ...state,
+      organisationId: value
+    }));
+  }
   constructor() {
     // 👇 effect to reset authState when isAuthenticated becomes false
     effect(() => {
-      if (!this.isAuthenticated()) {
-        this.authProfile.set(defaultAuthProfile);
-      }
+      if (this.isAuthenticated())
+        firstValueFrom(this.getAuthProfile());
+      else this.authProfile.set(defaultAuthProfile);
     });
   }
 
@@ -69,8 +75,6 @@ export class AuthService {
       )
     ).then((response) => {
       this.isAuthenticated.set(response?.next?.isAuthenticated ?? false);
-      if (this.isAuthenticated())
-        firstValueFrom(this.getAuthProfile());//TODO Verify no leak
     });
   }
 
