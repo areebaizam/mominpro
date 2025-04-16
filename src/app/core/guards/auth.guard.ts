@@ -5,6 +5,5 @@ import { PageURLConstants } from '@shared/models';
 
 export const AuthGuard: CanMatchFn = (route, segments) => {
   const authService = inject(AuthService) as AuthService;
-  //TODO Add return Path
-  return authService.isAuthenticated() ? true : inject(Router).createUrlTree([PageURLConstants.LOGIN]);
+  return authService.isAuthenticated() ? true : inject(Router).createUrlTree([PageURLConstants.LOGIN], { queryParams: { returnUrl: route.path } });
 };

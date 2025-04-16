@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from '@core/guards';
+import { AuthGuard, LoginGuard } from '@core/guards';
 //Components
 import { LoginComponent, PageNotFoundComponent } from '@shared/pages';
 // Models
@@ -46,6 +46,7 @@ export const routes: Routes = [
     {
         path: PageURLConstants.LOGIN,
         component:LoginComponent,
+        canMatch:[LoginGuard],
         data: { breadcrumb: PageURLConstants.LOGIN }
     },
     {
