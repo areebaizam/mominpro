@@ -6,6 +6,13 @@ export class ApiURL {
         return environment.baseUrl;
     }
 
+    public static get getAuthLoginiUrl(): string {
+        const loginUrl = `${this.baseApiUrl}/login`
+        return environment.useCookies? `${loginUrl}?useCookies=true` : loginUrl;
+    }
+    public static get getAuthRegisterUrl(): string {
+        return `${this.baseApiUrl}/register`;
+    }
     public static get getAuthStatusUrl(): string {
         return `${this.baseApiUrl}/status`;
     }

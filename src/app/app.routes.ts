@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard, LoginGuard } from '@core/guards';
 //Components
-import { LoginComponent, PageNotFoundComponent } from '@shared/pages';
+import { PageLoginComponent, PageNotFoundComponent,PageForgotPasswordComponent } from '@shared/pages';
 // Models
 import { FeatureURLConstants, PageURLConstants } from '@shared/models';
 
@@ -45,9 +45,15 @@ export const routes: Routes = [
     },
     {
         path: PageURLConstants.LOGIN,
-        component:LoginComponent,
+        component:PageLoginComponent,
         canMatch:[LoginGuard],
         data: { breadcrumb: PageURLConstants.LOGIN }
+    },
+    {
+        path: PageURLConstants.FORGOT,
+        component:PageForgotPasswordComponent,
+        canMatch:[LoginGuard],
+        data: { breadcrumb: PageURLConstants.FORGOT }//Change it to label
     },
     {
         path: "**",

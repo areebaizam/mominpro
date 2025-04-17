@@ -9,6 +9,7 @@ export class PageURLConstants {
   static readonly FORBIDDEN = "404";
   static readonly ERROR = "500";
   static readonly LOGIN = "login";
+  static readonly FORGOT = "forgot";
 }
 export class TimingConstants {
   static readonly IQAMAH = 'iqamah';

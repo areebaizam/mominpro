@@ -1,0 +1,80 @@
+<form [formGroup]="form">
+  <mat-tab-group
+    (selectedTabChange)="onTabChange($event.index)"
+    [selectedIndex]="activeTabId()"
+  >
+    <mat-tab>
+      <!-- #docregion label-directive -->
+      <ng-template mat-tab-label>
+        <mat-icon>fingerprint</mat-icon>
+        Login
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>app_registration</mat-icon>
+        Sign Up
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+  <mat-form-field class="field-width">
+    <mat-label>Email</mat-label>
+    <input matInput type="text" [formControl]="getFormControl('email')" />
+    <mat-icon matSuffix>alternate_email</mat-icon>
+    <mat-error>{{ getValidationError("email") }}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="field-width">
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      [type]="hide() ? 'password' : 'text'"
+      [formControl]="getFormControl('password')"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide.set(!hide())"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide()"
+    >
+      <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+    <mat-error>{{ getValidationError("password") }}</mat-error>
+  </mat-form-field>
+  @if(activeTabId() == 0){
+  <div class="flex-center">
+    <mat-checkbox [formControl]="getFormControl('rememberMe')"
+      >Remember me</mat-checkbox
+    >
+    <a
+      aria-label="Forgot"
+      [routerLink]="['/', ePageURLConstants.FORGOT]"
+      class="link"
+      >Forgot Password?</a
+    >
+  </div>
+  <div class="flex-center">
+    <button mat-flat-button (click)="onSubmit()">
+      <mat-icon aria-label="Login">login</mat-icon>Login
+    </button>
+    <a class="link" aria-label="Sign Up" (click)="activeTabId.set(1)">
+      Don't have an account?
+    </a>
+  </div>
+  } @else {
+  <mat-form-field class="field-width">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [formControl]="getFormControl('name')" />
+    <mat-icon matSuffix>account_circle</mat-icon>
+    <mat-error>{{ getValidationError("name") }}</mat-error>
+  </mat-form-field>
+  <div class="flex-center">
+    <button mat-flat-button (click)="onSubmit()">
+      <mat-icon aria-label="Login">how_to_reg</mat-icon>Sign Up
+    </button>
+    <a class="link" aria-label="Login" (click)="activeTabId.set(0)">
+      Already have an account?
+    </a>
+  </div>
+  }
+</form>
