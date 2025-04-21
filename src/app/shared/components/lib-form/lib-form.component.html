@@ -1,41 +1,66 @@
-@defer{
-<form [formGroupName]="formGroupName" class="form-container">
+<div class="form-container">
     @for(field of formFields; track field){
     @if(field.type == formService.isInputType(field.type)){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [type]="field.type" [formControl]="getFormControl(field.name)"
-            [maxLength]="field.validators?.maxLength" [placeholder]="field.placeholder" />
-        <mat-hint align="end" [class.read-only]="!editMode">{{ getFieldLength(field.name) }}/{{
+            [maxLength]="field.validators?.maxLength??512" [placeholder]="field.placeholder"
+            [autocomplete]="field.autocompleteLabel" />
+        @if(field.icon){
+        <mat-icon matSuffix>{{field.icon}}</mat-icon>
+        }
+        @if(field.validators?.maxLength){
+        <mat-hint align="end" [class.read-only]="!editMode()">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
+        }
+        <mat-error>{{ getValidationError(field)}}</mat-error>
+    </mat-form-field>
+    }@else if(field.type == 'password'){
+    <mat-form-field class="field-width" [style.flex]="field.colspan">
+        <mat-label>{{ field.label }}</mat-label>
+        <input matInput [type]="hide() ? 'password' : 'text'" [formControl]="getFormControl(field.name)"
+            [maxLength]="field.validators?.maxLength??512" [autocomplete]="field.autocompleteLabel" />
+        <button mat-icon-button matSuffix (click)="hide.set(!hide())" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()" [disabled]="!editMode()">
+            <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
         <mat-error>{{ getValidationError(field)}}</mat-error>
     </mat-form-field>
     } @else if(field.type == 'textarea'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
+        <!-- TODO replace length enums -->
         <textarea matInput [type]="field.type" [formControl]="getFormControl(field.name)"
-            [maxLength]="field.validators?.maxLength" [placeholder]="field.placeholder" [rows]="field.rows"></textarea>
-        <mat-hint align="end" [class.read-only]="!editMode">{{ getFieldLength(field.name) }}/{{
+            [maxLength]="field.validators?.maxLength??512" [placeholder]="field.placeholder"
+            [rows]="field.rows"></textarea>
+        @if(field.validators?.maxLength){
+        <mat-hint align="end" [class.read-only]="!editMode()">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
+        }
         <mat-error>{{ getValidationError(field)}}</mat-error>
     </mat-form-field>
     } @else if(field.type == 'number'){
     <!-- TODO Add more validations on length and value -->
+    <!-- TODO Move 512 to lengthEnum -->
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [type]="field.type" [formControl]="getFormControl(field.name)" [placeholder]="field.placeholder"
-            [maxLength]="field.validators?.maxLength" [max]="field.validators?.max" [min]="field.validators?.min" />
-        <mat-hint align="end" [class.read-only]="!editMode">{{ getFieldLength(field.name) }}/{{
+            [maxLength]="field.validators?.maxLength??512" [max]="field.validators?.max"
+            [min]="field.validators?.min" />
+        @if(field.validators?.maxLength){
+        <mat-hint align="end" [class.read-only]="!editMode()">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
+        }
         <mat-error>{{ getValidationError(field)}}</mat-error>
     </mat-form-field>
     } @else if(field.type == 'select'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
-        <mat-select [formControl]="getFormControl(field.name)" (selectionChange)="onSelect(field.name,$event.value)">
+        <mat-select [formControl]="getFormControl(field.name)">
+            <!-- <mat-select [formControl]="getFormControl(field.name)" (selectionChange)="onSelect(field.name,$event.value)"> -->
             @for (option of field.options; track option.value) {
             <mat-option [value]="option.value" [class.recommended]="option.recommended"><span>{{ option.name
                     }}</span></mat-option>
@@ -45,8 +70,9 @@
     </mat-form-field>
     } @else if(field.type == 'slider'){
     <div class="field-width slider" [style.flex]="field.colspan">
-        <div class="slider-label" [class.read-only]="!editMode">{{ field.label }} (<span [class.read-only]="!editMode"
-                class="slider-value">{{getFormControl(field.name).value}}&deg;</span>)</div>
+        <div class="slider-label" [class.read-only]="!editMode()">{{ field.label }} (<span
+                [class.read-only]="!editMode()" class="slider-value">{{getFormControl(field.name).value}}&deg;</span>)
+        </div>
         <mat-slider [max]="field.validators?.max" [min]="field.validators?.min" [step]="field.step" discrete>
             <input matSliderThumb [value]="field.value" [formControl]="getFormControl(field.name)">
         </mat-slider>
@@ -54,8 +80,8 @@
     } @else if(field.type == 'series'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
-        <mat-select [formControl]="getFormControl(field.name)" [value]="field.value"
-            (selectionChange)="onSelect(field.name,$event.value)">
+        <mat-select [formControl]="getFormControl(field.name)" [value]="field.value">
+            <!-- (selectionChange)="onSelect(field.name,$event.value)"> -->
             @for (option of formService.getSeriesOptions(field); track option.value) {
             <mat-option [value]="option.value" [class.recommended]="option.recommended"><span>{{ option.name
                     }}</span></mat-option>
@@ -63,28 +89,33 @@
         </mat-select>
     </mat-form-field>
     } @else if(field.type == 'toggle'){
-    <mat-slide-toggle [formControl]="getFormControl(field.name)" [checked]="field.value" class="field-width toggle"
-        [style.flex]="field.colspan" (change)="onToggle(field.name, $event.checked)"><span
-            [class.read-only]="!editMode">{{ field.label
+    <!-- <mat-slide-toggle [formControl]="getFormControl(field.name)" [checked]="field.value" (change)="onToggle(field.name, $event.checked)" -->
+    <mat-slide-toggle [formControl]="getFormControl(field.name)" [checked]="field.value" [style.flex]="field.colspan"
+        class="field-width toggle"><span [class.read-only]="!editMode()">{{ field.label
             }}</span></mat-slide-toggle>
     }
     @else if(field.type == 'date'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [matDatepicker]="dp" [formControl]="getFormControl(field.name)" [value]="field.value">
-        <mat-hint align="end" [class.read-only]="!editMode">{{ field.hint }}</mat-hint>
+        <mat-hint align="end" [class.read-only]="!editMode()">{{ field.hint }}</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
         <mat-datepicker #dp></mat-datepicker>
         <mat-error>{{ getValidationError(field)}}</mat-error>
     </mat-form-field>
     }
+    @else if(field.type == 'checkbox'){
+    <div class="field-width" [style.flex]="field.colspan">
+        <mat-checkbox [formControl]="getFormControl(field.name)" value=field.value style="min-height:56px;">{{field.label}}</mat-checkbox>
+    </div>
+    }
     @else if(field.type == 'time'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [matTimepicker]="picker" [formControl]="getFormControl(field.name)" [value]="field.value"
-            [matTimepickerMin]="getMinTimeValue(field.validators?.matTimepickerMin)"
-            [matTimepickerMax]="getMaxTimeValue(field.validators?.matTimepickerMax)">
-        <mat-timepicker-toggle matIconSuffix [for]="picker" [disabled]="!editMode" />
+            [matTimepickerMin]="field.validators?.matTimepickerMin??'00:00'"
+            [matTimepickerMax]="field.validators?.matTimepickerMax??'23:59'">
+        <mat-timepicker-toggle matIconSuffix [for]="picker" [disabled]="!editMode()" />
         <mat-timepicker #picker interval="5m" (opened)="closeIfDisabled(picker)" />
         <mat-error>{{ getValidationError(field)}}</mat-error>
     </mat-form-field>
@@ -93,14 +124,14 @@
     <div class="field-width" [style.flex]="field.colspan"></div>
     }
     @else if(field.type == 'iqamah'){
-    <tap-iqamah-form-field [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-iqamah-form-field>
+    <tap-iqamah-form-field [control]="field" [editMode]="editMode()"
+        [style.flex]="field.colspan"></tap-iqamah-form-field>
     }
     @else if(field.type == 'athan'){
-    <tap-athan-form-field [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-athan-form-field>
+    <tap-athan-form-field [control]="field" [editMode]="editMode()" [style.flex]="field.colspan"></tap-athan-form-field>
     }
     @else if(field.type == 'flag'){
-    <tap-flag-form-field [control]="field" [editMode]="editMode" [style.flex]="field.colspan"></tap-flag-form-field>
+    <tap-flag-form-field [control]="field" [editMode]="editMode()" [style.flex]="field.colspan"></tap-flag-form-field>
     }
     }
-</form>
-}
+</div>

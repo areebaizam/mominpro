@@ -98,7 +98,6 @@ export class FormService {
       "email",
       "month",
       "number",
-      "password",
       "search",
       "tel",
       "text",

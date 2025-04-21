@@ -1,10 +1,10 @@
 
 
 export type alphanumericbool = string | number | boolean | Date;
-export type InputType = 'color' | 'email' | 'month' | 'password' | 'search' | 'tel' | 'text' | 'url' | 'week';
+export type InputType = 'color' | 'email' | 'month' |  'search' | 'tel' | 'text' | 'url' | 'week';
 export type CustomType = 'iqamah' | 'athan' | 'flag';
 export type AthanType = 'iqamah' | 'salah';
-export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder' | 'hidden';
+export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder' | 'hidden' | 'password' | 'checkbox' | 'radio';
 export type ControlValue = alphanumericbool | ControlTypeValue | AthanTypeValue | FlagTypeValue;
 export enum eGridSpan {
     FULL = '1 1 calc(100% - 1.25rem)',
@@ -51,6 +51,12 @@ export interface BaseFormControlModel {
 export interface InputModel extends BaseFormControlModel {
     type: InputType;
     placeholder: string;
+    icon?:string;
+    autocompleteLabel?:string;
+}
+export interface PasswordModel extends BaseFormControlModel {
+    type: 'password';
+    autocompleteLabel:string;
 }
 //TextArea
 export interface TextAreaModel extends BaseFormControlModel {
@@ -97,6 +103,13 @@ export interface SeriesModel extends BaseFormControlModel {
 //Toggle
 export interface ToggleModel extends BaseFormControlModel {
     type: 'toggle',
+}
+export interface CheckboxModel extends BaseFormControlModel {
+    type: 'checkbox';
+    value:boolean;
+}
+export interface RadioModel extends BaseFormControlModel {
+    type: 'radio';
 }
 //Time
 export interface TimeModel extends BaseFormControlModel {
@@ -153,7 +166,9 @@ export interface AthanControlTypeValueOptions {
     subtype: AthanType;
 }
 
-export type FormControlModel = InputModel | TextAreaModel | SelectModel | SliderModel | NumberModel | SeriesModel | ToggleModel | IqamahModel | AthanModel | FlagModel | TimeModel | DatePickerModel | PlaceholderModel | HiddenModel;
+export type FormControlModel = InputModel | PasswordModel | TextAreaModel | SelectModel | SliderModel | NumberModel 
+| SeriesModel | ToggleModel | IqamahModel | AthanModel | FlagModel | TimeModel | DatePickerModel | PlaceholderModel 
+| HiddenModel | CheckboxModel | RadioModel;
 
 export interface ReactiveForm {
     name: string;

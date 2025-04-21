@@ -1,0 +1,14 @@
+.flex-center {
+    justify-content: space-between;
+}
+.link {
+    text-decoration: none;
+    color: var(--primary);
+    font-size: .875rem;
+    font-weight: 400;
+
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}

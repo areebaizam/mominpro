@@ -10,6 +10,11 @@ export class ApiURL {
         const loginUrl = `${this.baseApiUrl}/login`
         return environment.useCookies? `${loginUrl}?useCookies=true` : loginUrl;
     }
+    
+    public static get getAuthLogoutUrl(): string {
+        return `${this.baseApiUrl}/logout`;
+    }
+
     public static get getAuthRegisterUrl(): string {
         return `${this.baseApiUrl}/register`;
     }

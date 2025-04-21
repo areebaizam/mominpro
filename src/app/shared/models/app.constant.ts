@@ -23,3 +23,7 @@ export class AccountConstants {
   static readonly MOSQUE = 'mosque';  
   static readonly USER = 'users';
 }
+export class CredentialConstants {
+  static readonly LOGIN = 'login';  
+  static readonly SIGNUP = 'signup';
+}

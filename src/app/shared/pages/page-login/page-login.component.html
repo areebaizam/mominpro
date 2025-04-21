@@ -1,2 +1,30 @@
+<mat-tab-group [selectedIndex]="activeTabIndex()" (selectedIndexChange)="activeTabIndex.set($event)">
+    @for (tab of tabs; track tab.name){
+    <mat-tab [label]="tab.label">
+        <ng-template matTabContent>
+            <form [formGroup]="form">
+                <tap-lib-form [formFields]="tab.data" [editMode]="editMode()"></tap-lib-form>
+            </form>
+        </ng-template>
+    </mat-tab>
+    }
+</mat-tab-group>
 
-<tap-login></tap-login>
+@if(activeTabIndex()==0){
+<div class="flex-center">
+    <button mat-flat-button (click)="onActionBtnClicked()" [disabled]="!editMode()">
+        <mat-icon aria-label="Login">login</mat-icon>Login
+    </button>
+    <a aria-label="Forgot" [routerLink]="['/', ePageURLConstants.FORGOT]" class="link">Forgot Password?</a>
+</div>
+}
+@else(){
+<div class="flex-center">
+    <button mat-flat-button (click)="onActionBtnClicked()" [disabled]="!editMode()">
+        <mat-icon aria-label="Login">how_to_reg</mat-icon>Sign Up
+    </button>
+    <a class="link" aria-label="Login" (click)="activeTabIndex.set(0)">
+        Already have an account?
+    </a>
+</div>
+}

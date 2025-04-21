@@ -1,4 +1,4 @@
-import { AccountConstants, SettingConstants, TimingConstants } from "./app.constant";
+import { AccountConstants, CredentialConstants, SettingConstants, TimingConstants } from "./app.constant";
 import { eGridSpan, FormControlModel, ReactiveForm, TabModel } from "./form.model";
 
 export const PLACEHOLDER_FORM_FIELD = {
@@ -1325,6 +1325,88 @@ export const MOSQUE_FORM_CONTACT_DATA = [
     createPlaceholderFormField(eGridSpan.ONE_THIRD)
 ] as FormControlModel[];
 
+
+export const CRED_FORM_LOGIN_DATA = [
+    {
+        type: "text",
+        name: 'email',
+        label: 'Email',
+        value: null,
+        placeholder: 'Ex: john.doe@gmail.com',
+        colspan: eGridSpan.HALF,
+        icon:'alternate_email',
+        autocompleteLabel:'username',
+        validators: {
+            required: true,
+            email: true,
+            maxLength:254,
+        }
+    },
+    {
+        type: "password",
+        name: 'password',
+        label: 'Password',
+        value: null,
+        colspan: eGridSpan.HALF,
+        autocompleteLabel:'current-password',
+        validators: {
+            required: true,
+            minLength:8,//TODO Robust password with custom validation
+        }
+    }, 
+    {
+        type: "checkbox",
+        name: 'rememberMe',
+        label: 'Remember Me',
+        value: false,
+        colspan: eGridSpan.HALF,
+    },
+] as FormControlModel[];
+
+export const CRED_FORM_SIGNUP_DATA = [
+    {
+        type: "text",
+        name: 'email',
+        label: 'Email',
+        value: null,
+        placeholder: 'Ex: john.doe@gmail.com',
+        colspan: eGridSpan.HALF,
+        icon:'alternate_email',
+        autocompleteLabel:'username',
+        validators: {
+            required: true,
+            email: true,
+            maxLength:254,
+        }
+    },
+    {
+        type: "password",
+        name: 'password',
+        label: 'Password',
+        value: null,
+        colspan: eGridSpan.HALF,
+        autocompleteLabel:'new-password',
+        validators: {
+            required: true,
+            minLength:8,//TODO Robust password with custom validation
+        }
+    }, 
+    {
+        type: "text",
+        name: 'name',
+        label: 'Name (Optional)',
+        autocompleteLabel:'name',
+        value: null,
+        placeholder: 'John Doe',
+        icon:'account_circle',
+        colspan: eGridSpan.HALF,
+        validators: {
+            maxLength:100, //TODO Change to enum
+        }
+    },
+    createPlaceholderFormField(eGridSpan.HALF),
+] as FormControlModel[];
+
 export const IQAMAH_FORM_DATA = [
     {
         name: "start",
@@ -1402,6 +1484,19 @@ export const MOSQUE_FORM_DATA = [
         name: "contact",
         label: "Contact",
         data: MOSQUE_FORM_CONTACT_DATA,
+    },
+] as ReactiveForm[];
+
+export const CRED_FORM_DATA = [
+    {
+        name: CredentialConstants.LOGIN,
+        label: "Login",
+        data: CRED_FORM_LOGIN_DATA,
+    },
+    {
+        name: CredentialConstants.SIGNUP,
+        label: "Sign Up",
+        data: CRED_FORM_SIGNUP_DATA,
     },
 ] as ReactiveForm[];
 

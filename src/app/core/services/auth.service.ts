@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { effect, inject, Injectable, signal } from "@angular/core";
-import { catchError, firstValueFrom, Observable, of, tap } from "rxjs";
+import { Router } from '@angular/router';
+import { catchError, firstValueFrom, Observable, of, tap, throwError } from "rxjs";
 import {
   ApiURL,
   AuthLoginRequestModel,
@@ -14,10 +15,12 @@ import {
   HttpResponseModel,
 } from "@core/models";
 import { getResult } from "@core/utilities";
+import { FeatureURLConstants } from "@shared/models";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
   private http = inject(HttpClient);
+  private router = inject(Router);
   private authProfile = signal<AuthProfile>(defaultAuthProfile);
   private claims: ClaimModel[] = [];
   isAuthenticated = signal<boolean>(false);
@@ -81,10 +84,13 @@ export class AuthService {
       this.http
         .get<HttpResponseModel<AuthStatusModel>>(ApiURL.getAuthStatusUrl)
         .pipe(
-          // handle any errors and still allow app to load
-          //TODO LOG ERROR
           catchError((err) => {
-            console.warn("Auth init error", err);
+            //TODO LOG ERROR
+            //Show snackbar
+            //Show connection error in interceptor error.status === 0
+            console.warn("Auth init error", err,typeof(err),typeof(err.error));
+            
+            this.router.navigateByUrl(FeatureURLConstants.HOME);
             return of(null); // fallback
           })
         )
@@ -94,21 +100,11 @@ export class AuthService {
   }
 
   login(req: AuthLoginRequestModel): Observable<any> {
-    return this.http.post<any>(ApiURL.getAuthLoginiUrl, req).pipe(
-      tap((response) => {
-        //TODO Error Handling
-        // let next = getResult(response);
-        console.log("Login Response",  response);
-        // if (next) {
-        //   this.isAuthenticated.set(true);
-        //   this.claims = next.claims;
-        //   this.authProfile.update(state => ({
-        //     ...state,
-        //     isAdmin: this.hasClaimValue(ClaimType.ROLE, 'Admin') ? true : false,
-        //     userName: next.userName,
-        //     organisationId: next.organisationId
-      })
-    );
+    return this.http.post<any>(ApiURL.getAuthLoginiUrl, req)
+  }
+
+  logout(): Observable<any> {
+    return this.http.get<any>(ApiURL.getAuthLogoutUrl);
   }
 
   register(req: AuthRegisterRequestModel): Observable<any> {
@@ -129,7 +125,5 @@ export class AuthService {
     );
   }
 
-  logout() {
-    this.isAuthenticated.set(false);
-  }
+  
 }
