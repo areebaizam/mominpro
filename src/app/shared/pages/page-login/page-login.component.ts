@@ -49,11 +49,15 @@ export class PageLoginComponent {
         this.authService.login(request).subscribe({
           next: (response) => {
             console.log('auth resp', response);
-            if (response?.status?.isSuccess) {
+            // Failure
+            if (response?.status?.isSuccess === false) {
               console.log('auth error 2', response.status);
               this.editMode.set(true);
               return;
             }
+
+            //Success response =>Null for Cookie, accesscode
+            //TODO handle for Accesstoken
             const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '';
             //Reload App
             window.location.href = `/${returnUrl}`;

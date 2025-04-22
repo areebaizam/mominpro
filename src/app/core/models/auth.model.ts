@@ -2,7 +2,7 @@ import { ClaimType } from "./core.constant";
 
 export interface AuthProfileModel {
   isAuthenticated: boolean;
-  userName: string;
+  username: string;
   organisationId: string;
   claims: ClaimModel[];
 }

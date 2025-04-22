@@ -29,6 +29,12 @@ export const routes: Routes = [
         data: { breadcrumb: FeatureURLConstants.ACCOUNTS }
     },
     {
+        path: FeatureURLConstants.PROFILE,
+        loadChildren: () => import("@features/profile/routes"),
+        canMatch:[AuthGuard],
+        data: { breadcrumb: FeatureURLConstants.PROFILE }
+    },
+    {
         path: FeatureURLConstants.TEST,
         loadChildren: () => import("@test/routes"),
         data: { breadcrumb: FeatureURLConstants.TEST }

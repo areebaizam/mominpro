@@ -50,7 +50,7 @@ export class AuthService {
       else this.authProfile.set(defaultAuthProfile);
     });
   }
-
+  
   getAuthProfile(): Observable<HttpResponseModel<AuthProfileModel>> {
     return this.http
       .get<HttpResponseModel<AuthProfileModel>>(ApiURL.getAuthProfileUrl)
@@ -65,7 +65,7 @@ export class AuthService {
               isAdmin: this.hasClaimValue(ClaimType.ROLE, "Admin")
                 ? true
                 : false,
-              userName: next.userName,
+              userName: next.username,
               organisationId: next.organisationId,
             }));
           }

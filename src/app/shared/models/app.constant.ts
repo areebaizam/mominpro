@@ -3,6 +3,7 @@ export class FeatureURLConstants {
   static readonly TIMINGS = "timings";
   static readonly SETTINGS = "settings";
   static readonly ACCOUNTS = "accounts";
+  static readonly PROFILE = "profile";
   static readonly TEST = "test";
 }
 export class PageURLConstants {

@@ -1,4 +1,4 @@
-import { FeatureURLConstants } from "./app.constant";
+import { FeatureURLConstants, PageURLConstants } from "./app.constant";
 import { BtnNavModel, BtnToggleModel, eBtnToggleType } from "./common.model";
 
 export const APP_TOGGLE_ICONS = [
@@ -53,6 +53,26 @@ export const APP_NAV_TEST_BTN = {
     icon: "experiment",
     label: "Test",
     url: FeatureURLConstants.TEST,
+    children: null
+} as BtnNavModel;
+
+export const APP_NAV_LOGIN_BTN = {
+    order: 0,
+    id: 0,
+    parentId: null,
+    icon: "fingerprint",
+    label: "Login",
+    url: PageURLConstants.LOGIN,
+    children: null
+} as BtnNavModel;
+
+export const APP_NAV_PROFILE_BTN = {
+    order: 0,
+    id: 0,
+    parentId: null,
+    icon: "manage_accounts",
+    label: "Profile",
+    url: FeatureURLConstants.PROFILE,
     children: null
 } as BtnNavModel;
 

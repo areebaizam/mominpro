@@ -10,10 +10,14 @@
         <a mat-button [routerLink]="sidenavService.homeData.url.toString()">AL Fatheh Mosque</a>
         }
     </div>
-    <div>
-        @if(mediaQuery.isLarge()){
-        <tap-btn-toggle [type]="toggleType.FULLSCREEN"></tap-btn-toggle>
-        <tap-btn-toggle [type]="toggleType.THEME"></tap-btn-toggle>
-        }
+    <div class="flex-center">
+        <div class="toggle-buttons-container">
+            @if(mediaQuery.isLarge()){
+            <tap-btn-toggle [type]="toggleType.FULLSCREEN"></tap-btn-toggle>
+            <tap-btn-toggle [type]="toggleType.THEME"></tap-btn-toggle>
+            }
+        </div>
+        <tap-bar-top-login></tap-bar-top-login>
     </div>
+
 </mat-toolbar>

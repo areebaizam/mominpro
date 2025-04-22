@@ -1,0 +1,17 @@
+@if(!authService.isAuthenticated()){
+<a mat-stroked-button
+    [routerLink]="loginBtnData.url.toString()"><mat-icon>{{loginBtnData.icon}}</mat-icon>{{loginBtnData.label}}</a>
+}
+@else{
+<button mat-button [matMenuTriggerFor]="menu" aria-label="Profile icon with a menu" routerLinkActive="active">
+    <mat-icon>account_circle</mat-icon>
+    {{authService.userName}}
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item
+        [routerLink]="profileBtnData.url.toString()"><mat-icon>{{profileBtnData.icon}}</mat-icon>{{profileBtnData.label}}</button>
+    <button mat-menu-item (click)="onLogoutBtnClicked()" >
+        <mat-icon aria-label="Login">logout</mat-icon>Log out
+    </button>
+</mat-menu>
+}

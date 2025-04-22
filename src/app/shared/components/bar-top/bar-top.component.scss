@@ -6,3 +6,9 @@
     --mdc-filled-button-container-shape:#{16px};
     --mdc-text-button-label-text-size:#{1.25rem};
 }
+
+.toggle-buttons-container {
+    border-right: 1px solid var(--outline-variant);
+    margin-right: 1rem;
+    padding-right: .25rem;
+}
