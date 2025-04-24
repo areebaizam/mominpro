@@ -105,8 +105,9 @@
     </mat-form-field>
     }
     @else if(field.type == 'checkbox'){
-    <div class="field-width" [style.flex]="field.colspan">
-        <mat-checkbox [formControl]="getFormControl(field.name)" value=field.value style="min-height:56px;">{{field.label}}</mat-checkbox>
+        <!-- TODO move height to model -->
+    <div class="field-width" [style.flex]="field.colspan" [style.min-height]="'76px'">
+        <mat-checkbox [formControl]="getFormControl(field.name)" value=field.value>{{field.label}}</mat-checkbox>
     </div>
     }
     @else if(field.type == 'time'){

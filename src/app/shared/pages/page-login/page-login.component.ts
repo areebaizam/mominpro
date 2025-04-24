@@ -25,7 +25,6 @@ export class PageLoginComponent {
 
   //Services
   private route = inject(ActivatedRoute);
-  private router = inject(Router);
   authService = inject(AuthService);
 
   ePageURLConstants = PageURLConstants;

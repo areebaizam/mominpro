@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { effect, inject, Injectable, signal } from "@angular/core";
 import { Router } from '@angular/router';
-import { catchError, firstValueFrom, Observable, of, tap, throwError } from "rxjs";
+import { environment } from '@env';
 import {
   ApiURL,
   AuthLoginRequestModel,
@@ -16,6 +16,7 @@ import {
 } from "@core/models";
 import { getResult } from "@core/utilities";
 import { FeatureURLConstants } from "@shared/models";
+import { catchError, firstValueFrom, Observable, of, tap } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -50,7 +51,7 @@ export class AuthService {
       else this.authProfile.set(defaultAuthProfile);
     });
   }
-  
+
   getAuthProfile(): Observable<HttpResponseModel<AuthProfileModel>> {
     return this.http
       .get<HttpResponseModel<AuthProfileModel>>(ApiURL.getAuthProfileUrl)
@@ -88,8 +89,8 @@ export class AuthService {
             //TODO LOG ERROR
             //Show snackbar
             //Show connection error in interceptor error.status === 0
-            console.warn("Auth init error", err,typeof(err),typeof(err.error));
-            
+            console.warn("Auth init error", err, typeof (err), typeof (err.error));
+
             this.router.navigateByUrl(FeatureURLConstants.HOME);
             return of(null); // fallback
           })
@@ -100,11 +101,22 @@ export class AuthService {
   }
 
   login(req: AuthLoginRequestModel): Observable<any> {
-    return this.http.post<any>(ApiURL.getAuthLoginiUrl, req)
+    const params = new URLSearchParams();
+
+    if (environment.useCookies) {
+      params.set('useCookies', 'true');
+      if (req.rememberMe) {
+        //Set to False for persistent cookies
+        params.set('useSessionCookies', 'false');
+      }
+    }
+
+    const url = `${ApiURL.getAuthLoginUrl}${params.toString() ? '?' + params.toString() : ''}`;
+    return this.http.post<any>(url, req);
   }
 
   logout(): Observable<any> {
-    return this.http.get<any>(ApiURL.getAuthLogoutUrl);
+    return this.http.post<any>(ApiURL.getAuthLogoutUrl, {});
   }
 
   register(req: AuthRegisterRequestModel): Observable<any> {
@@ -112,7 +124,7 @@ export class AuthService {
       tap((response) => {
         //TODO Error Handling
         // let next = getResult(response);
-        console.log("Register Response",  response);
+        console.log("Register Response", response);
         // if (next) {
         //   this.isAuthenticated.set(true);
         //   this.claims = next.claims;
@@ -124,6 +136,4 @@ export class AuthService {
       })
     );
   }
-
-  
 }

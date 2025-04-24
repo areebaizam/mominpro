@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 //Material
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@core/services';
 // Models
 import { APP_NAV_LOGIN_BTN, APP_NAV_PROFILE_BTN, BtnNavModel } from '@shared/models';
+
 //Constants
 const materialModules = [MatButtonModule, MatIconModule, MatMenuModule];
 
@@ -32,14 +33,17 @@ export class BarTopLoginComponent {
     .subscribe({
       next: (response) => { 
         if(response?.status?.isSuccess === true) {
-          this.authService.isAuthenticated.set(false);
-          console.log('logout success', response,this.authService.userName);
+          //TODO FIX THIS
+          window.location.href = `/`;
         }
         console.log('logout resp', response);
       },
       error: (error) => {
         //TODO show error
         console.log('logout error', error);
+        //TODO FIX THIS
+        if(error.status === 401)
+          window.location.href = `/`;
       }
     })
   }
