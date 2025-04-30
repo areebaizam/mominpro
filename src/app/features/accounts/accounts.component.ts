@@ -39,8 +39,9 @@ export default class AccountsComponent implements AfterViewInit, OnDestroy {
 
     async ngAfterViewInit() {
         this.onTabChange(0);
-        if (this.authService.organisationId)
+        if (!!this.authService.getUserProfile()) {
             this.fetchOrgData();
+        }
     }
 
 
@@ -116,8 +117,9 @@ export default class AccountsComponent implements AfterViewInit, OnDestroy {
             this.subscriptions.add(
                 this.orgService.createOrganisation(req).subscribe(
                     resp => {
-                        if (resp.status.isSuccess && resp.next)
-                            this.authService.organisationId = resp.next?.organisationId ?? null
+                        // if (resp.status.isSuccess && resp.next)
+                        //TODO Error handling
+                        // this.authService.organisationId = resp.next?.organisationId ?? null
                     }
                 )
             );

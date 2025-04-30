@@ -1354,13 +1354,14 @@ export const CRED_FORM_LOGIN_DATA = [
             minLength:8,//TODO Robust password with custom validation
         }
     }, 
-    {
-        type: "checkbox",
-        name: 'rememberMe',
-        label: 'Remember Me',
-        value: false,
-        colspan: eGridSpan.HALF,
-    },
+    // {
+    //     type: "checkbox",
+    //     name: 'rememberMe',
+    //     label: 'Remember Me',
+    //     value: false,
+    //     colspan: eGridSpan.HALF,
+    // },
+    // createPlaceholderFormField(eGridSpan.HALF),
 ] as FormControlModel[];
 
 export const CRED_FORM_SIGNUP_DATA = [

@@ -5,3 +5,9 @@ export class ClaimType {
     static readonly EMAIL           = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
     static readonly GIVEN_NAME      = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname";
 }
+
+export class Role {
+    static readonly ADMIN = "Admin";
+    static readonly MEMBER = "Member";
+    static readonly USER  = "User";
+}

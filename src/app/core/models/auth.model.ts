@@ -1,11 +1,4 @@
-import { ClaimType } from "./core.constant";
-
-export interface AuthProfileModel {
-  isAuthenticated: boolean;
-  username: string;
-  organisationId: string;
-  claims: ClaimModel[];
-}
+import { ClaimType,Role } from "./core.constant";
 
 export interface ClaimModel {
   type: ClaimType;
@@ -13,12 +6,13 @@ export interface ClaimModel {
 }
 export interface AuthStatusModel {
   isAuthenticated: boolean;
+  claims: ClaimModel[];
 }
 
-export interface AuthProfile {
-  isAdmin: boolean;
-  userName: string;
-  organisationId: string | null;
+export interface UserProfile {
+  role: Role | null;
+  displayName: string;
+  email: string | null;
 }
 
 export interface AuthLoginRequestModel {
@@ -32,9 +26,3 @@ export interface AuthRegisterRequestModel {
   password: string;
   name?: string;
 }
-
-export const defaultAuthProfile: AuthProfile = {
-  isAdmin: false,
-  userName: "Guest",
-  organisationId: null,
-};

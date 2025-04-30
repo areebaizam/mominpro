@@ -5,7 +5,7 @@
 @else{
 <button mat-button [matMenuTriggerFor]="menu" aria-label="Profile icon with a menu" routerLinkActive="active">
     <mat-icon>account_circle</mat-icon>
-    {{authService.userName}}
+    {{authService.getUserProfile()?.displayName}}
 </button>
 <mat-menu #menu="matMenu">
     <button mat-menu-item

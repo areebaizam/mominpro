@@ -1,20 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { effect, inject, Injectable, signal } from "@angular/core";
 import { Router } from '@angular/router';
-import { environment } from '@env';
 import {
-  ApiURL,
-  AuthLoginRequestModel,
-  AuthProfile,
-  AuthProfileModel,
-  AuthRegisterRequestModel,
-  AuthStatusModel,
-  ClaimModel,
-  ClaimType,
-  defaultAuthProfile,
-  HttpResponseModel,
+  ApiURL, AuthLoginRequestModel, AuthRegisterRequestModel, AuthStatusModel, ClaimModel, ClaimType, HttpResponseModel,
+  Role,
+  UserProfile
 } from "@core/models";
 import { getResult } from "@core/utilities";
+import { environment } from '@env';
 import { FeatureURLConstants } from "@shared/models";
 import { catchError, firstValueFrom, Observable, of, tap } from "rxjs";
 
@@ -22,62 +15,43 @@ import { catchError, firstValueFrom, Observable, of, tap } from "rxjs";
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  private authProfile = signal<AuthProfile>(defaultAuthProfile);
-  private claims: ClaimModel[] = [];
   isAuthenticated = signal<boolean>(false);
+  private userProfile: UserProfile | null = null;
+  private claims: ClaimModel[] = [];
 
-  get userName() {
-    return this.authProfile().userName;
-  }
-
-  get isAdmin() {
-    return this.authProfile().isAdmin;
-  }
-
-  get organisationId() {
-    return this.authProfile().organisationId;
-  }
-
-  set organisationId(value: string | null) {
-    this.authProfile.update((state) => ({
-      ...state,
-      organisationId: value,
-    }));
-  }
   constructor() {
     // 👇 effect to reset authState when isAuthenticated becomes false
     effect(() => {
-      if (this.isAuthenticated()) firstValueFrom(this.getAuthProfile());
-      else this.authProfile.set(defaultAuthProfile);
+      if (this.isAuthenticated()) {
+        let email = this.getClaimValue(ClaimType.EMAIL);
+        this.userProfile = {
+          role: this.getClaimValue(ClaimType.ROLE) as Role,
+          email: email,
+          displayName: this.getClaimValue(ClaimType.GIVEN_NAME) ?? email ?? 'Guest',
+        };
+      }
+      else {
+        this.userProfile = null;
+      }
     });
   }
 
-  getAuthProfile(): Observable<HttpResponseModel<AuthProfileModel>> {
-    return this.http
-      .get<HttpResponseModel<AuthProfileModel>>(ApiURL.getAuthProfileUrl)
-      .pipe(
-        tap((response) => {
-          let next = getResult(response);
-          if (next) {
-            this.isAuthenticated.set(true);
-            this.claims = next.claims;
-            this.authProfile.update((state) => ({
-              ...state,
-              isAdmin: this.hasClaimValue(ClaimType.ROLE, "Admin")
-                ? true
-                : false,
-              userName: next.username,
-              organisationId: next.organisationId,
-            }));
-          }
-        })
-      );
-  }
 
+  // TODO Move this to service or utility
   private hasClaimValue(type: ClaimType, value: string): ClaimModel | null {
     return (
       this.claims.find((claim) => claim.type == type && value == value) ?? null
     );
+  }
+  // TODO Move this to service or utility
+  private getClaimValue(type: ClaimType): string | null {
+    return (
+      this.claims.find((claim) => claim.type == type)?.value ?? null
+    );
+  }
+
+  getUserProfile() {
+    return this.userProfile;
   }
 
   async getStatus(): Promise<HttpResponseModel<AuthStatusModel> | void> {
@@ -85,6 +59,13 @@ export class AuthService {
       this.http
         .get<HttpResponseModel<AuthStatusModel>>(ApiURL.getAuthStatusUrl)
         .pipe(
+          tap((response) => {
+            let next = getResult(response);
+            if (next) {
+              this.isAuthenticated.set(next.isAuthenticated);
+              this.claims = next.claims;
+            }
+          }),
           catchError((err) => {
             //TODO LOG ERROR
             //Show snackbar
@@ -105,9 +86,11 @@ export class AuthService {
 
     if (environment.useCookies) {
       params.set('useCookies', 'true');
+
+      //By default cookies are persistent, set seesion cookies to true for session based authentication
       if (req.rememberMe) {
-        //Set to False for persistent cookies
-        params.set('useSessionCookies', 'false');
+        //Set to true for session cookies, login on each browser session
+        params.set('useSessionCookies', 'false');//Redundant step not required for false
       }
     }
 
