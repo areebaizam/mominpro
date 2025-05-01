@@ -1,3 +1,4 @@
+@defer () {
 <mat-sidenav-container [class.large-screen]="mediaQuery.isLarge()">
     <mat-sidenav [opened]="mediaQuery.isLarge() || sidenavService.isOpen()" [mode]="mode()" role="dialog"
         (closedStart)="toggleService.handleToggleEvent(toggleType,false)"
@@ -13,7 +14,7 @@
         <tap-breadcrumb [isMobile]="mediaQuery.isMobile()"></tap-breadcrumb>
         <!-- Router Outlet -->
         <div class="main-container flex-column flex-grow safe-area-padding">
-            <router-outlet></router-outlet>
+            <router-outlet />
         </div>
         <!-- Bottom Bar for mobile Screen -->
         @if(mediaQuery.isMobile()){
@@ -24,3 +25,7 @@
 
     </mat-sidenav-content>
 </mat-sidenav-container>
+}
+@placeholder {
+    <tap-loading-spinner />
+}

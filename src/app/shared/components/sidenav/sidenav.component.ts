@@ -6,6 +6,7 @@ import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 //Components
 import { SidenavDrawerComponent } from './sidenav-drawer/sidenav-drawer.component';
 import { BreadcrumbComponent, BarBottomComponent, BarTopComponent, BarHiddenComponent } from '@shared/components';
+import { LoadingSpinnerComponent } from '@core/components';
 //Services
 import { IconService, MediaQuery } from '@core/services';
 import { ToggleService, SidenavService } from '@shared/services';
@@ -13,7 +14,7 @@ import { ToggleService, SidenavService } from '@shared/services';
 import { MatDrawerPosition, eBtnToggleType } from '@shared/models';
 
 const materialModules = [MatSidenavModule];
-const components = [BreadcrumbComponent, SidenavDrawerComponent, BarBottomComponent, BarTopComponent, BarHiddenComponent];
+const components = [BreadcrumbComponent, SidenavDrawerComponent, BarBottomComponent, BarTopComponent, BarHiddenComponent, LoadingSpinnerComponent];
 
 @Component({
     selector: 'tap-sidenav',
