@@ -2,19 +2,20 @@ import { HttpClient } from "@angular/common/http";
 import { effect, inject, Injectable, signal } from "@angular/core";
 import { Router } from '@angular/router';
 import {
-  ApiURL, AuthLoginRequestModel, AuthRegisterRequestModel, AuthStatusModel, ClaimModel, ClaimType, HttpResponseModel,
-  Role,
-  UserProfile
+  ApiURL, AuthLoginRequestModel, AuthRegisterRequestModel, AuthStatusModel,
+  ClaimModel, ClaimType, HttpResponseModel, Role, UserProfile
 } from "@core/models";
 import { getResult } from "@core/utilities";
 import { environment } from '@env';
 import { FeatureURLConstants } from "@shared/models";
 import { catchError, firstValueFrom, Observable, of, tap } from "rxjs";
+import { SnackbarService } from "./snackbar.service";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
+  private snackBar = inject(SnackbarService);
   isAuthenticated = signal<boolean>(false);
   private userProfile: UserProfile | null = null;
   private claims: ClaimModel[] = [];
@@ -24,11 +25,13 @@ export class AuthService {
     effect(() => {
       if (this.isAuthenticated()) {
         let email = this.getClaimValue(ClaimType.EMAIL);
+        let displayName = this.getClaimValue(ClaimType.GIVEN_NAME) ?? email ?? 'Guest';
         this.userProfile = {
           role: this.getClaimValue(ClaimType.ROLE) as Role,
           email: email,
-          displayName: this.getClaimValue(ClaimType.GIVEN_NAME) ?? email ?? 'Guest',
+          displayName: displayName,
         };
+        this.snackBar.success("Welcome back " + displayName);
       }
       else {
         this.userProfile = null;
@@ -61,19 +64,15 @@ export class AuthService {
         .pipe(
           tap((response) => {
             let next = getResult(response);
-            if (next) {
-              this.isAuthenticated.set(next.isAuthenticated);
+            if (next?.isAuthenticated) {
               this.claims = next.claims;
             }
           }),
-          catchError((err) => {
+          catchError((error) => {
             //TODO LOG ERROR
-            //Show snackbar
-            //Show connection error in interceptor error.status === 0
-            console.warn("Auth init error", err, typeof (err), typeof (err.error));
-
+            //Angular materia may not work on init load
             this.router.navigateByUrl(FeatureURLConstants.HOME);
-            return of(null); // fallback
+            return of(null); // pass null to then
           })
         )
     ).then((response) => {

@@ -108,6 +108,22 @@
     background: var(--on-tertiary-fixed-variant);
     color: var(--on-tertiary);
 }
+.error {
+    background: var(--error);
+    color: var(--on-error);
+}
+.on-error {
+    background: var(--on-error);
+    color: var(--error);
+}
+.error-container {
+    background: var(--error-container);
+    color: var(--on-error-container);
+}
+.on-error-container {
+    background: var(--on-error-container);
+    color: var(--error-container);
+}
 
 .surface-dim {
     background: var(--surface-dim);

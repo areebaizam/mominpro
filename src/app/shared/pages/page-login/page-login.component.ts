@@ -8,7 +8,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { LibFormComponent } from "@shared/components";
 // Models
 import { FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AuthService } from "@core/services";
+import { AuthService, SnackbarService } from "@core/services";
 import { CRED_FORM_DATA, PageURLConstants } from "@shared/models";
 
 const materialModules = [MatTabsModule, MatIconModule, MatButtonModule];
@@ -26,6 +26,7 @@ export class PageLoginComponent {
   //Services
   private route = inject(ActivatedRoute);
   authService = inject(AuthService);
+  snackbarService = inject(SnackbarService);
 
   ePageURLConstants = PageURLConstants;
 
@@ -50,8 +51,8 @@ export class PageLoginComponent {
             console.log('auth resp', response);
             // Failure
             if (response?.status?.isSuccess === false) {
-              console.log('auth error 2', response.status);
               this.editMode.set(true);
+              this.form.reset();
               return;
             }
 
@@ -62,9 +63,15 @@ export class PageLoginComponent {
             window.location.href = `/${returnUrl}`;
           },
           error: (error) => {
-            //TODO show error
             console.log('auth error', error);
+            //TODO show error
+
+            if (error.status === 0)
+              this.snackbarService.error("Server Error. Please try again later.");
+            else if (error.status === 401)
+              this.snackbarService.error("Login Failed. Invalid credentials.");
             this.editMode.set(true);
+            //TODO Reset FOrm
           }
         }
         );

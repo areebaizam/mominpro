@@ -20,17 +20,17 @@ export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
                 case 403:
                     router.navigateByUrl(`${PageURLConstants.FORBIDDEN}`);
                     break;
-                case 500:
-                    router.navigateByUrl(`${PageURLConstants.ERROR}`);
-                    break;
-                default:
-                    //TODO make it generic for all other errors
-                    return of(
-                        new HttpResponse<HttpResponseModel>({
-                            body: { errors: null, next: null, status: error.error.status ?? { isSuccess: false, message: error.error.message, statusCode: error.status, timeStamp: new Date().toISOString() } },
-                            status: statusCode
-                        })
-                    );
+                // case 500:
+                //     router.navigateByUrl(`${PageURLConstants.ERROR}`);
+                //     break;
+                // default:
+                //     //TODO make it generic for all other errors
+                //     return of(
+                //         new HttpResponse<HttpResponseModel>({
+                //             body: { errors: null, next: null, status: error.error.status ?? { isSuccess: false, message: error.error.message, statusCode: error.status, timeStamp: new Date().toISOString() } },
+                //             status: statusCode
+                //         })
+                //     );
             }
             //TODO Check what to do here
             return throwError(() => error);

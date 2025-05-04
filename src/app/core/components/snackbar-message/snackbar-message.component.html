@@ -1,0 +1,11 @@
+<div class="message-container">
+    {{data.message}}
+</div>
+@if(intervalId){
+<div>
+    <mat-progress-bar mode="determinate" [value]="progress" [class]="data.type"></mat-progress-bar>
+</div>
+}
+@else{
+<div class="progressbar-placeholder" [class]="data.type"></div>
+}

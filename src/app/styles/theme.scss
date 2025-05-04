@@ -48,6 +48,11 @@ $dark-theme: mat.define-theme((color: (theme-type: dark,
   --tertiary-fixed-dim: #{mat.get-theme-color($theme, tertiary-fixed-dim)};
   --on-tertiary-fixed: #{mat.get-theme-color($theme, on-tertiary-fixed)};
   --on-tertiary-fixed-variant: #{mat.get-theme-color($theme, on-tertiary-fixed-variant)};
+  //Error
+  --error: #{mat.get-theme-color($theme, error)};
+  --on-error: #{mat.get-theme-color($theme, on-error)};
+  --error-container: #{mat.get-theme-color($theme, error-container)};
+  --on-error-container: #{mat.get-theme-color($theme, on-error-container)};
   //Surface
   --surface-dim: #{mat.get-theme-color($theme, surface-dim)};
   --surface: #{mat.get-theme-color($theme, surface)};
@@ -90,7 +95,7 @@ html {
   user-select: none;
   text-transform: capitalize;
   justify-content: space-between;
-  --mat-toolbar-container-text-color:var(--primary);
+  --mat-toolbar-container-text-color: var(--primary);
   --mdc-icon-button-icon-color: var(--primary);
 
 }
@@ -100,6 +105,32 @@ html {
   --mat-tab-header-active-focus-label-text-color: var(--primary);
   --mat-tab-header-active-hover-label-text-color: var(--primary);
   --mat-tab-header-inactive-label-text-color: var(--secondary);
-  --mat-tab-header-inactive-focus-label-text-color: var(--primary);  
+  --mat-tab-header-inactive-focus-label-text-color: var(--primary);
   --mat-tab-header-inactive-hover-label-text-color: var(--primary);
+}
+
+//TODO: Move this class to snackbar component or RENAME it
+.snackbar-container-class {
+  --mdc-snackbar-container-shape: 0 4px 4px 0;
+  border-radius: 4px;
+
+  .mat-mdc-snackbar-surface {
+    padding: 0;
+  }
+
+  .mdc-snackbar__label {
+    padding: 0;
+  }
+
+  &.success {
+    --mdc-snackbar-container-color: var(--secondary-container);
+    border-left: 8px solid var(--primary);
+    --mdc-snackbar-supporting-text-color: var(--on-secondary-container);
+  }
+
+  &.error {
+    --mdc-snackbar-container-color: var(--error-container);
+    border-left: 8px solid var(--error);
+    --mdc-snackbar-supporting-text-color: var(--on-error-container);
+  }
 }
