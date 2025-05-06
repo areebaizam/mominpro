@@ -15,7 +15,17 @@ export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
             switch (statusCode) {
                 //TODO SET ENUMS
                 case 401:
-                    router.navigateByUrl(`${PageURLConstants.LOGIN}`);
+                    //Case if Login Fails
+                    if (error.url?.includes(PageURLConstants.LOGIN)) {
+                        return of(
+                            new HttpResponse<HttpResponseModel>({
+                                body: { errors: null, next: null, status: { isSuccess: false, message: error.error.title, statusCode: error.status, timeStamp: new Date().toISOString() } },
+                                status: statusCode
+                            })
+                        );
+                    }
+                    //TODO Retry Logic for cookies
+                    // router.navigateByUrl(`${PageURLConstants.LOGIN}`);
                     break;
                 case 403:
                     router.navigateByUrl(`${PageURLConstants.FORBIDDEN}`);

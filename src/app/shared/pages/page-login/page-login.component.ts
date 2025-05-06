@@ -52,7 +52,9 @@ export class PageLoginComponent {
             // Failure
             if (response?.status?.isSuccess === false) {
               this.editMode.set(true);
-              this.form.reset();
+              //TODO Move to constants
+              this.snackbarService.error("Login Failed. Invalid credentials.",13500);
+              this.libForm?.form.reset();
               return;
             }
 
@@ -63,15 +65,11 @@ export class PageLoginComponent {
             window.location.href = `/${returnUrl}`;
           },
           error: (error) => {
+            //TODO Log Error
             console.log('auth error', error);
-            //TODO show error
-
             if (error.status === 0)
               this.snackbarService.error("Server Error. Please try again later.");
-            else if (error.status === 401)
-              this.snackbarService.error("Login Failed. Invalid credentials.");
             this.editMode.set(true);
-            //TODO Reset FOrm
           }
         }
         );

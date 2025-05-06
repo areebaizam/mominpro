@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { effect, inject, Injectable, signal } from "@angular/core";
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import {
   ApiURL, AuthLoginRequestModel, AuthRegisterRequestModel, AuthStatusModel,
@@ -19,6 +20,7 @@ export class AuthService {
   isAuthenticated = signal<boolean>(false);
   private userProfile: UserProfile | null = null;
   private claims: ClaimModel[] = [];
+  private location = inject(Location);
 
   constructor() {
     // 👇 effect to reset authState when isAuthenticated becomes false
@@ -70,8 +72,9 @@ export class AuthService {
           }),
           catchError((error) => {
             //TODO LOG ERROR
-            //Angular materia may not work on init load
-            this.router.navigateByUrl(FeatureURLConstants.HOME);
+            if (!this.location.path().startsWith('/login')) {
+              this.router.navigateByUrl(FeatureURLConstants.HOME);
+            }
             return of(null); // pass null to then
           })
         )

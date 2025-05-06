@@ -8,8 +8,8 @@ import { SnackbarData, SnackBarType } from '@core/models';
 })
 export class SnackbarService {
   private _snackBar = inject(MatSnackBar);
-  private _msDefaultDuration = 7500;
-  private _msDefaultDelay = 2500;
+  private _msDefaultDuration = 9500;
+  private _msDefaultDelay = 3500;
 
   private show(type: SnackBarType, message: string, msDuration?: number, msDelay?: number) {
     msDuration = msDuration ?? this._msDefaultDuration;
@@ -20,7 +20,7 @@ export class SnackbarService {
       duration: msDuration,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
-      panelClass: ['snackbar-container-class', type],
+      panelClass: [type],
     });
   }
 

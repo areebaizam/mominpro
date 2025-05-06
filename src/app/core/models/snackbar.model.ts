@@ -4,4 +4,5 @@ export interface SnackbarData {
     type: SnackBarType;
     msDuration: number;
     msDelay: number;
+    actionLabel?: string;
 }

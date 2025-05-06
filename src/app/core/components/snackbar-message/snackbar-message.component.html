@@ -1,5 +1,5 @@
 <div class="message-container">
-    {{data.message}}
+    {{data.message}}<button mat-button (click)="onClick()">{{actionLabel}}</button>
 </div>
 @if(intervalId){
 <div>

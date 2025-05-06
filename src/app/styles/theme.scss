@@ -110,7 +110,7 @@ html {
 }
 
 //TODO: Move this class to snackbar component or RENAME it
-.snackbar-container-class {
+.mat-mdc-snack-bar-container {
   --mdc-snackbar-container-shape: 0 4px 4px 0;
   border-radius: 4px;
 
@@ -126,11 +126,16 @@ html {
     --mdc-snackbar-container-color: var(--secondary-container);
     border-left: 8px solid var(--primary);
     --mdc-snackbar-supporting-text-color: var(--on-secondary-container);
+    --mdc-linear-progress-active-indicator-color: var(--primary);
+    --mdc-linear-progress-track-color: var(--secondary-container);
   }
 
   &.error {
     --mdc-snackbar-container-color: var(--error-container);
-    border-left: 8px solid var(--error);
+    --mdc-text-button-label-text-color: var(--error);
     --mdc-snackbar-supporting-text-color: var(--on-error-container);
+    border-left: 8px solid var(--error);
+    --mdc-linear-progress-active-indicator-color: var(--error);
+    --mdc-linear-progress-track-color: var(--error-container);
   }
 }
