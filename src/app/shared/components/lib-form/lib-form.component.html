@@ -105,7 +105,7 @@
     </mat-form-field>
     }
     @else if(field.type == 'checkbox'){
-        <!-- TODO move height to model -->
+    <!-- TODO move height to model or common style -->
     <div class="field-width" [style.flex]="field.colspan" [style.min-height]="'76px'">
         <mat-checkbox [formControl]="getFormControl(field.name)" value=field.value>{{field.label}}</mat-checkbox>
     </div>

@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, effect, inject, QueryList, signal, ViewChildren, } from "@angular/core";
+import { Component, computed, DestroyRef, effect, inject, signal, ViewChild } from "@angular/core";
 //Materials
 import { MatTabsModule } from "@angular/material/tabs";
 //Components
@@ -11,7 +11,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 //Utilities
 import { getResult } from "@core/utilities";
 //Models
-import { ACCOUNTS_TAB_DEFINITIONS, AccountsTabKey, generateTabs, OrgRequestModel } from "@shared/models";
+import { ACCOUNTS_TAB_DEFINITIONS, AccountsTabKey, generateTabs, OrgRequestModel, TabModel } from "@shared/models";
 //Constants
 const materialModules = [MatTabsModule];
 const components = [BaseFormComponent];
@@ -24,14 +24,15 @@ const { tabs: tabData, indexes: INDEXES } = generateTabs<AccountsTabKey, typeof 
   styleUrl: "./accounts.component.scss",
 })
 export default class AccountsComponent {
-  @ViewChildren('baseTab') baseTabs!: QueryList<BaseFormComponent>;
-
+  //Child Components
+  @ViewChild('baseForm') baseForm!: BaseFormComponent;
+  //Dependency Injections
   destroyRef = inject(DestroyRef);
   authService = inject(AuthService);
   orgService = inject(OrganisationService);
-
+  // Variables
   activeTabIndex = signal<number>(INDEXES.MOSQUE);
-  tabs = tabData;
+  tabs: TabModel<AccountsTabKey>[] = tabData;
 
   constructor() {
     effect(() => {
@@ -45,9 +46,6 @@ export default class AccountsComponent {
     return this.tabs[this.activeTabIndex()].forms ?? [];
   });
 
-  getTabTemplate(index: number): BaseFormComponent | null {
-    return this.baseTabs?.get(index) ?? null;
-  }
 
   private fetchOrgData(): void {
     this.orgService
@@ -60,19 +58,17 @@ export default class AccountsComponent {
           const patch: any = {
             information: next.information,
             coordinate: next.coordinate,
-            address: next.address?? null,
-            contact: next.contact?? null,
+            address: next.address ?? null,
+            contact: next.contact ?? null,
           };
-          // }
-          this.getTabTemplate(INDEXES.MOSQUE)?.form.patchValue(patch);
-          this.getTabTemplate(INDEXES.MOSQUE)?.editMode.set(false);
+          this.baseForm?.form.patchValue(patch);
+          this.baseForm?.editMode.set(false);
           // //TODO CatchError
         }
       });
   }
 
   submit(formValue: any) {
-    console.log("Form Value", formValue);
     if (this.activeTabIndex() == INDEXES.MOSQUE) {
       this.addUpdateOrganisation(formValue);
     }
@@ -87,7 +83,7 @@ export default class AccountsComponent {
           (resp) => {
 
             if (resp.status.isSuccess) {
-              this.getTabTemplate(INDEXES.MOSQUE)?.editMode.set(false);
+              this.baseForm?.editMode.set(false);
             }
             //TODO Error handling
           }
@@ -97,7 +93,7 @@ export default class AccountsComponent {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((resp) => {
           if (resp.status.isSuccess) {
-            this.getTabTemplate(INDEXES.MOSQUE)?.editMode.set(false);
+            this.baseForm?.editMode.set(false);
           }
           //TODO Error handling
         });

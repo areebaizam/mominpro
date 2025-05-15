@@ -19,7 +19,7 @@ export const IQAMAH_FORM_SETTINGS_DATA = [
         type: "date",
         name: 'startDate',
         label: 'Start date',
-        value: null,
+        value: new Date(),
         hint: 'MM/DD/YYYY',
         colspan: eGridSpan.ONE_THIRD,
         validators: {

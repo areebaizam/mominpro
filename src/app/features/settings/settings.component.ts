@@ -1,12 +1,11 @@
-import { Component, computed, DestroyRef, effect, inject, QueryList, signal, ViewChildren, } from "@angular/core";
+import { Component, computed, DestroyRef, effect, inject, signal, ViewChild } from "@angular/core";
 //Materials
 import { MatTabsModule } from "@angular/material/tabs";
 //Components
 import { BaseFormComponent } from "@shared/components";
 //Utilities
-import { getResult } from "@core/utilities";
 //Models
-import { SETTINGS_TAB_DEFINITIONS, SettingsTabKey, generateTabs } from "@shared/models";
+import { generateTabs, SETTINGS_TAB_DEFINITIONS, SettingsTabKey, TabModel } from "@shared/models";
 //Constants
 const materialModules = [MatTabsModule];
 const components = [BaseFormComponent];
@@ -19,12 +18,13 @@ const { tabs: tabData, indexes: INDEXES } = generateTabs<SettingsTabKey, typeof 
     styleUrl: "./settings.component.scss",
 })
 export default class SettingsComponent {
-    @ViewChildren('baseTab') baseTabs!: QueryList<BaseFormComponent>;
-
+    //Child Components
+    @ViewChild('baseForm') baseForm!: BaseFormComponent;
+    //Dependency Injections
     destroyRef = inject(DestroyRef);
-
+    // Variables
     activeTabIndex = signal<number>(INDEXES.SALAH);
-    tabs = tabData;
+    tabs: TabModel<SettingsTabKey>[] = tabData;
 
     constructor() {
         effect(() => {
@@ -38,9 +38,6 @@ export default class SettingsComponent {
         return this.tabs[this.activeTabIndex()].forms ?? [];
     });
 
-    getTabTemplate(index: number): BaseFormComponent | null {
-        return this.baseTabs?.get(index) ?? null;
-    }
 
     submit(formValue: any) {
         console.log("Form Value", formValue);

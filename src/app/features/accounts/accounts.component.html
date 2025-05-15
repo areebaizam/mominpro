@@ -1,8 +1,8 @@
 <mat-tab-group [selectedIndex]="activeTabIndex()" (selectedIndexChange)="activeTabIndex.set($event)">
-    @for (tab of tabs; track tab.key){
+    @for (tab of tabs; track tab.index){
     <mat-tab [label]="tab.label">
-        <ng-template matTabContent>            
-            <tap-base-form #baseTab [forms]="currentTabForms()" (formValue)="submit($event)"/>
+        <ng-template matTabContent>
+            <tap-base-form #baseForm [forms]="currentTabForms()" (formValue)="submit($event)" />
         </ng-template>
     </mat-tab>
     }
