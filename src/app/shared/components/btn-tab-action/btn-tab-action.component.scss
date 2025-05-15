@@ -1,0 +1,7 @@
+.btn-tab-wrapper {
+    display: grid;
+    grid-gap: 8px;
+    grid-auto-flow: column;
+    justify-content: end;
+    padding-block: .25rem;
+}

@@ -35,25 +35,20 @@ export class PageLoginComponent {
   tabs = CRED_FORM_DATA;
   editMode = signal<boolean>(true);
 
-  currentFormFields = computed(() => {
-    this.editMode.set(true);
-    return CRED_FORM_DATA[this.activeTabIndex()] ?? [];
-  });
 
   onActionBtnClicked() {
-    const request = this.libForm?.onSubmit();
-    if (!!request) {
+    if (this.libForm?.canSubmit()) {
       this.editMode.set(false);
       //Login
       if (this.activeTabIndex() === 0) {
-        this.authService.login(request).subscribe({
+        this.authService.login(this.libForm?.form.value).subscribe({
           next: (response) => {
             console.log('auth resp', response);
             // Failure
             if (response?.status?.isSuccess === false) {
               this.editMode.set(true);
               //TODO Move to constants
-              this.snackbarService.error("Login Failed. Invalid credentials.",13500);
+              this.snackbarService.error("Login Failed. Invalid credentials.", 13500);
               this.libForm?.form.reset();
               return;
             }

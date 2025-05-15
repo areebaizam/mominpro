@@ -7,6 +7,7 @@ export * from './base-form/base-form.component';
 export * from './breadcrumb/breadcrumb.component';
 export * from './btn-nav/btn-nav.component';
 export * from './btn-nav-col/btn-nav-col.component';
+export * from './btn-tab-action/btn-tab-action.component';
 export * from './btn-toggle/btn-toggle.component';
 export * from './lib-form/lib-form.component';
 export * from './sidenav/sidenav.component';

@@ -1,6 +1,7 @@
+<tap-btn-tab-action [editMode]="editMode()" (output)="onActionBtnClicked($event)"/>
 <form [formGroup]="form">
-    @for(form of forms; track form.name){
+    @for(form of forms(); track form.name){
     <div class="form-group-name" [class.read-only]="!editMode"> {{form.label}} </div>
-    <tap-lib-form [formGroupName]="form.name" [formFields]="form.data" [editMode]="editMode"></tap-lib-form>
+    <tap-lib-form #libForm [formGroupName]="form.name" [formFields]="form.data" [editMode]="editMode()"></tap-lib-form>
     }
 </form>

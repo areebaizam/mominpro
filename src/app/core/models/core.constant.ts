@@ -6,6 +6,11 @@ export class ClaimType {
     static readonly GIVEN_NAME      = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname";
 }
 
+export class CRUDOperation {
+    static readonly CREATE = "create";
+    static readonly UPDATE = "update";
+    static readonly DELETE  = "delete";
+}
 export class Role {
     static readonly ADMIN = "Admin";
     static readonly MEMBER = "Member";

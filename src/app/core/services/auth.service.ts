@@ -17,30 +17,42 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private snackBar = inject(SnackbarService);
-  isAuthenticated = signal<boolean>(false);
   private userProfile: UserProfile | null = null;
   private claims: ClaimModel[] = [];
   private location = inject(Location);
+
+  isAuthenticated = signal<boolean>(false);
+  hasOrganisation = signal<boolean>(false);
+  isAdmin = signal<boolean>(false);
 
   constructor() {
     // 👇 effect to reset authState when isAuthenticated becomes false
     effect(() => {
       if (this.isAuthenticated()) {
         let email = this.getClaimValue(ClaimType.EMAIL);
+        let role = this.getClaimValue(ClaimType.ROLE) as Role;
         let displayName = this.getClaimValue(ClaimType.GIVEN_NAME) ?? email ?? 'Guest';
         this.userProfile = {
-          role: this.getClaimValue(ClaimType.ROLE) as Role,
+          role: role,
           email: email,
           displayName: displayName,
         };
         this.snackBar.success("Welcome back " + displayName);
+        this.hasOrganisation.set(!!role ? true : false);
+        this.isAdmin.set(this.hasClaimValue(ClaimType.ROLE, Role.ADMIN) ? true : false);
       }
       else {
-        this.userProfile = null;
+        this.resetAuthState();
       }
     });
   }
 
+  private resetAuthState(): void {
+    this.hasOrganisation.set(false);
+    this.isAdmin.set(false);
+    this.userProfile = null;
+    this.claims = [];
+  }
 
   // TODO Move this to service or utility
   private hasClaimValue(type: ClaimType, value: string): ClaimModel | null {

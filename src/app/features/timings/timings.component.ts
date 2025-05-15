@@ -1,83 +1,69 @@
-import { AfterViewInit, Component, ComponentRef, OnDestroy, signal, ViewChild, ViewContainerRef } from "@angular/core";
-//RXJS
-import { Subscription } from "rxjs/internal/Subscription";
+import { Component, ComponentRef, computed, DestroyRef, effect, inject, QueryList, signal, ViewChild, ViewChildren, ViewContainerRef, } from "@angular/core";
 //Materials
 import { MatTabsModule } from "@angular/material/tabs";
 //Components
-import { ActionButtonsCESComponent,BaseFormComponent } from "@shared/components";
-// Models
-import { eBtnActionCESType, TabModel, TIMINGS_TABS_DATA,TimingConstants } from "@shared/models";
-
-
+import { BaseFormComponent } from "@shared/components";
+//Utilities
+import { getResult } from "@core/utilities";
+//Models
+import { TIMINGS_TAB_DEFINITIONS, TimingsTabKey, generateTabs } from "@shared/models";
+//Constants
 const materialModules = [MatTabsModule];
-const components = [ActionButtonsCESComponent];
+const { tabs: tabData, indexes: INDEXES } = generateTabs<TimingsTabKey, typeof TIMINGS_TAB_DEFINITIONS>(TIMINGS_TAB_DEFINITIONS);
+
 
 @Component({
     selector: 'tap-timings',
-    imports: [...materialModules, ...components],
+    imports: [...materialModules, ],
     templateUrl: './timings.component.html',
     styleUrl: './timings.component.scss'
 })
-export default class TimingsComponent implements AfterViewInit, OnDestroy {
+export default class TimingsComponent {
 
-    @ViewChild('formContainer', { read: ViewContainerRef }) formContainer!: ViewContainerRef;
-    private componentRef!: ComponentRef<BaseFormComponent>;
-    private subscriptions: Subscription = new Subscription();
+    @ViewChild('formContainer', { read: ViewContainerRef, static: true })
+    container!: ViewContainerRef;
 
-    tabs = signal<TabModel[]>(TIMINGS_TABS_DATA);
 
-    // Active tab tracking
-    activeTabId = signal(TimingConstants.IQAMAH);
-
-    async ngAfterViewInit() {
-        this.onTabChange(0);
+    ngAfterViewInit() {
+        this.container.clear(); // optional: clears any previously inserted components
+        const componentRef: ComponentRef<BaseFormComponent> =
+            this.container.createComponent(BaseFormComponent);
+        // componentRef.instance.forms = this.currentTabForms();
     }
 
-    async onTabChange(index: number): Promise<void> {
-        this.activeTabId.set(TIMINGS_TABS_DATA[index]?.id);
+    @ViewChildren('baseTab') baseTabs!: QueryList<BaseFormComponent>;
 
-        // Clear the container before loading a new component
-        if (this.formContainer) {
-            this.formContainer.clear();
-        }
+    destroyRef = inject(DestroyRef);
 
-        this.componentRef = this.formContainer.createComponent(BaseFormComponent);
-        const tab = this.currentTab();
-        if (tab) {
-            this.componentRef.instance.editMode = tab.editMode;
-            this.componentRef.instance.forms = tab.forms;
-        }
-        this.subscriptions.add(this.componentRef.instance.toggleEditMode.subscribe((toggle) => {
-            this.toggleEditMode(toggle);
-        }));
+    activeTabIndex = signal<number>(INDEXES.PREFERENCE);
+    tabs = tabData;
 
+    constructor() {
+        effect(() => {
+            // console.log("Active Tab Index", this.activeTabIndex());
+            this.container.clear(); // optional: clears any previously inserted components
+            const componentRef: ComponentRef<BaseFormComponent> =
+                this.container.createComponent(BaseFormComponent);
+            // componentRef.instance.forms = this.currentTabForms();
+            //   if (this.activeTabIndex() === INDEXES.MOSQUE && this.authService.hasOrganisation()) {
+            //     this.fetchOrgData();
+            //   }
+        });
     }
 
-    currentTab() {
-        return this.tabs().find((tab) => tab.id === this.activeTabId());
+    currentTabForms = computed(() => {
+
+        return this.tabs[this.activeTabIndex()].forms ?? [];
+    });
+
+    getTabTemplate(index: number): BaseFormComponent | null {
+        return this.baseTabs?.get(index) ?? null;
     }
 
-    destroyComponent() {
-        if (this.componentRef) {
-            this.componentRef.destroy();
-        }
-    }
-
-    toggleEditMode(edit: boolean) {
-        const tabs = this.tabs();
-        const tabIndex = tabs.findIndex((tab) => tab.id === this.activeTabId());
-        if (tabIndex !== -1) {
-            tabs[tabIndex].editMode = edit;
-            this.tabs.set(tabs);
-        }
-    }
-
-    onActionBtnClicked(action: eBtnActionCESType) {
-        this.componentRef.instance.actionButtonClicked(action);
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.unsubscribe();
-        this.destroyComponent();
+    submit(formValue: any) {
+        console.log("Form Value", formValue);
+        // if (this.activeTabIndex() == INDEXES.SALAH) {
+        //   this.addUpdateOrganisation(formValue);
+        // }
     }
 }

@@ -1,4 +1,4 @@
-<mat-tab-group [selectedIndex]="activeTabIndex()" (selectedIndexChange)="activeTabIndex.set($event)" animationDuration="0ms">
+<mat-tab-group [selectedIndex]="activeTabIndex()" (selectedIndexChange)="activeTabIndex.set($event)" animationDuration="200ms">
     @for (tab of tabs; track tab.name){
     <mat-tab [label]="tab.label">
         <ng-template matTabContent>

@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, input, model, output, QueryList, signal, ViewChildren } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Components
-import { LibFormComponent } from '@shared/components';
+import { BtnTabActionComponent, LibFormComponent } from '@shared/components';
 // Models
 import { eBtnActionCESType, ReactiveForm } from '@shared/models';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule];
-const components = [LibFormComponent];
+const components = [LibFormComponent, BtnTabActionComponent];
 @Component({
   selector: 'tap-base-form',
   imports: [...formModules, ...components],
@@ -14,58 +14,35 @@ const components = [LibFormComponent];
   styleUrl: './base-form.component.scss'
 })
 export class BaseFormComponent {
-  @Output() toggleEditMode = new EventEmitter<boolean>();
-  @Output() canSaveForm = new EventEmitter<any>();
-
-  editMode: boolean = false;
+  //Child Components
+  @ViewChildren('libForm') libForms!: QueryList<LibFormComponent>;
+  //Inputs & Outputs
+  forms  = input.required<ReactiveForm[]>();
+  formValue = output<any>();//TODO Typecast it <T>
+  //Variables
+  
+  editMode = signal<boolean>(true);
   form: FormGroup = new FormGroup({});
-  forms: ReactiveForm[] = [];
 
-  actionButtonClicked(action: eBtnActionCESType) {
+  canSubmitForms(): boolean {
+    return this.libForms.toArray().every(lib => lib.canSubmit())
+  }
+
+  onActionBtnClicked(action: eBtnActionCESType) {
     switch (action) {
       case eBtnActionCESType.EDIT:
-        this.edit();
+        this.editMode.set(true);
         break;
       case eBtnActionCESType.CANCEL:
-        this.cancel();
+        this.editMode.set(false);
         break;
       case eBtnActionCESType.SAVE:
-        this.save();
+        if (this.canSubmitForms()) {
+          this.formValue.emit(this.form.value);
+        }
         break;
+      default:
+        console.error('Invalid action type',action);//TODO LOG ERROR
     }
-  }
-
-  private cancel() {
-    this.disable();
-  }
-
-  private save() {
-    console.log('Form', this.form.value);
-    if (!this.canSave()){
-      this.canSaveForm.emit(false);
-      return;
-    }
-      
-    this.canSaveForm.emit(this.form.value);
-    this.disable();
-  }
-
-  private edit() {
-    this.form.markAsUntouched();
-    this.form.enable();
-    this.editMode = true;
-    this.toggleEditMode.emit(this.editMode);
-  }
-
-  private disable() {
-    this.editMode = false;
-    this.toggleEditMode.emit(this.editMode);
-    this.form.disable();
-  }
-
-  private canSave(): boolean {
-    this.form.markAllAsTouched();
-    this.form.updateValueAndValidity();
-    return this.form.valid;
   }
 }

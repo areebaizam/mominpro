@@ -1,5 +1,5 @@
-import { AccountConstants, CredentialConstants, SettingConstants, TimingConstants } from "./app.constant";
-import { eGridSpan, FormControlModel, ReactiveForm, TabModel } from "./form.model";
+import { CredentialConstants } from "./app.constant";
+import { eGridSpan, FormControlModel, ReactiveForm } from "./form.model";
 
 export const PLACEHOLDER_FORM_FIELD = {
     type: "placeholder",
@@ -1334,12 +1334,12 @@ export const CRED_FORM_LOGIN_DATA = [
         value: null,
         placeholder: 'Ex: john.doe@gmail.com',
         colspan: eGridSpan.HALF,
-        icon:'alternate_email',
-        autocompleteLabel:'username',
+        icon: 'alternate_email',
+        autocompleteLabel: 'username',
         validators: {
             required: true,
             email: true,
-            maxLength:254,
+            maxLength: 254,
         }
     },
     {
@@ -1348,12 +1348,12 @@ export const CRED_FORM_LOGIN_DATA = [
         label: 'Password',
         value: null,
         colspan: eGridSpan.HALF,
-        autocompleteLabel:'current-password',
+        autocompleteLabel: 'current-password',
         validators: {
             required: true,
-            minLength:8,//TODO Robust password with custom validation
+            minLength: 8,//TODO Robust password with custom validation
         }
-    }, 
+    },
     // {
     //     type: "checkbox",
     //     name: 'rememberMe',
@@ -1372,12 +1372,12 @@ export const CRED_FORM_SIGNUP_DATA = [
         value: null,
         placeholder: 'Ex: john.doe@gmail.com',
         colspan: eGridSpan.HALF,
-        icon:'alternate_email',
-        autocompleteLabel:'username',
+        icon: 'alternate_email',
+        autocompleteLabel: 'username',
         validators: {
             required: true,
             email: true,
-            maxLength:254,
+            maxLength: 254,
         }
     },
     {
@@ -1386,23 +1386,23 @@ export const CRED_FORM_SIGNUP_DATA = [
         label: 'Password',
         value: null,
         colspan: eGridSpan.HALF,
-        autocompleteLabel:'new-password',
+        autocompleteLabel: 'new-password',
         validators: {
             required: true,
-            minLength:8,//TODO Robust password with custom validation
+            minLength: 8,//TODO Robust password with custom validation
         }
-    }, 
+    },
     {
         type: "text",
         name: 'name',
         label: 'Name (Optional)',
-        autocompleteLabel:'name',
+        autocompleteLabel: 'name',
         value: null,
         placeholder: 'John Doe',
-        icon:'account_circle',
+        icon: 'account_circle',
         colspan: eGridSpan.HALF,
         validators: {
-            maxLength:100, //TODO Change to enum
+            maxLength: 100, //TODO Change to enum
         }
     },
     createPlaceholderFormField(eGridSpan.HALF),
@@ -1487,7 +1487,7 @@ export const MOSQUE_FORM_DATA = [
         data: MOSQUE_FORM_CONTACT_DATA,
     },
 ] as ReactiveForm[];
-
+//TODO Fix this as well
 export const CRED_FORM_DATA = [
     {
         name: CredentialConstants.LOGIN,
@@ -1501,17 +1501,20 @@ export const CRED_FORM_DATA = [
     },
 ] as ReactiveForm[];
 
-export const TIMINGS_TABS_DATA = [
-    { id: TimingConstants.IQAMAH, label: "Iqamah", editMode: false, forms: IQAMAH_FORM_DATA },
-    { id: TimingConstants.PREFERENCE, label: "Preferences", editMode: false, forms: PREFERENCES_FORM_DATA },
+export const TIMINGS_TAB_DEFINITIONS = {
+    IQAMAH: { label: "Iqamah", forms: IQAMAH_FORM_DATA },
+    PREFERENCE: { label: "Preferences", forms: PREFERENCES_FORM_DATA },
+}
+export type TimingsTabKey = keyof typeof TIMINGS_TAB_DEFINITIONS;
 
-] as TabModel[];
+export const SETTINGS_TAB_DEFINITIONS = {
+    SALAH: { label: "Salah", forms: SALAH_FORM_DATA },
+    ATHAN: { label: "Athan", forms: ATHAN_FORM_DATA },
+}
+export type SettingsTabKey = keyof typeof SETTINGS_TAB_DEFINITIONS;
 
-export const SETTINGS_TABS_DATA = [
-    { id: SettingConstants.SALAH, label: "Salah", editMode: true, forms: SALAH_FORM_DATA },
-    { id: SettingConstants.ATHAN, label: "Athan", editMode: false, forms: ATHAN_FORM_DATA },
-] as TabModel[];
-
-export const ACCOUNTS_TABS_DATA = [
-    { id: AccountConstants.MOSQUE, label: "Mosque", editMode: true, forms: MOSQUE_FORM_DATA },
-] as TabModel[];
+export const ACCOUNTS_TAB_DEFINITIONS = {
+    MOSQUE: { label: "Mosque", forms: MOSQUE_FORM_DATA },
+    SALAH: { label: "Salah", forms: SALAH_FORM_DATA },
+}
+export type AccountsTabKey = keyof typeof ACCOUNTS_TAB_DEFINITIONS;

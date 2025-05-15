@@ -45,7 +45,6 @@ export class LibFormComponent implements OnInit, OnDestroy {
   @Input() formGroupName?: string;
   @Input({ required: true }) formFields!: FormControlModel[];
   editMode = input<boolean>(true);
-  @Output() formValue = new EventEmitter<any>();
   
   formService = inject(FormService);
   parentContainer = inject(ControlContainer);
@@ -58,7 +57,12 @@ export class LibFormComponent implements OnInit, OnDestroy {
 
   constructor() {
     effect(() => {
-      this.editMode() ? this.form.enable() : this.form.disable();
+      if (this.editMode()) {
+        this.form.markAsPristine();
+        this.form.markAsUntouched();
+        this.form.enable() 
+      }
+      else this.form.disable();
     });
 
   }
@@ -86,16 +90,7 @@ export class LibFormComponent implements OnInit, OnDestroy {
     return this.formService.getValidationError(this.form.get(field.name), field.label);
   }
 
-  onSubmit(): any {
-    console.log(this.form.value);
-    if (!this.isFormValid()) {
-      this.formValue.emit(null);
-      return null;
-    }
-    this.formValue.emit(this.form.value);
-    return this.form.value;
-  }
-  private isFormValid(): boolean {
+  canSubmit(): boolean {
     this.form.markAllAsTouched();
     this.form.updateValueAndValidity();
     return this.form.valid;

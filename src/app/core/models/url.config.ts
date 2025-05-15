@@ -1,6 +1,8 @@
 import { environment } from '@env';
+import { CRUDOperation } from './core.constant';
 
 export class ApiURL {
+
 
     private static get baseApiUrl(): string {
         return environment.baseUrl;
@@ -9,7 +11,7 @@ export class ApiURL {
     public static get getAuthLoginUrl(): string {
         return `${this.baseApiUrl}/login`;
     }
-    
+
     public static get getAuthLogoutUrl(): string {
         return `${this.baseApiUrl}/logout`;
     }
@@ -23,5 +25,11 @@ export class ApiURL {
     //Organisation
     public static get getOrganisationUrl(): string {
         return `${this.baseApiUrl}/org`;
+    }
+    public static get getOrganisationCreateUrl(): string {
+        return `${this.getOrganisationUrl}/${CRUDOperation.CREATE}`;
+    }
+    public static get getOrganisationUpdateUrl(): string {
+        return `${this.getOrganisationUrl}/${CRUDOperation.UPDATE}`;
     }
 }

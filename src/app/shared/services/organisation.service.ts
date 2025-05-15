@@ -12,11 +12,11 @@ export class OrganisationService {
 
   //Add
   createOrganisation(req: OrgRequestModel):Observable<HttpResponseModel<AddOrgResponseModel>>{
-    return this.http.post<HttpResponseModel<AddOrgResponseModel>>(ApiURL.getOrganisationUrl,req)
+    return this.http.post<HttpResponseModel<AddOrgResponseModel>>(ApiURL.getOrganisationCreateUrl,req)
   }
   //update
-  updateOrganisation(orgId:string, req: OrgRequestModel):Observable<HttpResponseModel<{}>>{
-    return this.http.put<HttpResponseModel<{}>>(`${ApiURL.getOrganisationUrl}/${orgId}`,req)
+  updateOrganisation(req: OrgRequestModel):Observable<HttpResponseModel<{}>>{
+    return this.http.post<HttpResponseModel<{}>>(`${ApiURL.getOrganisationUpdateUrl}`,req)
   }
   //Get
   getOrganisation():Observable<HttpResponseModel<GetOrgResponseModel>>{

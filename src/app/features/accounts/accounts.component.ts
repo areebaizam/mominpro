@@ -1,151 +1,105 @@
-import { AfterViewInit, Component, ComponentRef, DestroyRef, inject, OnDestroy, signal, ViewChild, ViewContainerRef } from "@angular/core";
-//RXJS
-import { Subscription } from "rxjs/internal/Subscription";
+import { Component, computed, DestroyRef, effect, inject, QueryList, signal, ViewChildren, } from "@angular/core";
 //Materials
 import { MatTabsModule } from "@angular/material/tabs";
 //Components
-import { ActionButtonsCESComponent, BaseFormComponent } from "@shared/components";
-// Models
-import { eBtnActionCESType, ACCOUNTS_TABS_DATA, TabModel, AccountConstants, OrgRequestModel } from "@shared/models";
-import { OrganisationService } from "@shared/services";
+import { BaseFormComponent } from "@shared/components";
+//Services
 import { AuthService } from "@core/services";
+import { OrganisationService } from "@shared/services";
+//RXJS
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+//Utilities
 import { getResult } from "@core/utilities";
-
-
+//Models
+import { ACCOUNTS_TAB_DEFINITIONS, AccountsTabKey, generateTabs, OrgRequestModel } from "@shared/models";
+//Constants
 const materialModules = [MatTabsModule];
-const components = [ActionButtonsCESComponent];
+const components = [BaseFormComponent];
+const { tabs: tabData, indexes: INDEXES } = generateTabs<AccountsTabKey, typeof ACCOUNTS_TAB_DEFINITIONS>(ACCOUNTS_TAB_DEFINITIONS);
 
 @Component({
-    selector: 'tap-accounts',
-    imports: [...materialModules, ...components],
-    templateUrl: './accounts.component.html',
-    styleUrl: './accounts.component.scss'
+  selector: "tap-accounts",
+  imports: [...materialModules, ...components],
+  templateUrl: "./accounts.component.html",
+  styleUrl: "./accounts.component.scss",
 })
-export default class AccountsComponent implements AfterViewInit, OnDestroy {
+export default class AccountsComponent {
+  @ViewChildren('baseTab') baseTabs!: QueryList<BaseFormComponent>;
 
-    @ViewChild('formContainer', { read: ViewContainerRef }) formContainer!: ViewContainerRef;
-    private componentRef!: ComponentRef<BaseFormComponent>;
-    private subscriptions: Subscription = new Subscription();
+  destroyRef = inject(DestroyRef);
+  authService = inject(AuthService);
+  orgService = inject(OrganisationService);
 
-    destroyRef = inject(DestroyRef);
-    authService = inject(AuthService);
-    orgService = inject(OrganisationService);
+  activeTabIndex = signal<number>(INDEXES.MOSQUE);
+  tabs = tabData;
 
-    tabs = signal<TabModel[]>(ACCOUNTS_TABS_DATA);
+  constructor() {
+    effect(() => {
+      if (this.activeTabIndex() === INDEXES.MOSQUE && this.authService.hasOrganisation()) {
+        this.fetchOrgData();
+      }
+    });
+  }
 
-    // Active tab tracking
-    activeTabId = signal(AccountConstants.MOSQUE);
+  currentTabForms = computed(() => {
+    return this.tabs[this.activeTabIndex()].forms ?? [];
+  });
 
-    async ngAfterViewInit() {
-        this.onTabChange(0);
-        if (!!this.authService.getUserProfile()) {
-            this.fetchOrgData();
+  getTabTemplate(index: number): BaseFormComponent | null {
+    return this.baseTabs?.get(index) ?? null;
+  }
+
+  private fetchOrgData(): void {
+    this.orgService
+      .getOrganisation()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((resp) => {
+        //TODO Error Handling
+        const next = getResult(resp);
+        if (next) {
+          const patch: any = {
+            information: next.information,
+            coordinate: next.coordinate,
+            address: next.address?? null,
+            contact: next.contact?? null,
+          };
+          // }
+          this.getTabTemplate(INDEXES.MOSQUE)?.form.patchValue(patch);
+          this.getTabTemplate(INDEXES.MOSQUE)?.editMode.set(false);
+          // //TODO CatchError
         }
+      });
+  }
+
+  submit(formValue: any) {
+    console.log("Form Value", formValue);
+    if (this.activeTabIndex() == INDEXES.MOSQUE) {
+      this.addUpdateOrganisation(formValue);
     }
+  }
 
+  private addUpdateOrganisation(req: OrgRequestModel) {
+    if (this.authService.hasOrganisation())
+      this.orgService
+        .updateOrganisation(req)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(
+          (resp) => {
 
-
-    async onTabChange(index: number): Promise<void> {
-        this.activeTabId.set(ACCOUNTS_TABS_DATA[index]?.id);
-
-        // Clear the container before loading a new component
-        if (this.formContainer) {
-            this.formContainer.clear();
-        }
-
-        this.componentRef = this.formContainer.createComponent(BaseFormComponent);
-        const tab = this.currentTab();
-        if (tab) {
-            this.componentRef.instance.editMode = tab.editMode;
-            this.componentRef.instance.forms = tab.forms;
-
-        }
-        this.subscriptions.add(this.componentRef.instance.toggleEditMode.subscribe((toggle) => {
-            this.toggleEditMode(toggle);
-        }));
-        this.subscriptions.add(this.componentRef.instance.canSaveForm.subscribe((canSave) => {
-            if (canSave) {
-                // extract ID
-                const { organisationId, ...restInformation } = canSave.information;
-                // Now build the payload
-                const request = { ...canSave, information: restInformation };
-                this.addUpdateOrganisation(organisationId, request);
+            if (resp.status.isSuccess) {
+              this.getTabTemplate(INDEXES.MOSQUE)?.editMode.set(false);
             }
-        }));
-
-    }
-
-    currentTab() {
-        return this.tabs().find((tab) => tab.id === this.activeTabId());
-    }
-
-    private fetchOrgData(): void {
-        this.orgService.getOrganisation()
-            .pipe(
-                takeUntilDestroyed(this.destroyRef)
-            )
-            .subscribe(
-                resp => {
-                    //TODO Error Handling
-                    const next = getResult(resp)
-                    if (next) {
-                        const patch: any = {
-                            information: next.information,
-                            coordinate: next.coordinate
-                        };
-
-                        if (next?.address) {
-                            patch.address = next.address;
-                        }
-
-                        if (next?.contact) {
-                            patch.contact = next.contact;
-                        }
-                        this.componentRef.instance.form.patchValue(patch);
-                    }
-                }
-            );
-    }
-
-    private addUpdateOrganisation(orgId: string, req: OrgRequestModel) {
-        if (orgId)
-            this.subscriptions.add(
-                this.orgService.updateOrganisation(orgId, req).subscribe()
-            );
-        else
-            this.subscriptions.add(
-                this.orgService.createOrganisation(req).subscribe(
-                    resp => {
-                        // if (resp.status.isSuccess && resp.next)
-                        //TODO Error handling
-                        // this.authService.organisationId = resp.next?.organisationId ?? null
-                    }
-                )
-            );
-    }
-
-    destroyComponent() {
-        if (this.componentRef) {
-            this.componentRef.destroy();
-        }
-    }
-
-    toggleEditMode(edit: boolean) {
-        const tabs = this.tabs();
-        const tabIndex = tabs.findIndex((tab) => tab.id === this.activeTabId());
-        if (tabIndex !== -1) {
-            tabs[tabIndex].editMode = edit;
-            this.tabs.set(tabs);
-        }
-    }
-
-    onActionBtnClicked(action: eBtnActionCESType) {
-        this.componentRef.instance.actionButtonClicked(action);
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.unsubscribe();
-        this.destroyComponent();
-    }
+            //TODO Error handling
+          }
+        );
+    else
+      this.orgService.createOrganisation(req)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((resp) => {
+          if (resp.status.isSuccess) {
+            this.getTabTemplate(INDEXES.MOSQUE)?.editMode.set(false);
+          }
+          //TODO Error handling
+        });
+  }
 }

@@ -1,16 +1,16 @@
-import { AfterViewInit, Component, ComponentRef, OnDestroy, signal, ViewChild, ViewContainerRef } from "@angular/core";
-//RXJS
-import { Subscription } from "rxjs/internal/Subscription";
+import { Component, computed, DestroyRef, effect, inject, QueryList, signal, ViewChildren, } from "@angular/core";
 //Materials
 import { MatTabsModule } from "@angular/material/tabs";
 //Components
-import { ActionButtonsCESComponent, BaseFormComponent } from "@shared/components";
-// Models
-import { eBtnActionCESType, SETTINGS_TABS_DATA, TabModel,SettingConstants } from "@shared/models";
-
-
+import { BaseFormComponent } from "@shared/components";
+//Utilities
+import { getResult } from "@core/utilities";
+//Models
+import { SETTINGS_TAB_DEFINITIONS, SettingsTabKey, generateTabs } from "@shared/models";
+//Constants
 const materialModules = [MatTabsModule];
-const components = [ActionButtonsCESComponent];
+const components = [BaseFormComponent];
+const { tabs: tabData, indexes: INDEXES } = generateTabs<SettingsTabKey, typeof SETTINGS_TAB_DEFINITIONS>(SETTINGS_TAB_DEFINITIONS);
 
 @Component({
     selector: "tap-settings",
@@ -18,66 +18,34 @@ const components = [ActionButtonsCESComponent];
     templateUrl: "./settings.component.html",
     styleUrl: "./settings.component.scss",
 })
-export default class SettingsComponent implements AfterViewInit, OnDestroy {
+export default class SettingsComponent {
+    @ViewChildren('baseTab') baseTabs!: QueryList<BaseFormComponent>;
 
-    @ViewChild('formContainer', { read: ViewContainerRef }) formContainer!: ViewContainerRef;
-    private componentRef!: ComponentRef<BaseFormComponent>;
-    private subscriptions: Subscription = new Subscription();
+    destroyRef = inject(DestroyRef);
 
-    tabs = signal<TabModel[]>(SETTINGS_TABS_DATA);
+    activeTabIndex = signal<number>(INDEXES.SALAH);
+    tabs = tabData;
 
-    // Active tab tracking
-    activeTabId = signal(SettingConstants.SALAH);
-
-    async ngAfterViewInit() {
-        this.onTabChange(0);
+    constructor() {
+        effect(() => {
+            //   if (this.activeTabIndex() === INDEXES.MOSQUE && this.authService.hasOrganisation()) {
+            //     this.fetchOrgData();
+            //   }
+        });
     }
 
-    async onTabChange(index: number): Promise<void> {
-        this.activeTabId.set(SETTINGS_TABS_DATA[index]?.id);
-        
-        // Clear the container before loading a new component
-        if (this.formContainer) {
-            this.formContainer.clear();
-        }
+    currentTabForms = computed(() => {
+        return this.tabs[this.activeTabIndex()].forms ?? [];
+    });
 
-        this.componentRef = this.formContainer.createComponent(BaseFormComponent);
-        const tab = this.currentTab();
-        if (tab) {
-            this.componentRef.instance.editMode = tab.editMode;
-            this.componentRef.instance.forms = tab.forms;
-        }
-        this.subscriptions.add(this.componentRef.instance.toggleEditMode.subscribe((toggle) => {
-            this.toggleEditMode(toggle);
-        }));
-
+    getTabTemplate(index: number): BaseFormComponent | null {
+        return this.baseTabs?.get(index) ?? null;
     }
 
-    currentTab() {
-        return this.tabs().find((tab) => tab.id === this.activeTabId());
-    }
-
-    destroyComponent() {
-        if (this.componentRef) {
-            this.componentRef.destroy();
-        }
-    }
-
-    toggleEditMode(edit: boolean) {
-        const tabs = this.tabs();
-        const tabIndex = tabs.findIndex((tab) => tab.id === this.activeTabId());
-        if (tabIndex !== -1) {
-            tabs[tabIndex].editMode = edit;
-            this.tabs.set(tabs);
-        }
-    }
-
-    onActionBtnClicked(action: eBtnActionCESType) {
-        this.componentRef.instance.actionButtonClicked(action);
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.unsubscribe();
-        this.destroyComponent();
+    submit(formValue: any) {
+        console.log("Form Value", formValue);
+        // if (this.activeTabIndex() == INDEXES.SALAH) {
+        //   this.addUpdateOrganisation(formValue);
+        // }
     }
 }

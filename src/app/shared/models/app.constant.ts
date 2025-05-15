@@ -12,18 +12,7 @@ export class PageURLConstants {
   static readonly LOGIN = "login";
   static readonly FORGOT = "forgot";
 }
-export class TimingConstants {
-  static readonly IQAMAH = 'iqamah';
-  static readonly PREFERENCE = 'preferences';
-}
-export class SettingConstants {
-  static readonly SALAH = 'salah';
-  static readonly ATHAN = 'athan';  
-}
-export class AccountConstants {
-  static readonly MOSQUE = 'mosque';  
-  static readonly USER = 'users';
-}
+
 export class CredentialConstants {
   static readonly LOGIN = 'login';  
   static readonly SIGNUP = 'signup';
