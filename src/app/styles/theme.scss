@@ -54,16 +54,23 @@ $dark-theme: mat.define-theme((color: (theme-type: dark,
   --error-container: #{mat.get-theme-color($theme, error-container)};
   --on-error-container: #{mat.get-theme-color($theme, on-error-container)};
   //Surface
+  --surface-variant: #{mat.get-theme-color($theme, surface-variant)};
   --surface-dim: #{mat.get-theme-color($theme, surface-dim)};
   --surface: #{mat.get-theme-color($theme, surface)};
   --surface-bright: #{mat.get-theme-color($theme, surface-bright)};
   --surface-container-lowest: #{mat.get-theme-color($theme, surface-container-lowest)};
   --surface-container-low: #{mat.get-theme-color($theme, surface-container-low)};
-  --surface-container: #{mat.get-theme-color($theme, surface-container)};
+  // --surface-container: #{mat.get-theme-color($theme, surface-container)};
   --surface-container-high: #{mat.get-theme-color($theme, surface-container-high)};
   --surface-container-highest: #{mat.get-theme-color($theme, surface-container-highest)};
   --on-surface: #{mat.get-theme-color($theme, on-surface)};
   --on-surface-variant: #{mat.get-theme-color($theme, on-surface-variant)};
+  //Surface Container RGB Calculation for region overlay
+  $surface-container: mat.get-theme-color($theme, surface-container);
+  --surface-container: #{$surface-container};
+  --surface-container-rgb: #{red($surface-container)},
+  #{green($surface-container)},
+  #{blue($surface-container)};
   //Outline
   --outline: #{mat.get-theme-color($theme, outline)};
   --outline-variant: #{mat.get-theme-color($theme, outline-variant)};
@@ -90,7 +97,7 @@ html {
   @include theme-override-variables($dark-theme);
 }
 
-
+//Move these material variable to another custom themse file
 .mat-toolbar {
   user-select: none;
   text-transform: capitalize;
@@ -107,6 +114,16 @@ html {
   --mat-tab-header-inactive-label-text-color: var(--secondary);
   --mat-tab-header-inactive-focus-label-text-color: var(--primary);
   --mat-tab-header-inactive-hover-label-text-color: var(--primary);
+}
+
+.mdc-tab__text-label {
+  --mat-tab-header-active-label-text-color: var(--primary);
+  --mat-tab-header-active-focus-label-text-color: var(--primary);
+  --mat-tab-header-inactive-label-text-color: var(--secondary);
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  color: var(--secondary);
 }
 
 //TODO: Move this class to snackbar component or RENAME it

@@ -10,7 +10,7 @@
         <mat-icon matSuffix>{{field.icon}}</mat-icon>
         }
         @if(field.validators?.maxLength){
-        <mat-hint align="end" [class.read-only]="!editMode()">{{ getFieldLength(field.name) }}/{{
+        <mat-hint align="end">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
         }
@@ -35,7 +35,7 @@
             [maxLength]="field.validators?.maxLength??512" [placeholder]="field.placeholder"
             [rows]="field.rows"></textarea>
         @if(field.validators?.maxLength){
-        <mat-hint align="end" [class.read-only]="!editMode()">{{ getFieldLength(field.name) }}/{{
+        <mat-hint align="end">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
         }
@@ -50,7 +50,7 @@
             [maxLength]="field.validators?.maxLength??512" [max]="field.validators?.max"
             [min]="field.validators?.min" />
         @if(field.validators?.maxLength){
-        <mat-hint align="end" [class.read-only]="!editMode()">{{ getFieldLength(field.name) }}/{{
+        <mat-hint align="end">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
             }}</mat-hint>
         }
@@ -70,8 +70,7 @@
     </mat-form-field>
     } @else if(field.type == 'slider'){
     <div class="field-width slider" [style.flex]="field.colspan">
-        <div class="slider-label" [class.read-only]="!editMode()">{{ field.label }} (<span
-                [class.read-only]="!editMode()" class="slider-value">{{getFormControl(field.name).value}}&deg;</span>)
+        <div class="slider-label">{{ field.label }} (<span class="slider-value">{{getFormControl(field.name).value}}&deg;</span>)
         </div>
         <mat-slider [max]="field.validators?.max" [min]="field.validators?.min" [step]="field.step" discrete>
             <input matSliderThumb [value]="field.value" [formControl]="getFormControl(field.name)">
@@ -98,7 +97,7 @@
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [matDatepicker]="dp" [formControl]="getFormControl(field.name)" [value]="field.value">
-        <mat-hint align="end" [class.read-only]="!editMode()">{{ field.hint }}</mat-hint>
+        <mat-hint align="end">{{ field.hint }}</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
         <mat-datepicker #dp></mat-datepicker>
         <mat-error>{{ getValidationError(field)}}</mat-error>
