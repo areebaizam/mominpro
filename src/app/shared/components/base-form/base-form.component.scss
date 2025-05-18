@@ -27,7 +27,8 @@
         // border-top: 1px solid var(--surface-variant);
         color: var(--primary);
         letter-spacing: 1px;
-        font-weight: 500;
+        font-weight: var(--mat-tab-header-label-text-weight);
+        // font-size: var(--mat-tab-header-label-text-size);        
         // &:first-child {
         //     border: none;
         //     // padding-top: 2rem;
