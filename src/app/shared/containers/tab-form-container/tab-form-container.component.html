@@ -1,0 +1,12 @@
+<tap-btn-tab-action [editMode]="editMode()" (output)="onActionBtnClicked($event)" />
+<div class="region-overlay-wrapper">
+    <div [class.region-overlay-enabled]="!editMode()">
+        <form [formGroup]="tabFormGroup" class="form-group">
+            @for(formData of libFormsData; track formData.name){
+            <div class="form-group-name"> {{formData.label}} </div>
+            <tap-lib-form #libForm [formGroupName]="formData.name" [formFields]="formData.data"
+                [editMode]="editMode()"></tap-lib-form>
+            }
+        </form>
+    </div>
+</div>

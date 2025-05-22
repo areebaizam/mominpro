@@ -1,0 +1,1 @@
+export * from './tab-form-container/tab-form-container.component';

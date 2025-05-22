@@ -185,12 +185,12 @@ export interface TabModel<T extends string> {
 
 export function generateTabs<T extends string, D extends Record<T, { label: string; forms: ReactiveForm[] }>>(
     definitions: D
-): { tabs: TabModel<T>[], indexes: Record<T, number> } {
+): { tabForms: TabModel<T>[], indexes: Record<T, number> } {
     const entries = Object.entries(definitions) as [T, D[T]][];
     const indexes: Record<T, number> = {} as any;
-    const tabs = entries.map(([key, { label, forms }], index) => {
+    const tabForms = entries.map(([key, { label, forms }], index) => {
         indexes[key] = index;
         return { index, key, label, forms };
     });
-    return { tabs, indexes };
+    return { tabForms, indexes };
 }

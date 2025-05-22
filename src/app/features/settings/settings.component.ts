@@ -9,7 +9,7 @@ import { generateTabs, SETTINGS_TAB_DEFINITIONS, SettingsTabKey, TabModel } from
 //Constants
 const materialModules = [MatTabsModule];
 const components = [BaseFormComponent];
-const { tabs: tabData, indexes: INDEXES } = generateTabs<SettingsTabKey, typeof SETTINGS_TAB_DEFINITIONS>(SETTINGS_TAB_DEFINITIONS);
+const { tabForms: tabData, indexes: INDEXES } = generateTabs<SettingsTabKey, typeof SETTINGS_TAB_DEFINITIONS>(SETTINGS_TAB_DEFINITIONS);
 
 @Component({
     selector: "tap-settings",

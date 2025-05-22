@@ -1,16 +1,17 @@
-import { Component, ComponentRef, computed, DestroyRef, effect, inject, QueryList, signal, ViewChild, ViewChildren, ViewContainerRef, } from "@angular/core";
+import { Component } from "@angular/core";
 //Materials
 import { MatTabsModule } from "@angular/material/tabs";
 //Components
-import { BaseFormComponent } from "@shared/components";
-//Utilities
-import { getResult } from "@core/utilities";
+import { TabFormContainer } from "@shared/containers";
 //Models
-import { TIMINGS_TAB_DEFINITIONS, TimingsTabKey, generateTabs } from "@shared/models";
+import { generateTabs, TabModel, TIMINGS_TAB_DEFINITIONS, TimingsTabKey } from "@shared/models";
+
+//Constants
 //Constants
 const materialModules = [MatTabsModule];
-const components = [BaseFormComponent];
-const { tabs: tabData, indexes: INDEXES } = generateTabs<TimingsTabKey, typeof TIMINGS_TAB_DEFINITIONS>(TIMINGS_TAB_DEFINITIONS);
+const components = [ TabFormContainer];
+const { tabForms: tabFormsData, indexes: INDEXES } = generateTabs<TimingsTabKey, typeof TIMINGS_TAB_DEFINITIONS>(TIMINGS_TAB_DEFINITIONS);
+
 
 
 @Component({
@@ -20,22 +21,10 @@ const { tabs: tabData, indexes: INDEXES } = generateTabs<TimingsTabKey, typeof T
     styleUrl: './timings.component.scss'
 })
 export default class TimingsComponent {
-    //Child Components
-    @ViewChild('baseForm') baseForm!: BaseFormComponent;
-    //Dependency Injections
-    destroyRef = inject(DestroyRef);
-
-    activeTabIndex = signal<number>(INDEXES.PREFERENCE);
-    tabs = tabData;
-
-    currentTabForms = computed(() => {
-        return this.tabs[this.activeTabIndex()].forms ?? [];
-    });
+    activeTabIndex = INDEXES.IQAMAH;
+    tabForms: TabModel<TimingsTabKey>[] = tabFormsData;
 
     submit(formValue: any) {
-        console.log("Form Value", formValue);
-        // if (this.activeTabIndex() == INDEXES.SALAH) {
-        //   this.addUpdateOrganisation(formValue);
-        // }
+        console.log('TimingsComponent',formValue);
     }
 }

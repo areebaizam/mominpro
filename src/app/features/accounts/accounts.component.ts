@@ -15,7 +15,7 @@ import { ACCOUNTS_TAB_DEFINITIONS, AccountsTabKey, generateTabs, OrgRequestModel
 //Constants
 const materialModules = [MatTabsModule];
 const components = [BaseFormComponent];
-const { tabs: tabData, indexes: INDEXES } = generateTabs<AccountsTabKey, typeof ACCOUNTS_TAB_DEFINITIONS>(ACCOUNTS_TAB_DEFINITIONS);
+const { tabForms: tabData, indexes: INDEXES } = generateTabs<AccountsTabKey, typeof ACCOUNTS_TAB_DEFINITIONS>(ACCOUNTS_TAB_DEFINITIONS);
 
 @Component({
   selector: "tap-accounts",
