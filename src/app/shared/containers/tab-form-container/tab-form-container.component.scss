@@ -1,0 +1,21 @@
+.form-group {
+    padding: .5rem;
+
+    .form-group-name {
+        letter-spacing: 1px;
+        font-weight: var(--mat-tab-header-label-text-weight);
+        position: relative;
+        padding-left: .625rem;
+
+        &:before {
+            content: "";
+            width: 3px;
+            background-color: var(--primary);
+            height: 12px;
+            position: absolute;
+            left: 0;
+            bottom: 4px;
+            display: block;
+        }
+    }
+}

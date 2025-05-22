@@ -4,7 +4,7 @@
         <ng-template matTabContent>
             <!-- Adding if statement will recrecreate the component -->
             @if(tabForm.index ==activeTabIndex){
-            <tap-tab-form-container [libFormsData]="tabForms[tabForm.index].forms"></tap-tab-form-container>
+            <tap-tab-form-container [libFormsData]="tabForms[tabForm.index].forms" (tabFormValue)="submit($event)"></tap-tab-form-container>
             }
         </ng-template>
     </mat-tab>
