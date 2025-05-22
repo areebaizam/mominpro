@@ -1,0 +1,12 @@
+.tap-input-toggle-form-field-container {
+    display: flex;
+    flex-wrap: wrap;
+    .form-field-value {
+        padding-right: 1rem;
+    }
+
+    .form-field-toggle {
+        display: flex;
+        padding-bottom: 1.25rem; //TODO Use variable 
+    }
+}
