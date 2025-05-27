@@ -1,11 +1,11 @@
 
 
 export type alphanumericbool = string | number | boolean | Date;
-export type InputType = 'color' | 'email' | 'month' |  'search' | 'tel' | 'text' | 'url' | 'week';
+export type InputType = 'color' | 'email' | 'month' | 'search' | 'tel' | 'text' | 'url' | 'week';
 export type CustomType = 'iqamah' | 'athan' | 'flag';
 export type AthanType = 'iqamah' | 'salah';
 export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder' | 'hidden' | 'password' | 'checkbox' | 'radio';
-export type ControlValue = alphanumericbool | ControlTypeValue | AthanTypeValue | FlagTypeValue;
+export type ControlValue = alphanumericbool | ControlTypeValue | AthanTypeValue | InputToggle;
 export enum eGridSpan {
     FULL = '1 1 calc(100% - 1.25rem)',
     HALF = '1 1 calc(50% - 1.25rem)',
@@ -20,9 +20,11 @@ export class ControlTypeValue {
 export class AthanTypeValue {
     constructor(public type: AthanType, public value: alphanumericbool | null) { }
 }
-export class FlagTypeValue {
-    constructor(public type: boolean, public value: alphanumericbool | null) { }
+
+export class InputToggle {
+    constructor(public checked: boolean | null, public value: alphanumericbool | null,) { }
 }
+
 
 export interface ValidatorModel {
     required?: boolean;
@@ -51,12 +53,12 @@ export interface BaseFormControlModel {
 export interface InputModel extends BaseFormControlModel {
     type: InputType;
     placeholder: string;
-    icon?:string;
-    autocompleteLabel?:string;
+    icon?: string;
+    autocompleteLabel?: string;
 }
 export interface PasswordModel extends BaseFormControlModel {
     type: 'password';
-    autocompleteLabel:string;
+    autocompleteLabel: string;
 }
 //TextArea
 export interface TextAreaModel extends BaseFormControlModel {
@@ -106,7 +108,7 @@ export interface ToggleModel extends BaseFormControlModel {
 }
 export interface CheckboxModel extends BaseFormControlModel {
     type: 'checkbox';
-    value:boolean;
+    value: boolean;
 }
 export interface RadioModel extends BaseFormControlModel {
     type: 'radio';
@@ -145,7 +147,7 @@ export interface AthanModel extends BaseFormControlModel {
 export interface FlagModel extends BaseFormControlModel {
     type: 'flag',
     typeLabel: string,
-    value: FlagTypeValue;
+    value: InputToggle;
     series: SeriesModel;
 }
 
@@ -166,9 +168,9 @@ export interface AthanControlTypeValueOptions {
     subtype: AthanType;
 }
 
-export type FormControlModel = InputModel | PasswordModel | TextAreaModel | SelectModel | SliderModel | NumberModel 
-| SeriesModel | ToggleModel | IqamahModel | AthanModel | FlagModel | TimeModel | DatePickerModel | PlaceholderModel 
-| HiddenModel | CheckboxModel | RadioModel;
+export type FormControlModel = InputModel | PasswordModel | TextAreaModel | SelectModel | SliderModel | NumberModel
+    | SeriesModel | ToggleModel | IqamahModel | AthanModel | FlagModel | TimeModel | DatePickerModel | PlaceholderModel
+    | HiddenModel | CheckboxModel | RadioModel;
 
 export interface ReactiveForm {
     name: string;
@@ -177,10 +179,10 @@ export interface ReactiveForm {
 }
 
 export interface TabModel<T extends string> {
-  index: number;
-  key: T;
-  label: string;
-  forms: ReactiveForm[];
+    index: number;
+    key: T;
+    label: string;
+    forms: ReactiveForm[];
 }
 
 export function generateTabs<T extends string, D extends Record<T, { label: string; forms: ReactiveForm[] }>>(

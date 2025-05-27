@@ -308,7 +308,7 @@ export const PREFERENCES_FORM_HIJRI_DATA = [
         typeLabel: "Show",
         name: 'days',
         label: 'Days',
-        value: { type: false, value: 0 },
+        value: { checked: false, value: 1 },
         colspan: eGridSpan.HALF,
         series: {
             validators: {
@@ -330,7 +330,7 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
         typeLabel: "Enable",
         name: 'fajr',
         label: 'Fajr',
-        value: { type: false, value: 20 },
+        value: { checked: false, value: 20 },
         colspan: eGridSpan.HALF,
         series: {
             validators: {
@@ -348,7 +348,7 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
         typeLabel: "Enable",
         name: 'maghrib',
         label: 'Maghrib',
-        value: { type: true, value: 0 },
+        value: { checked: true, value: null },
         colspan: eGridSpan.HALF,
         series: {
             validators: {
@@ -366,7 +366,7 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
         typeLabel: "Enable",
         name: 'isha',
         label: 'Isha',
-        value: { type: false, value: 0 },
+        value: { checked: false, value: 0 },
         colspan: eGridSpan.HALF,
         series: {
             validators: {
@@ -385,7 +385,7 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
         typeLabel: "Enable",
         name: 'taraweeh',
         label: 'Taraweeh',
-        value: { type: true, value: 10 },
+        value: { checked: true, value: 10 },
         colspan: eGridSpan.HALF,
         series: {
             validators: {

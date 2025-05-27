@@ -131,7 +131,9 @@
     <tap-athan-form-field [control]="field" [editMode]="editMode()" [style.flex]="field.colspan"></tap-athan-form-field>
     }
     @else if(field.type == 'flag'){
-    <tap-flag-form-field [control]="field" [editMode]="editMode()" [style.flex]="field.colspan"></tap-flag-form-field>
+    <!-- TODO Fix this Remove inputToggle Reference and fg-->
+    <tap-input-toggle-form-field #inputToggle [control]="field" [formGroupName]="formGroupName||''"
+        [style.flex]="field.colspan"></tap-input-toggle-form-field>
     }
     }
 </div>

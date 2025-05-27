@@ -1,4 +1,4 @@
-import { Component, effect, EventEmitter, inject, input, Input, OnDestroy, OnInit, Output, signal } from '@angular/core';
+import { Component, effect, inject, input, Input, OnDestroy, OnInit, QueryList, signal, ViewChildren } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 //Material
@@ -14,7 +14,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTimepicker, MatTimepickerModule } from '@angular/material/timepicker';
 //Custom Form Fields
-import { AthanFormField, FlagFormField, IqamahFormField } from '@shared/formfields';
+import { AthanFormField, InputToggleFormField, IqamahFormField } from '@shared/formfields';
 //Services
 import { FormService } from '@shared/services';
 //Models
@@ -24,7 +24,7 @@ import { FormControlModel } from '@shared/models';
 const formModules = [FormsModule, ReactiveFormsModule];
 const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, MatSliderModule, MatCheckboxModule,
   MatIconModule, MatButtonModule, MatSelectModule, MatSlideToggleModule, MatDatepickerModule, MatTimepickerModule];
-const customControls = [AthanFormField, IqamahFormField, FlagFormField];
+const customControls = [AthanFormField, IqamahFormField, InputToggleFormField];
 
 //Reference:https://github.com/DMezhenskyi/shared-angular-forms/blob/implemented/src/app/address-group/address-group.component.ts
 @Component({
@@ -45,7 +45,7 @@ export class LibFormComponent implements OnInit, OnDestroy {
   @Input() formGroupName?: string;
   @Input({ required: true }) formFields!: FormControlModel[];
   editMode = input<boolean>(true);
-  
+
   formService = inject(FormService);
   parentContainer = inject(ControlContainer);
   form: FormGroup = new FormGroup({});
@@ -60,7 +60,7 @@ export class LibFormComponent implements OnInit, OnDestroy {
       if (this.editMode()) {
         this.form.markAsPristine();
         this.form.markAsUntouched();
-        this.form.enable() 
+        this.form.enable()
       }
       else this.form.disable();
     });
