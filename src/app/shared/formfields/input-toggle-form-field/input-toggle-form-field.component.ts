@@ -1,20 +1,23 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, Input, input, model, OnDestroy, signal, untracked, viewChild } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, Input, input, model, OnDestroy, OnInit, signal, untracked, viewChild } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, FormControl, FormGroup, FormsModule, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
 //Material
 import { MAT_FORM_FIELD, MatFormFieldControl, } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTimepickerModule } from '@angular/material/timepicker';
+
 //RXJS
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject } from 'rxjs/internal/Subject';
 // Services
 import { FormService } from '@shared/services';
 //Models
-import { alphanumericbool, FlagModel, InputToggle, SelectOptionModel } from '@shared/models';
+import { alphanumericbool, InputToggleModel, InputToggleValue, SelectOptionModel } from '@shared/models';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule];
-const materialModules = [MatSelectModule, MatSlideToggleModule];
+const materialModules = [MatSelectModule, MatSlideToggleModule, MatTimepickerModule, MatInputModule];
 
 
 @Component({
@@ -33,8 +36,9 @@ const materialModules = [MatSelectModule, MatSlideToggleModule];
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputToggleFormField implements ControlValueAccessor, MatFormFieldControl<InputToggle>, OnDestroy {
-  @Input({ required: true }) control!: FlagModel;
+
+export class InputToggleFormField implements ControlValueAccessor, MatFormFieldControl<InputToggleValue>, OnInit, OnDestroy {
+  @Input({ required: true }) control!: InputToggleModel;
   @Input({ required: true }) formGroupName!: string;
 
   parentContainer = inject(ControlContainer);
@@ -48,6 +52,7 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
 
   })
 
+
   //Form Control Aliases
   get toggleControl() {
     return this.form.get('checked') as FormControl;
@@ -59,6 +64,15 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
   private readonly formService = inject(FormService);
   //Variables
   options: SelectOptionModel[] = [];
+ //TODO move to utility
+  // getMinTimeValue(): string {
+  //   let min = this.control.data.validators?.matTimepickerMin;
+  //   return !!min ? min : '00:00';
+  // }
+  // getMaxTimeValue(): string {
+  //   let max = this.control.data.validators?.matTimepickerMax;
+  //   return !!max ? max : '23:59';
+  // }
 
   //HTML ELements
   readonly toggleInput = viewChild.required<HTMLInputElement>('toggle');
@@ -74,7 +88,7 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
   readonly _placeholder = input<string>('', { alias: 'placeholder' });
   readonly _required = input<boolean, unknown>(false, { alias: 'required', transform: booleanAttribute, });
   readonly _disabledByInput = input<boolean, unknown>(false, { alias: 'disabled', transform: booleanAttribute, });
-  readonly _value = model<InputToggle | null>(null, { alias: 'value' });
+  readonly _value = model<InputToggleValue | null>(null, { alias: 'value' });
 
   onChange = (_: any) => { };
   onTouched = () => { };
@@ -111,7 +125,7 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
     return this._disabled();
   }
 
-  get value(): InputToggle | null {
+  get value(): InputToggleValue | null {
     return this._value();
   }
 
@@ -159,7 +173,7 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
     });
 
     this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe(value => {
-      const inputToggleValue = new InputToggle(
+      const inputToggleValue = new InputToggleValue(
         this.form.value.checked || this.control.value.checked,
         this.form.getRawValue().value || this.control.value.value,
       )
@@ -176,9 +190,12 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
     });
   }
 
-  ngAfterViewInit() {
-    this.options = this.formService.getSeriesOptions(this.control.series);
-    //TODO FIX This
+  ngOnInit() {
+    let seriesProperties = this.control.props;
+    if (!!seriesProperties) {
+      this.options = this.formService.getSeriesOptions(seriesProperties);
+    }
+    //TODO FIX This , pass the control from the parent form group
     (this.parentFormGroup?.get(this.formGroupName) as FormGroup).removeControl(this.control.name);
     (this.parentFormGroup?.get(this.formGroupName) as FormGroup).addControl(this.control.name, this.form);
   }
@@ -224,7 +241,7 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
     this._focusMonitor.focusVia(this.valueInput(), 'program');
   }
 
-  writeValue(value: InputToggle | null): void {
+  writeValue(value: InputToggleValue | null): void {
     this._updateValue(value);
   }
 
@@ -240,7 +257,7 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
     this._disabledByCva.set(isDisabled);
   }
 
-  private _updateValue(value: InputToggle | null) {
+  private _updateValue(value: InputToggleValue | null) {
     // console.log('_updateValue',this.form.value,value,this._value());
     const current = this._value();
     if (

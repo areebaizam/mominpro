@@ -50,7 +50,7 @@ export class AthanFormField extends BaseFormField<AthanTypeValue> implements OnI
 
   getOptions(type: AthanType) {
     let controlModel = this.control.options.find(o => o.subtype === type)?.control as SeriesModel;
-    this.options.set(this.formService.getSeriesOptions(controlModel));
+    this.options.set(this.formService.getSeriesOptions(controlModel.optionProperties));
   }
 
   ngAfterViewInit() {

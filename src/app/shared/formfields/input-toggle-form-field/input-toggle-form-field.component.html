@@ -1,5 +1,6 @@
 <div role="group" class="tap-input-toggle-form-field-container" [formGroup]="form"
     [attr.aria-labelledby]="_formField?.getLabelId()">
+    @if(control.inputType == 'series') {
     <mat-form-field class="form-field-value flex-grow " aria-label="Select Option">
         <mat-label>{{control.label}}</mat-label>
         <mat-select #valueInput [formControl]="valueControl" [value]="control.value.value">
@@ -9,6 +10,17 @@
         </mat-select>
         <mat-error>{{ getValidationError()}}</mat-error>
     </mat-form-field>
+    }
+    @else if(control.inputType == 'time') {
+    <mat-form-field class="form-field-value flex-grow " aria-label="Select time">
+        <mat-label>{{ control.label }}</mat-label>
+        <input matInput #valueInput [formControl]="valueControl" [value]="control.value.value" [matTimepicker]="picker"
+            class="time-input" readonly [matTimepickerMin]="'11:00'" [matTimepickerMax]="'12:50'" readonly>
+        <mat-timepicker-toggle matIconSuffix [for]="picker" [disabled]="valueControl.disabled" />
+        <mat-timepicker #picker interval="5m" />
+        <mat-error>{{ getValidationError()}}</mat-error>
+    </mat-form-field>
+    }
     <mat-slide-toggle [formControl]="toggleControl" #toggleInput aria-label="Enable/Disable toggle"
         class="form-field-toggle flex-grow"><span>{{control.typeLabel}}</span></mat-slide-toggle>
 </div>

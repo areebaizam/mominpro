@@ -4,10 +4,7 @@ import { eGridSpan, FormControlModel, ReactiveForm } from "./form.model";
 export const PLACEHOLDER_FORM_FIELD = {
     type: "placeholder",
     name: 'placeholder',
-    label: '',
-    value: null,
     colspan: eGridSpan.HALF,
-    validators: null,
 } as FormControlModel;
 
 export function createPlaceholderFormField(colspan: eGridSpan): FormControlModel {
@@ -19,12 +16,12 @@ export const IQAMAH_FORM_SETTINGS_DATA = [
         type: "date",
         name: 'startDate',
         label: 'Start date',
-        value: new Date(),//TOD FIX Error
-        hint: 'MM/DD/YYYY',
-        colspan: eGridSpan.ONE_THIRD,
+        value: new Date(),//TOD FIX Error        
+        colspan: eGridSpan.ONE_THIRD,        
         validators: {
             required: true,
-        }
+        },
+        hint: 'MM/DD/YYYY',
     },
     createPlaceholderFormField(eGridSpan.ONE_THIRD),
     createPlaceholderFormField(eGridSpan.ONE_THIRD),
@@ -304,98 +301,105 @@ export const IQAMAH_FORM_JUMUAH_DATA = [
 
 export const PREFERENCES_FORM_HIJRI_DATA = [
     {
-        type: "flag",
+        type: "input-toggle",
         typeLabel: "Show",
+        inputType: 'series',
         name: 'days',
         label: 'Days',
         value: { checked: false, value: 1 },
         colspan: eGridSpan.HALF,
-        series: {
-            validators: {
-                min: -3,
-                max: 3,
-            },
+        props: {
+            min: -3,
+            max: 3,
             suffix: 'days',
             suffixUnit: 'day',
             baseLabel: 'No change',
             recommendedValue: null,
         }
     },
+    {
+        type: "input-toggle",
+        typeLabel: "Show time",
+        inputType: 'time',
+        name: 'daytime',
+        label: 'Days Time',
+        value: { checked: false, value: new Date('Tue May 27 2025 10:30:00 GMT-0700 (Pacific Daylight Time)') },
+        colspan: eGridSpan.HALF,
+        validators: {
+            matTimepickerMin: '11:00',
+            matTimepickerMax: '16:00',
+        },
+    },
     PLACEHOLDER_FORM_FIELD,
 ] as FormControlModel[];
 
 export const PREFERENCES_FORM_RAMADAN_DATA = [
     {
-        type: "flag",
+        type: "input-toggle",
         typeLabel: "Enable",
+        inputType: 'series',
         name: 'fajr',
         label: 'Fajr',
         value: { checked: false, value: 20 },
         colspan: eGridSpan.HALF,
-        series: {
-            validators: {
-                min: 0,
-                max: 60,
-            },
+        props: {
+            min: 0,
+            max: 60,
             suffix: 'minutes after start time',
             suffixUnit: 'minute after start time',
             baseLabel: 'At start time',
-            recommendedValue: 20,
+            recommended: 20,
         }
     },
     {
-        type: "flag",
+        type: "input-toggle",
         typeLabel: "Enable",
+        inputType: 'series',
         name: 'maghrib',
         label: 'Maghrib',
         value: { checked: true, value: null },
         colspan: eGridSpan.HALF,
-        series: {
-            validators: {
-                min: 0,
-                max: 30,
-            },
+        props: {
+            min: 0,
+            max: 30,
             suffix: 'minutes after start time',
             suffixUnit: 'minute after start time',
             baseLabel: 'At start time',
-            recommendedValue: 0,
+            recommended: 0,
         }
     },
     {
-        type: "flag",
+        type: "input-toggle",
         typeLabel: "Enable",
+        inputType: 'series',
         name: 'isha',
         label: 'Isha',
         value: { checked: false, value: 0 },
         colspan: eGridSpan.HALF,
-        series: {
-            validators: {
-                required: true,
-                min: 0,
-                max: 60,
-            },
+        props: {
+            min: 0,
+            max: 60,
             suffix: 'minutes after start time',
             suffixUnit: 'minute after start time',
             baseLabel: 'At start time',
-            recommendedValue: 20,
+            recommended: 20,
         }
     },
     {
-        type: "flag",
+        type: "input-toggle",
         typeLabel: "Enable",
+        inputType: 'series',
         name: 'taraweeh',
         label: 'Taraweeh',
         value: { checked: true, value: 10 },
         colspan: eGridSpan.HALF,
-        series: {
-            validators: {
-                min: 0,
-                max: 30,
-            },
+        props: {
+            min: 0,
+            max: 30,
             suffix: 'minutes after Isha Iqamah',
             suffixUnit: 'minute after Isha Iqamah',
             baseLabel: 'Soon after Isha Iqamah',
-            recommendedValue: null,
+            recommended: null,
         }
     },
 ] as FormControlModel[];
@@ -407,11 +411,11 @@ export const SALAH_FORM_SETTINGS_DATA = [
         label: 'Fajr',
         value: 15,
         colspan: eGridSpan.HALF,
-        validators: {
+        attr: {
             min: 10,
             max: 20,
-        },
-        step: .1,
+            step: .1,
+        }
     },
     {
         type: "slider",
@@ -419,11 +423,11 @@ export const SALAH_FORM_SETTINGS_DATA = [
         label: 'Isha',
         value: 15,
         colspan: eGridSpan.HALF,
-        validators: {
+        attr: {
             min: 10,
             max: 20,
-        },
-        step: .1,
+            step: .1,
+        }
     },
     {
         type: "select",
@@ -488,7 +492,7 @@ export const SALAH_FORM_SETTINGS_DATA = [
     },
     createPlaceholderFormField(eGridSpan.ONE_THIRD),
 ] as FormControlModel[];
-
+//TODO Check for validators
 export const SALAH_FORM_OFFSET_DATA = [
     {
         type: "series",
@@ -496,14 +500,14 @@ export const SALAH_FORM_OFFSET_DATA = [
         label: 'Fajr',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
-        validators: {
+        optionProperties: {
             min: -90,
             max: 120,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No Change',
-        recommendedValue: 0,
+            suffix: 'minutes',
+            suffixUnit: 'minute',
+            baseLabel: 'No Change',
+            recommended: 0,
+        }
     },
     {
         type: "series",
@@ -511,14 +515,14 @@ export const SALAH_FORM_OFFSET_DATA = [
         label: 'Sunrise (Shuruq)',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
-        validators: {
+        optionProperties: {
             min: -30,
             max: 30,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No change',
-        recommendedValue: 0,
+            suffix: 'minutes',
+            suffixUnit: 'minute',
+            baseLabel: 'No Change',
+            recommended: 0,
+        }
     },
     {
         type: "series",
@@ -526,14 +530,14 @@ export const SALAH_FORM_OFFSET_DATA = [
         label: 'Dhuhr',
         value: 2,
         colspan: eGridSpan.ONE_THIRD,
-        validators: {
+        optionProperties: {
             min: 1,
             max: 30,
+            suffix: 'minutes after Zawal',
+            suffixUnit: 'minute after Zawal',
+            baseLabel: 'At Zawal',
+            recommended: 2,
         },
-        suffix: 'minutes after Zawal',
-        suffixUnit: 'minute after Zawal',
-        baseLabel: 'At Zawal',
-        recommendedValue: 2,
     },
     {
         type: "series",
@@ -541,14 +545,14 @@ export const SALAH_FORM_OFFSET_DATA = [
         label: 'Asr',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
-        validators: {
+        optionProperties: {
             min: -90,
             max: 120,
-        },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No Change',
-        recommendedValue: 0,
+            suffix: 'minutes',
+            suffixUnit: 'minute',
+            baseLabel: 'No Change',
+            recommended: 0,
+        }
     },
     {
         type: "series",
@@ -556,14 +560,14 @@ export const SALAH_FORM_OFFSET_DATA = [
         label: 'Maghrib',
         value: 2,
         colspan: eGridSpan.ONE_THIRD,
-        validators: {
+        optionProperties: {
             min: 0,
             max: 30,
+            suffix: 'minutes after Sunset',
+            suffixUnit: 'minute after Sunset',
+            baseLabel: 'At Sunset',
+            recommended: 0,
         },
-        suffix: 'minutes after Sunset',
-        suffixUnit: 'minute after Sunset',
-        baseLabel: 'At Sunset',
-        recommendedValue: 0,
     },
     {
         type: "series",
@@ -571,14 +575,14 @@ export const SALAH_FORM_OFFSET_DATA = [
         label: 'Isha',
         value: 0,
         colspan: eGridSpan.ONE_THIRD,
-        validators: {
+        optionProperties: {
             min: 0,
             max: 60,
+            suffix: 'minutes',
+            suffixUnit: 'minute',
+            baseLabel: 'No Change',
+            recommended: 0,
         },
-        suffix: 'minutes',
-        suffixUnit: 'minute',
-        baseLabel: 'No Change',
-        recommendedValue: 0,
     },
 ] as FormControlModel[];
 
@@ -1137,7 +1141,9 @@ export const MOSQUE_FORM_GENERAL_DATA = [
         name: 'alternateId',
         label: 'Public URL',
         value: null,
-        placeholder: 'Ex: Add tags separated by comma',
+        attr: {
+            placeholder: 'Ex: Add tags separated by comma',
+        },
         colspan: eGridSpan.HALF,
         validators: {
             maxLength: 100,
@@ -1332,14 +1338,16 @@ export const CRED_FORM_LOGIN_DATA = [
         name: 'email',
         label: 'Email',
         value: null,
-        placeholder: 'Ex: john.doe@gmail.com',
         colspan: eGridSpan.HALF,
-        icon: 'alternate_email',
-        autocompleteLabel: 'username',
         validators: {
             required: true,
             email: true,
             maxLength: 254,
+        },
+        attr: {
+            placeholder: 'Ex: john.doe@gmail.com',
+            icon: 'alternate_email',
+            autocompleteLabel: 'username',
         }
     },
     {
@@ -1348,11 +1356,13 @@ export const CRED_FORM_LOGIN_DATA = [
         label: 'Password',
         value: null,
         colspan: eGridSpan.HALF,
-        autocompleteLabel: 'current-password',
         validators: {
             required: true,
             minLength: 8,//TODO Robust password with custom validation
-        }
+        },
+        attr: {
+            autocompleteLabel: 'current-password',
+        },
     },
     // {
     //     type: "checkbox",
@@ -1370,15 +1380,17 @@ export const CRED_FORM_SIGNUP_DATA = [
         name: 'email',
         label: 'Email',
         value: null,
-        placeholder: 'Ex: john.doe@gmail.com',
         colspan: eGridSpan.HALF,
-        icon: 'alternate_email',
-        autocompleteLabel: 'username',
         validators: {
             required: true,
             email: true,
             maxLength: 254,
-        }
+        },
+        attr: {
+            placeholder: 'Ex: john.doe@gmail.com',
+            icon: 'alternate_email',
+            autocompleteLabel: 'username',
+        },
     },
     {
         type: "password",
@@ -1386,24 +1398,28 @@ export const CRED_FORM_SIGNUP_DATA = [
         label: 'Password',
         value: null,
         colspan: eGridSpan.HALF,
-        autocompleteLabel: 'new-password',
         validators: {
             required: true,
             minLength: 8,//TODO Robust password with custom validation
-        }
+        },
+        attr: {
+            autocompleteLabel: 'new-password',
+        },
     },
     {
         type: "text",
         name: 'name',
         label: 'Name (Optional)',
-        autocompleteLabel: 'name',
         value: null,
-        placeholder: 'John Doe',
-        icon: 'account_circle',
         colspan: eGridSpan.HALF,
         validators: {
             maxLength: 100, //TODO Change to enum
-        }
+        },
+         attr: {
+            placeholder: 'John Doe',
+            icon: 'account_circle',
+            autocompleteLabel: 'name',
+        },
     },
     createPlaceholderFormField(eGridSpan.HALF),
 ] as FormControlModel[];

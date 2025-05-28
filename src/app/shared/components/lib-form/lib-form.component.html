@@ -4,8 +4,8 @@
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [type]="field.type" [formControl]="getFormControl(field.name)"
-            [maxLength]="field.validators?.maxLength??512" [placeholder]="field.placeholder"
-            [autocomplete]="field.autocompleteLabel" />
+            [maxLength]="field.validators?.maxLength??512" [placeholder]="field.attr.placeholder"
+            [autocomplete]="field.attr.autocompleteLabel" />
         @if(field.icon){
         <mat-icon matSuffix>{{field.icon}}</mat-icon>
         }
@@ -19,8 +19,9 @@
     }@else if(field.type == 'password'){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
+        <!-- TODO remove 512 hardcoding -->
         <input matInput [type]="hide() ? 'password' : 'text'" [formControl]="getFormControl(field.name)"
-            [maxLength]="field.validators?.maxLength??512" [autocomplete]="field.autocompleteLabel" />
+            [maxLength]="field.validators?.maxLength??512" [autocomplete]="field.attr.autocompleteLabel" />
         <button mat-icon-button matSuffix (click)="hide.set(!hide())" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide()" [disabled]="!editMode()">
             <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
@@ -32,8 +33,8 @@
         <mat-label>{{ field.label }}</mat-label>
         <!-- TODO replace length enums -->
         <textarea matInput [type]="field.type" [formControl]="getFormControl(field.name)"
-            [maxLength]="field.validators?.maxLength??512" [placeholder]="field.placeholder"
-            [rows]="field.rows"></textarea>
+            [maxLength]="field.validators?.maxLength??512" [placeholder]="field.attr.placeholder"
+            [rows]="field.attr.rows"></textarea>
         @if(field.validators?.maxLength){
         <mat-hint align="end">{{ getFieldLength(field.name) }}/{{
             field.validators?.maxLength
@@ -46,7 +47,7 @@
     <!-- TODO Move 512 to lengthEnum -->
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
-        <input matInput [type]="field.type" [formControl]="getFormControl(field.name)" [placeholder]="field.placeholder"
+        <input matInput [type]="field.type" [formControl]="getFormControl(field.name)" [placeholder]="field.attr.placeholder"
             [maxLength]="field.validators?.maxLength??512" [max]="field.validators?.max"
             [min]="field.validators?.min" />
         @if(field.validators?.maxLength){
@@ -72,7 +73,7 @@
     <div class="field-width slider" [style.flex]="field.colspan">
         <div class="slider-label">{{ field.label }} (<span class="slider-value">{{getFormControl(field.name).value}}&deg;</span>)
         </div>
-        <mat-slider [max]="field.validators?.max" [min]="field.validators?.min" [step]="field.step" discrete>
+        <mat-slider [max]="field.attr.max" [min]="field.attr.min" [step]="field.attr.step" discrete>
             <input matSliderThumb [value]="field.value" [formControl]="getFormControl(field.name)">
         </mat-slider>
     </div>
@@ -81,7 +82,7 @@
         <mat-label>{{ field.label }}</mat-label>
         <mat-select [formControl]="getFormControl(field.name)" [value]="field.value">
             <!-- (selectionChange)="onSelect(field.name,$event.value)"> -->
-            @for (option of formService.getSeriesOptions(field); track option.value) {
+            @for (option of formService.getSeriesOptions(field.optionProperties); track option.value) {
             <mat-option [value]="option.value" [class.recommended]="option.recommended"><span>{{ option.name
                     }}</span></mat-option>
             }
@@ -130,7 +131,7 @@
     @else if(field.type == 'athan'){
     <tap-athan-form-field [control]="field" [editMode]="editMode()" [style.flex]="field.colspan"></tap-athan-form-field>
     }
-    @else if(field.type == 'flag'){
+    @else if(field.type == 'input-toggle'){
     <!-- TODO Fix this Remove inputToggle Reference and fg-->
     <tap-input-toggle-form-field #inputToggle [control]="field" [formGroupName]="formGroupName||''"
         [style.flex]="field.colspan"></tap-input-toggle-form-field>

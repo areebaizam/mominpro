@@ -1,22 +1,7 @@
 import { inject, Injectable } from "@angular/core";
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators
-} from "@angular/forms";
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 //Models
-import {
-  ControlType,
-  FormControlModel,
-  InputType,
-  SelectOptionModel,
-  SeriesModel,
-  ValidatorModel,
-} from "@shared/models";
+import { ControlType, FormControlModel, InputType, SelectOptionModel, SeriesOptionProperties, ValidatorModel } from "@shared/models";
 
 @Injectable({ providedIn: "root", })
 
@@ -24,24 +9,24 @@ export class FormService {
   fb = inject(FormBuilder);
   options: SelectOptionModel[] = [];
 
-  getSeriesOptions(field: SeriesModel): SelectOptionModel[] {
+  getSeriesOptions(props: SeriesOptionProperties): SelectOptionModel[] {
     this.options = [];
-    let min = field.validators?.min;
-    let max = field.validators?.max;
+    let min = props.min;
+    let max = props.max;
     let suffix = '';
 
     if ((min || min == 0) && (max || max == 0)) {
       for (let i = min; i <= max; i++) {
         if (min < 0)
           suffix = i < 0 ? 'early' : 'late';
-        let label = `${Math.abs(i)} ${field.suffix} ${suffix}`;
+        let label = `${Math.abs(i)} ${props.suffix} ${suffix}`;
         let recommended: boolean = false;
-        if (!i) label = field.baseLabel;
-        else if (i * i == 1) label = `${Math.abs(i)} ${field.suffixUnit} ${suffix}`;
+        if (!i) label = props.baseLabel;
+        else if (i * i == 1) label = `${Math.abs(i)} ${props.suffixUnit} ${suffix}`;
 
         if (
-          (field.recommendedValue || field.recommendedValue == 0) &&
-          i == field.recommendedValue
+          (props.recommended || props.recommended == 0) &&
+          i == props.recommended
         ) {
           recommended = true;
           label = `${label} (Recommended)`;
@@ -61,7 +46,7 @@ export class FormService {
     let form = this.fb.group({});
     formFields.forEach((control: FormControlModel) => {
       // Placeholder is not added in Form Control
-      if (control.type == "placeholder") 
+      if (control.type == "placeholder")
         return;
 
       const newControl = new FormControl(

@@ -2,10 +2,14 @@
 
 export type alphanumericbool = string | number | boolean | Date;
 export type InputType = 'color' | 'email' | 'month' | 'search' | 'tel' | 'text' | 'url' | 'week';
-export type CustomType = 'iqamah' | 'athan' | 'flag';
+export type CustomType = 'iqamah' | 'athan' | 'input-toggle';
+export type InputToggleType = 'series' | 'time';
 export type AthanType = 'iqamah' | 'salah';
+export type FormControlModel = InputModel | PasswordModel | TextAreaModel | SelectModel | SliderModel | NumberModel
+    | SeriesModel | ToggleModel | IqamahModel | AthanModel | InputToggleModel | TimeModel | DatePickerModel | PlaceholderModel
+    | CheckboxModel | RadioModel;
 export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder' | 'hidden' | 'password' | 'checkbox' | 'radio';
-export type ControlValue = alphanumericbool | ControlTypeValue | AthanTypeValue | InputToggle;
+export type ControlValue = alphanumericbool | InputToggleValue | ControlTypeValue | AthanTypeValue;
 export enum eGridSpan {
     FULL = '1 1 calc(100% - 1.25rem)',
     HALF = '1 1 calc(50% - 1.25rem)',
@@ -21,10 +25,9 @@ export class AthanTypeValue {
     constructor(public type: AthanType, public value: alphanumericbool | null) { }
 }
 
-export class InputToggle {
+export class InputToggleValue {
     constructor(public checked: boolean | null, public value: alphanumericbool | null,) { }
 }
-
 
 export interface ValidatorModel {
     required?: boolean;
@@ -38,69 +41,98 @@ export interface ValidatorModel {
     matTimepickerMin?: string;
     matTimepickerMax?: string;
     matTimepickerParse?: boolean;
-
 }
 
 export interface BaseFormControlModel {
+    type: ControlType;
     name: string;
+    colspan: eGridSpan;
     label: string;
     value: ControlValue | null;
-    colspan: eGridSpan;
     validators: ValidatorModel | null;
-    type: ControlType;
+}
+
+//Placeholder
+export interface PlaceholderModel extends BaseFormControlModel {
+    type: 'placeholder',
 }
 //Input
+export interface InputAttributes {
+    placeholder: string;
+    autocompleteLabel?: string;
+}
 export interface InputModel extends BaseFormControlModel {
     type: InputType;
-    placeholder: string;
     icon?: string;
-    autocompleteLabel?: string;
+    attr: InputAttributes;
+}
+//Password
+export interface PasswordAttributes {
+    autocompleteLabel: string;
 }
 export interface PasswordModel extends BaseFormControlModel {
     type: 'password';
-    autocompleteLabel: string;
+    attr: PasswordAttributes;
 }
 //TextArea
-export interface TextAreaModel extends BaseFormControlModel {
-    type: 'textarea';
+export interface TextAreaAttributes {
     placeholder: string;
     rows: number;
 }
+export interface TextAreaModel extends BaseFormControlModel {
+    type: 'textarea';
+    attr: TextAreaAttributes;
+}
+
 //Date
 export interface DatePickerModel extends BaseFormControlModel {
     type: 'date';
     hint: string;
 }
 //Slider
-export interface SliderModel extends BaseFormControlModel {
-    type: 'slider';
+export interface SliderAttributes {
+    min: number;
+    max: number;
     step: number;
 }
-//Select
-export interface SelectModel extends BaseFormControlModel {
-    type: 'select';
-    options: SelectOptionModel[];
+export interface SliderModel extends BaseFormControlModel {
+    type: 'slider';
+    attr: SliderAttributes;
 }
-//Option
+//Select
 export interface SelectOptionModel {
     value: alphanumericbool | null;
     name: string;
     recommended: boolean;
 }
+export interface SelectModel extends BaseFormControlModel {
+    type: 'select';
+    options: SelectOptionModel[];
+}
+
 //Number Model
+export interface NumberAttributes {
+    placeholder: string;
+}
 export interface NumberModel extends BaseFormControlModel {
     type: 'number',
-    placeholder: string;
+    attr: NumberAttributes;
     suffix: string,
     step: number;
 }
 //Series
-export interface SeriesModel extends BaseFormControlModel {
-    type: 'series',
+export interface SeriesOptionProperties {
+    min: number,
+    max: number,
     suffix: string,
     suffixUnit: string,
     baseLabel: string,
-    recommendedValue: alphanumericbool | null,
+    recommended: alphanumericbool | null,
+}
+export interface SeriesModel extends BaseFormControlModel {
+    type: 'series',
+    optionProperties: SeriesOptionProperties;
+
 }
 //Toggle
 export interface ToggleModel extends BaseFormControlModel {
@@ -117,19 +149,9 @@ export interface RadioModel extends BaseFormControlModel {
 export interface TimeModel extends BaseFormControlModel {
     type: 'time',
 }
-//Empty
-export interface PlaceholderModel extends BaseFormControlModel {
-    type: 'placeholder',
-}
-//Empty
-export interface HiddenModel extends BaseFormControlModel {
-    type: 'hidden',
-}
-
 
 export interface ControlTypeValueModel extends BaseFormControlModel {
     value: ControlTypeValue,
-
 }
 //Iqamah
 export interface IqamahModel extends BaseFormControlModel {
@@ -144,11 +166,12 @@ export interface AthanModel extends BaseFormControlModel {
     options: AthanControlTypeValueOptions[];
 }
 
-export interface FlagModel extends BaseFormControlModel {
-    type: 'flag',
+export interface InputToggleModel extends BaseFormControlModel {
+    type: 'input-toggle',
     typeLabel: string,
-    value: InputToggle;
-    series: SeriesModel;
+    inputType: InputToggleType,
+    value: InputToggleValue;
+    props?: SeriesOptionProperties;
 }
 
 export interface ControlTypeValueOptions {
@@ -168,9 +191,7 @@ export interface AthanControlTypeValueOptions {
     subtype: AthanType;
 }
 
-export type FormControlModel = InputModel | PasswordModel | TextAreaModel | SelectModel | SliderModel | NumberModel
-    | SeriesModel | ToggleModel | IqamahModel | AthanModel | FlagModel | TimeModel | DatePickerModel | PlaceholderModel
-    | HiddenModel | CheckboxModel | RadioModel;
+
 
 export interface ReactiveForm {
     name: string;

@@ -48,7 +48,7 @@ export class IqamahFormField extends BaseFormField<ControlTypeValue> implements 
 
   ngOnInit() {
     let seriesField = this.control.options.find(o => o.type === 'series')?.control as SeriesModel;
-    this.options = this.formService.getSeriesOptions(seriesField);
+    this.options = this.formService.getSeriesOptions(seriesField.optionProperties);
     this.form.setValue(this.control.value);
     this.valueControl.setValidators(this.formService.getValidators(this.control.validators));
 
