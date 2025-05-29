@@ -12,7 +12,7 @@ import { FormService } from '@shared/services';
 //Models
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { alphanumericbool, AthanModel, AthanType, AthanTypeValue, SelectOptionModel, SeriesModel } from '@shared/models';
-import { BaseFormField } from '../base-form-field';
+import { BaseFormFieldOld } from '../base-form-field-old';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule, MatFormFieldModule];
 const materialModules = [MatInputModule, MatSelectModule, MatRadioModule, MatIconModule];
@@ -30,7 +30,7 @@ const materialModules = [MatInputModule, MatSelectModule, MatRadioModule, MatIco
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AthanFormField extends BaseFormField<AthanTypeValue> implements OnInit, OnDestroy {
+export class AthanFormField extends BaseFormFieldOld<AthanTypeValue> implements OnInit, OnDestroy {
   //Input
   @Input({ required: true }) control!: AthanModel;
   @Input() editMode: boolean | undefined = true;

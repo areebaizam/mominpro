@@ -14,6 +14,7 @@
     @else if(control.inputType == 'time') {
     <mat-form-field class="form-field-value flex-grow " aria-label="Select time">
         <mat-label>{{ control.label }}</mat-label>
+        <!-- TODO Fix this -->
         <input matInput #valueInput [formControl]="valueControl" [value]="control.value.value" [matTimepicker]="picker"
             class="time-input" readonly [matTimepickerMin]="'11:00'" [matTimepickerMax]="'12:50'" readonly>
         <mat-timepicker-toggle matIconSuffix [for]="picker" [disabled]="valueControl.disabled" />

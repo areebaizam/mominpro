@@ -7,7 +7,7 @@ import { Subject } from "rxjs";
 @Directive({
   standalone: false
 })
-export abstract class BaseFormField<T> implements ControlValueAccessor, MatFormFieldControl<T> {
+export abstract class BaseFormFieldOld<T> implements ControlValueAccessor, MatFormFieldControl<T> {
 
   parentContainer = inject(ControlContainer);
   get parentFormGroup() {
@@ -30,7 +30,7 @@ export abstract class BaseFormField<T> implements ControlValueAccessor, MatFormF
   static nextId = 0;
   readonly _value = model<T | null>(null, { alias: 'value' });
   readonly stateChanges = new Subject<void>();
-  readonly id = `base-form-field-${BaseFormField.nextId++}`;
+  readonly id = `base-form-field-${BaseFormFieldOld.nextId++}`;
   readonly _placeholder = input<string>('', { alias: 'placeholder' });
   ngControl = inject(NgControl, { optional: true, self: true });
   private readonly _focused = signal(false);

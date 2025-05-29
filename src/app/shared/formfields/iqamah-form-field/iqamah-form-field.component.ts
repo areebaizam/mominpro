@@ -14,7 +14,7 @@ import { FormService } from '@shared/services';
 //Models
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { alphanumericbool, ControlType, ControlTypeValue, IqamahModel, SelectOptionModel, SeriesModel } from '@shared/models';
-import { BaseFormField } from '../base-form-field';
+import { BaseFormFieldOld } from '../base-form-field-old';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule, MatFormFieldModule];
 const materialModules = [MatInputModule, MatSelectModule, MatTimepickerModule, MatRadioModule];
@@ -32,7 +32,7 @@ const materialModules = [MatInputModule, MatSelectModule, MatTimepickerModule, M
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IqamahFormField extends BaseFormField<ControlTypeValue> implements OnInit, OnDestroy {
+export class IqamahFormField extends BaseFormFieldOld<ControlTypeValue> implements OnInit, OnDestroy {
   //Input
   @Input({ required: true }) control!: IqamahModel;
   @Input() editMode: boolean | undefined = true;

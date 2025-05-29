@@ -15,6 +15,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import { FormService } from '@shared/services';
 //Models
 import { alphanumericbool, InputToggleModel, InputToggleValue, SelectOptionModel } from '@shared/models';
+import { BaseFormFieldComponent } from '../base-form-field/base-form-field.component';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule];
 const materialModules = [MatSelectModule, MatSlideToggleModule, MatTimepickerModule, MatInputModule];
@@ -28,16 +29,16 @@ const materialModules = [MatSelectModule, MatSlideToggleModule, MatTimepickerMod
   providers: [
     { provide: MatFormFieldControl, useExisting: InputToggleFormField },
   ],
-  viewProviders: [
+   viewProviders: [
     {
       provide: ControlContainer,
       useFactory: () => inject(ControlContainer, { skipSelf: true }),
     },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 
-export class InputToggleFormField implements ControlValueAccessor, MatFormFieldControl<InputToggleValue>, OnInit, OnDestroy {
+export class InputToggleFormField extends BaseFormFieldComponent<InputToggleValue> implements OnInit {
   @Input({ required: true }) control!: InputToggleModel;
   @Input({ required: true }) formGroupName!: string;
 
@@ -46,10 +47,11 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
   get parentFormGroup(): FormGroup | null {
     return this.parentContainer.control as FormGroup ?? null;
   }
-  readonly form = new FormGroup({
+  
+
+  override readonly form = new FormGroup({
     checked: new FormControl<boolean | null>(false),
     value: new FormControl<alphanumericbool | null>(null, Validators.required),
-
   })
 
 
@@ -64,7 +66,7 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
   private readonly formService = inject(FormService);
   //Variables
   options: SelectOptionModel[] = [];
- //TODO move to utility
+  //TODO move to utility
   // getMinTimeValue(): string {
   //   let min = this.control.data.validators?.matTimepickerMin;
   //   return !!min ? min : '00:00';
@@ -78,100 +80,9 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
   readonly toggleInput = viewChild.required<HTMLInputElement>('toggle');
   readonly valueInput = viewChild.required<HTMLInputElement>('value');
 
-  static nextId = 0;
-  ngControl = inject(NgControl, { optional: true, self: true });
-  readonly stateChanges = new Subject<void>();
-  readonly touched = signal(false);
-  readonly controlType = 'tap-input-toggle-form-field';
-  readonly id = `tap-input-toggle-form-field-${InputToggleFormField.nextId++}`;
-  readonly _userAriaDescribedBy = input<string>('', { alias: 'aria-describedby' });
-  readonly _placeholder = input<string>('', { alias: 'placeholder' });
-  readonly _required = input<boolean, unknown>(false, { alias: 'required', transform: booleanAttribute, });
-  readonly _disabledByInput = input<boolean, unknown>(false, { alias: 'disabled', transform: booleanAttribute, });
-  readonly _value = model<InputToggleValue | null>(null, { alias: 'value' });
-
-  onChange = (_: any) => { };
-  onTouched = () => { };
-
-  protected readonly _formField = inject(MAT_FORM_FIELD, { optional: true, });
-
-  private readonly _focused = signal(false);
-  private readonly _disabledByCva = signal(false);
-  private readonly _disabled = computed(() => this._disabledByInput() || this._disabledByCva());
-  private readonly _focusMonitor = inject(FocusMonitor);
-  private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-
-  get focused(): boolean {
-    return this._focused();
-  }
-
-  get shouldLabelFloat() {
-    return this.focused || !this.empty;
-  }
-
-  get userAriaDescribedBy() {
-    return this._userAriaDescribedBy();
-  }
-
-  get placeholder(): string {
-    return this._placeholder();
-  }
-
-  get required(): boolean {
-    return this._required();
-  }
-
-  get disabled(): boolean {
-    return this._disabled();
-  }
-
-  get value(): InputToggleValue | null {
-    return this._value();
-  }
-
-  get empty() {
-    const { value: { checked, value }, } = this.form;
-    return checked == null && !value;
-  }
-
-  get errorState(): boolean {
-    return this.form.invalid && this.touched();
-  }
 
   constructor() {
-    if (this.ngControl != null) {
-      this.ngControl.valueAccessor = this;
-    }
-
-    effect(() => {
-      // Read signals to trigger effect.
-      this._placeholder();
-      this._required();
-      this._disabled();
-      this._focused();
-      // Propagate state changes.
-      untracked(() => this.stateChanges.next());
-    });
-
-    effect(() => {
-      if (this._disabled()) {
-        untracked(() => this.form.disable());
-      } else {
-        untracked(() => this.form.enable());
-      }
-    });
-
-    effect(() => {
-      const value = this._value();
-      if (value) {
-        untracked(() => this.form.setValue(value));
-      }
-    });
-
-    this.form.statusChanges.pipe(takeUntilDestroyed()).subscribe(() => {
-      this.stateChanges.next();
-    });
-
+    super();
     this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe(value => {
       const inputToggleValue = new InputToggleValue(
         this.form.value.checked || this.control.value.checked,
@@ -204,36 +115,15 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
     return this.formService.getValidationError(this.valueControl, this.control.label);
   }
 
-  ngOnDestroy() {
-    this.stateChanges.complete();
-    this._focusMonitor.stopMonitoring(this._elementRef);
-  }
-
   canSubmit(): boolean {
     this.form.markAllAsTouched();
     this.form.updateValueAndValidity();
     return this.form.valid;
   }
 
-  onFocusIn() {
-    if (!this._focused()) {
-      this._focused.set(true);
-    }
-  }
-
-  onFocusOut(event: FocusEvent) {
-    if (!this._elementRef.nativeElement.contains(event.relatedTarget as Element)) {
-      this.touched.set(true);
-      this._focused.set(false);
-      this.onTouched();
-    }
-  }
-
-  setDescribedByIds(ids: string[]) {
-    const controlElement = this._elementRef.nativeElement.querySelector(
-      '.tap-input-toggle-form-field-container',
-    )!;
-    controlElement.setAttribute('aria-describedby', ids.join(' '));
+  protected override isEmptyValue(): boolean {
+    const { value: { checked, value }, } = this.form;
+    return checked == null && !value;
   }
 
   onContainerClick() {
@@ -241,24 +131,14 @@ export class InputToggleFormField implements ControlValueAccessor, MatFormFieldC
     this._focusMonitor.focusVia(this.valueInput(), 'program');
   }
 
-  writeValue(value: InputToggleValue | null): void {
-    this._updateValue(value);
+  setDescribedByIds(ids: string[]) {
+    const controlElement = this._elementRef.nativeElement.querySelector(
+      '.tap-base-form-field-container',
+    )!;
+    controlElement.setAttribute('aria-describedby', ids.join(' '));
   }
 
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this._disabledByCva.set(isDisabled);
-  }
-
-  private _updateValue(value: InputToggleValue | null) {
-    // console.log('_updateValue',this.form.value,value,this._value());
+  protected override _updateValue(value: InputToggleValue | null) {
     const current = this._value();
     if (
       value === current ||
