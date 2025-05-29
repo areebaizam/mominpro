@@ -1,6 +1,6 @@
 <div class="form-container">
     @for(field of formFields; track field){
-    @if(field.type == formService.isInputType(field.type)){
+    @if(field.type == formService.getInputType(field.type)){
     <mat-form-field class="field-width" [style.flex]="field.colspan">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [type]="field.type" [formControl]="getFormControl(field.name)"
@@ -133,7 +133,7 @@
     }
     @else if(field.type == 'input-toggle'){
     <!-- TODO Fix this Remove inputToggle Reference and fg-->
-    <tap-input-toggle-form-field #inputToggle [control]="field" [formGroupName]="formGroupName||''"
+    <tap-input-toggle-form-field [control]="field" [formGroupName]="formGroupName||''"
         [style.flex]="field.colspan"></tap-input-toggle-form-field>
     }
     }

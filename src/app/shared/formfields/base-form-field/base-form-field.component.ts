@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, input, model, signal, untracked } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, Input, input, model, signal, untracked } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlContainer, ControlValueAccessor, FormGroup, NgControl } from '@angular/forms';
 import { MAT_FORM_FIELD, MatFormFieldControl } from '@angular/material/form-field';
@@ -12,6 +12,8 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export abstract class BaseFormFieldComponent<T> implements ControlValueAccessor, MatFormFieldControl<T> {
+  @Input() formGroupName?: string;
+  
   static nextId = 0;
   readonly controlType = 'tap-base-form-field';
   readonly id = `tap-base-form-field-${BaseFormFieldComponent.nextId++}`;
@@ -104,7 +106,7 @@ export abstract class BaseFormFieldComponent<T> implements ControlValueAccessor,
       this._focused.set(false);
       this.onTouched();
     }
-  } 
+  }
 
   constructor() {
     if (this.ngControl != null) {

@@ -29,7 +29,7 @@ const materialModules = [MatSelectModule, MatSlideToggleModule, MatTimepickerMod
   providers: [
     { provide: MatFormFieldControl, useExisting: InputToggleFormField },
   ],
-   viewProviders: [
+  viewProviders: [
     {
       provide: ControlContainer,
       useFactory: () => inject(ControlContainer, { skipSelf: true }),
@@ -40,14 +40,12 @@ const materialModules = [MatSelectModule, MatSlideToggleModule, MatTimepickerMod
 
 export class InputToggleFormField extends BaseFormFieldComponent<InputToggleValue> implements OnInit {
   @Input({ required: true }) control!: InputToggleModel;
-  @Input({ required: true }) formGroupName!: string;
 
   parentContainer = inject(ControlContainer);
 
   get parentFormGroup(): FormGroup | null {
     return this.parentContainer.control as FormGroup ?? null;
   }
-  
 
   override readonly form = new FormGroup({
     checked: new FormControl<boolean | null>(false),
@@ -106,9 +104,8 @@ export class InputToggleFormField extends BaseFormFieldComponent<InputToggleValu
     if (!!seriesProperties) {
       this.options = this.formService.getSeriesOptions(seriesProperties);
     }
-    //TODO FIX This , pass the control from the parent form group
-    (this.parentFormGroup?.get(this.formGroupName) as FormGroup).removeControl(this.control.name);
-    (this.parentFormGroup?.get(this.formGroupName) as FormGroup).addControl(this.control.name, this.form);
+    if (this.parentFormGroup && this.formGroupName)
+      (this.parentFormGroup?.get(this.formGroupName) as FormGroup).addControl(this.control.name, this.form);
   }
 
   getValidationError(): string {

@@ -1,8 +1,10 @@
 
 
 export type alphanumericbool = string | number | boolean | Date;
-export type InputType = 'color' | 'email' | 'month' | 'search' | 'tel' | 'text' | 'url' | 'week';
-export type CustomType = 'iqamah' | 'athan' | 'input-toggle';
+export const INPUT_TYPES = ['color', 'email', 'month', 'search', 'tel', 'text', 'url', 'week'] as const;
+export type InputType = typeof INPUT_TYPES[number];
+export const CUSTOM_TYPES = ['iqamah', 'athan', 'input-toggle'] as const;
+export type CustomType = typeof CUSTOM_TYPES[number];
 export type InputToggleType = 'series' | 'time';
 export type AthanType = 'iqamah' | 'salah';
 export type FormControlModel = InputModel | PasswordModel | TextAreaModel | SelectModel | SliderModel | NumberModel

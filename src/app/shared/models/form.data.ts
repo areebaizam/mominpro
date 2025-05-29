@@ -323,7 +323,7 @@ export const PREFERENCES_FORM_HIJRI_DATA = [
         inputType: 'time',
         name: 'daytime',
         label: 'Days Time',
-        value: { checked: false, value: new Date('Tue May 27 2025 10:30:00 GMT-0700 (Pacific Daylight Time)') },
+        value: { checked: true, value: new Date('Tue May 27 2025 10:30:00 GMT-0700 (Pacific Daylight Time)') },
         colspan: eGridSpan.HALF,
         validators: {
             matTimepickerMin: '11:00',

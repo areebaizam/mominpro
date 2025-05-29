@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 //Models
-import { ControlType, FormControlModel, InputType, SelectOptionModel, SeriesOptionProperties, ValidatorModel } from "@shared/models";
+import { ControlType, CUSTOM_TYPES, FormControlModel, INPUT_TYPES, InputType, SelectOptionModel, SeriesOptionProperties, ValidatorModel } from "@shared/models";
 
 @Injectable({ providedIn: "root", })
 
@@ -46,9 +46,9 @@ export class FormService {
     let form = this.fb.group({});
     formFields.forEach((control: FormControlModel) => {
       // Placeholder is not added in Form Control
-      if (control.type == "placeholder")
+      //Custom ype is not added in Form Control
+      if (control.type == "placeholder" || this.isCustomType(control.type))
         return;
-
       const newControl = new FormControl(
         control.value,
         this.getValidators(control.validators)
@@ -77,19 +77,16 @@ export class FormService {
     return validatorFn;
   }
 
-  isInputType(type: ControlType): InputType | null {
-    let isInputType = [
-      "color",
-      "email",
-      "month",
-      "number",
-      "search",
-      "tel",
-      "text",
-      "url",
-      "week",
-    ].includes(type);
-    return isInputType ? (type as InputType) : null;
+  isInputType(type: ControlType): type is InputType {
+    return (INPUT_TYPES as readonly string[]).includes(type);
+  }
+
+  getInputType(type: ControlType): InputType | null {
+    return this.isInputType(type) ? type : null;
+  }
+
+  isCustomType(type: ControlType): boolean {
+    return (CUSTOM_TYPES as readonly string[]).includes(type);
   }
 
   getValidationError(control: AbstractControl | null, fieldName: string): string {
