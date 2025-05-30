@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, Input, OnDestroy, OnInit, QueryList, signal, ViewChildren } from '@angular/core';
+import { Component, effect, inject, input, Input, OnDestroy, OnInit, signal } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 //Material
@@ -55,6 +55,17 @@ export class LibFormComponent implements OnInit, OnDestroy {
     return this.parentContainer.control as FormGroup ?? null;
   }
 
+  get canSubmit(): boolean {
+    if (this.parentFormGroup && this.formGroupName) {
+      this.parentFormGroup.markAllAsTouched(),
+        this.parentFormGroup.updateValueAndValidity();
+      return this.parentFormGroup.valid;
+    }
+    this.form.markAllAsTouched();
+    this.form.updateValueAndValidity();
+    return this.form.valid;
+  }
+
   constructor() {
     effect(() => {
       if (this.editMode()) {
@@ -88,12 +99,6 @@ export class LibFormComponent implements OnInit, OnDestroy {
 
   getValidationError(field: FormControlModel): string {
     return this.formService.getValidationError(this.form.get(field.name), field.label);
-  }
-
-  canSubmit(): boolean {
-    this.form.markAllAsTouched();
-    this.form.updateValueAndValidity();
-    return this.form.valid;
   }
 
   closeIfDisabled(picker: MatTimepicker<any>) {

@@ -1,5 +1,5 @@
-import { Component, computed, inject, signal, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { Component, inject, signal, viewChild } from "@angular/core";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 //Materials
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
@@ -21,7 +21,7 @@ const formModules = [FormsModule, ReactiveFormsModule];
   styleUrl: './page-login.component.scss'
 })
 export class PageLoginComponent {
-  @ViewChild(LibFormComponent) libForm: LibFormComponent | undefined;
+  readonly libForm = viewChild.required(LibFormComponent);
 
   //Services
   private route = inject(ActivatedRoute);
@@ -37,11 +37,11 @@ export class PageLoginComponent {
 
 
   onActionBtnClicked() {
-    if (this.libForm?.canSubmit()) {
+    if (this.libForm().canSubmit) {
       this.editMode.set(false);
       //Login
       if (this.activeTabIndex() === 0) {
-        this.authService.login(this.libForm?.form.value).subscribe({
+        this.authService.login(this.libForm().form.value).subscribe({
           next: (response) => {
             console.log('auth resp', response);
             // Failure
@@ -49,7 +49,7 @@ export class PageLoginComponent {
               this.editMode.set(true);
               //TODO Move to constants
               this.snackbarService.error("Login Failed. Invalid credentials.", 13500);
-              this.libForm?.form.reset();
+              this.libForm().form.reset();
               return;
             }
 

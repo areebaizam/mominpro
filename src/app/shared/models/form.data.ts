@@ -306,7 +306,7 @@ export const PREFERENCES_FORM_HIJRI_DATA = [
         inputType: 'series',
         name: 'days',
         label: 'Days',
-        value: { checked: false, value: 1 },
+        value: { checked: true, value: null },
         colspan: eGridSpan.HALF,
         props: {
             min: -3,

@@ -1,4 +1,4 @@
-import { Component, Input, input, model, output, QueryList, signal, ViewChildren } from '@angular/core';
+import { Component, Input, output, signal, viewChild } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Components
 import { BtnTabActionComponent, LibFormComponent } from '@shared/components';
@@ -18,15 +18,15 @@ export class TabFormContainer {
   @Input({ required: true }) libFormsData: ReactiveForm[] = [];
   tabFormValue = output<any>();//TODO Typecast it <T>
 
-  //Child Components
-  @ViewChildren('libForm') libForms!: QueryList<LibFormComponent>;
+  //Child Component
+  readonly libForm = viewChild.required(LibFormComponent);
 
   //Variables
   tabFormGroup: FormGroup = new FormGroup({});
   editMode = signal<boolean>(true);
 
   canSubmitForms(): boolean {
-    return this.libForms.toArray().every(lib => lib.canSubmit())
+    return this.libForm().canSubmit;
   }
 
   onActionBtnClicked(action: eBtnActionCESType) {
