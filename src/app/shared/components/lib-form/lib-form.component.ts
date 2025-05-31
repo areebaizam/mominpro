@@ -56,11 +56,6 @@ export class LibFormComponent implements OnInit, OnDestroy {
   }
 
   get canSubmit(): boolean {
-    if (this.parentFormGroup && this.formGroupName) {
-      this.parentFormGroup.markAllAsTouched(),
-        this.parentFormGroup.updateValueAndValidity();
-      return this.parentFormGroup.valid;
-    }
     this.form.markAllAsTouched();
     this.form.updateValueAndValidity();
     return this.form.valid;

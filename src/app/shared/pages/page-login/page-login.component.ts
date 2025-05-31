@@ -37,6 +37,7 @@ export class PageLoginComponent {
 
 
   onActionBtnClicked() {
+    //TODO Remove this libform reference
     if (this.libForm().canSubmit) {
       this.editMode.set(false);
       //Login

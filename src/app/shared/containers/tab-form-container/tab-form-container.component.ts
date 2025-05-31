@@ -26,7 +26,9 @@ export class TabFormContainer {
   editMode = signal<boolean>(true);
 
   canSubmitForms(): boolean {
-    return this.libForm().canSubmit;
+    this.tabFormGroup.markAllAsTouched();
+    this.tabFormGroup.updateValueAndValidity();
+    return this.tabFormGroup.valid;
   }
 
   onActionBtnClicked(action: eBtnActionCESType) {

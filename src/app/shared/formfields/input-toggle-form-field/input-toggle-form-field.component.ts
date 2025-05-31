@@ -1,8 +1,7 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, Input, input, model, OnDestroy, OnInit, signal, untracked, viewChild } from '@angular/core';
-import { ControlContainer, ControlValueAccessor, FormControl, FormGroup, FormsModule, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, Input, OnInit, viewChild } from '@angular/core';
+import { ControlContainer, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 //Material
-import { MAT_FORM_FIELD, MatFormFieldControl, } from '@angular/material/form-field';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -10,12 +9,11 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
 
 //RXJS
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Subject } from 'rxjs/internal/Subject';
 // Services
 import { FormService } from '@shared/services';
 //Models
 import { alphanumericbool, InputToggleModel, InputToggleValue, SelectOptionModel } from '@shared/models';
-import { BaseFormFieldComponent } from '../base-form-field/base-form-field.component';
+import { BaseFormFieldComponent } from '../base-form-field.component';
 //Constants
 const formModules = [FormsModule, ReactiveFormsModule];
 const materialModules = [MatSelectModule, MatSlideToggleModule, MatTimepickerModule, MatInputModule];
@@ -110,12 +108,6 @@ export class InputToggleFormField extends BaseFormFieldComponent<InputToggleValu
 
   getValidationError(): string {
     return this.formService.getValidationError(this.valueControl, this.control.label);
-  }
-
-  canSubmit(): boolean {
-    this.form.markAllAsTouched();
-    this.form.updateValueAndValidity();
-    return this.form.valid;
   }
 
   protected override isEmptyValue(): boolean {
