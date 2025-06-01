@@ -1,7 +1,7 @@
 @use '@styles/colors.scss' as colors;
 .mat-toolbar{
     background: colors.$bar-color;
-    --mdc-filled-button-label-text-color:var(--primary);
+    --mat-button-filled-label-text-color:var(--primary);
     --mdc-filled-button-container-color: #{colors.$bar-color}
 }
 .brand {

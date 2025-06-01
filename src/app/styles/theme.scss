@@ -103,12 +103,12 @@ html {
   text-transform: capitalize;
   justify-content: space-between;
   --mat-toolbar-container-text-color: var(--primary);
-  --mdc-icon-button-icon-color: var(--primary);
+  --mat-icon-button-icon-color: var(--primary);
 
 }
 
 .mat-mdc-tab-link {
-  --mat-tab-header-active-label-text-color: var(--primary);
+  --mat-tab-active-label-text-color: var(--primary);
   --mat-tab-header-active-focus-label-text-color: var(--primary);
   --mat-tab-header-active-hover-label-text-color: var(--primary);
   --mat-tab-header-inactive-label-text-color: var(--secondary);
