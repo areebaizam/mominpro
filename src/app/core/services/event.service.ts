@@ -1,5 +1,5 @@
-import { inject, Injectable, OnDestroy } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { inject, Injectable, OnDestroy, DOCUMENT } from '@angular/core';
+
 //RXJS
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
