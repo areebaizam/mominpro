@@ -41,8 +41,7 @@ const customControls = [AthanFormField, IqamahFormField, InputToggleFormField];
   styleUrl: './lib-form.component.scss'
 })
 export class LibFormComponent implements OnInit, OnDestroy {
-
-  @Input() formGroupName?: string;
+  @Input({ required: true }) formGroupName!: string;
   @Input({ required: true }) formFields!: FormControlModel[];
   editMode = input<boolean>(true);
 
@@ -51,14 +50,8 @@ export class LibFormComponent implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});
   hide = signal(true);
 
-  get parentFormGroup(): FormGroup | null {
-    return this.parentContainer.control as FormGroup ?? null;
-  }
-
-  get canSubmit(): boolean {
-    this.form.markAllAsTouched();
-    this.form.updateValueAndValidity();
-    return this.form.valid;
+  get parentFormGroup(): FormGroup {
+    return this.parentContainer.control as FormGroup;
   }
 
   constructor() {
@@ -74,14 +67,13 @@ export class LibFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.form = this.formService.buildformControls(this.formFields);
-    if (this.parentFormGroup && this.formGroupName)
-      this.parentFormGroup.addControl(this.formGroupName, this.form);
+    this.formService.buildformControls(this.form, this.formFields);
+    this.parentFormGroup.addControl(this.formGroupName, this.form);
   }
 
   ngOnDestroy() {
-    if (this.parentFormGroup?.get(this.formGroupName!))
-      this.parentFormGroup.removeControl(this.formGroupName!);
+    if (this.parentFormGroup.get(this.formGroupName))
+      this.parentFormGroup.removeControl(this.formGroupName);
   }
 
   getFormControl(name: string): FormControl {

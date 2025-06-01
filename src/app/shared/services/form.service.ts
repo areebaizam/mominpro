@@ -42,8 +42,7 @@ export class FormService {
     return this.options;
   }
 
-  buildformControls(formFields: FormControlModel[]): FormGroup {
-    let form = this.fb.group({});
+  buildformControls(form: FormGroup, formFields: FormControlModel[]): void {
     formFields.forEach((control: FormControlModel) => {
       // Placeholder is not added in Form Control
       //Custom ype is not added in Form Control
@@ -55,7 +54,7 @@ export class FormService {
       );
       form.addControl(control.name, newControl);
     });
-    return form;
+    return;
   }
 
   getValidators(

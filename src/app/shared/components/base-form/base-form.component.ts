@@ -25,7 +25,8 @@ export class BaseFormComponent {
   form: FormGroup = new FormGroup({});
 
   canSubmitForms(): boolean {
-    return this.libForms.toArray().every(lib => lib.canSubmit)
+    return false;
+    // return this.libForms.toArray().every(lib => lib.canSubmit)
   }
 
   onActionBtnClicked(action: eBtnActionCESType) {

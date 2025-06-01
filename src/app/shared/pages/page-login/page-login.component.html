@@ -3,7 +3,7 @@
     <mat-tab [label]="tab.label">
         <ng-template matTabContent>
             <form [formGroup]="form">
-                <tap-lib-form [formFields]="tab.data" [editMode]="editMode()"></tap-lib-form>
+                <tap-lib-form [formGroupName]="tab.name" [formFields]="tab.data" [editMode]="editMode()"></tap-lib-form>
             </form>
         </ng-template>
     </mat-tab>

@@ -319,7 +319,7 @@ export const PREFERENCES_FORM_HIJRI_DATA = [
     },
     {
         type: "input-toggle",
-        typeLabel: "Show time",
+        typeLabel: "Show",
         inputType: 'time',
         name: 'daytime',
         label: 'Days Time',

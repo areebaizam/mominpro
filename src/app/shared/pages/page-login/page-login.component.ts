@@ -21,7 +21,6 @@ const formModules = [FormsModule, ReactiveFormsModule];
   styleUrl: './page-login.component.scss'
 })
 export class PageLoginComponent {
-  readonly libForm = viewChild.required(LibFormComponent);
 
   //Services
   private route = inject(ActivatedRoute);
@@ -37,12 +36,13 @@ export class PageLoginComponent {
 
 
   onActionBtnClicked() {
-    //TODO Remove this libform reference
-    if (this.libForm().canSubmit) {
+    this.form.markAllAsTouched();
+    this.form.updateValueAndValidity()
+    if (this.form.valid) {
       this.editMode.set(false);
       //Login
       if (this.activeTabIndex() === 0) {
-        this.authService.login(this.libForm().form.value).subscribe({
+        this.authService.login(this.getFormValue()).subscribe({
           next: (response) => {
             console.log('auth resp', response);
             // Failure
@@ -50,7 +50,7 @@ export class PageLoginComponent {
               this.editMode.set(true);
               //TODO Move to constants
               this.snackbarService.error("Login Failed. Invalid credentials.", 13500);
-              this.libForm().form.reset();
+              this.form.reset();
               return;
             }
 
@@ -71,6 +71,11 @@ export class PageLoginComponent {
         );
       }
     }
+  }
+
+  private getFormValue(){
+    let formGroupName = this.tabs[this.activeTabIndex()].name
+    return (this.form.controls[formGroupName] as FormGroup).value
   }
 
 }

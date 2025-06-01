@@ -1,16 +1,13 @@
-import { Component, inject, Input, OnInit, viewChild } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Input, OnInit, viewChild } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 //Material
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTimepickerModule } from '@angular/material/timepicker';
-
 //RXJS
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-// Services
-import { FormService } from '@shared/services';
 //Models
 import { alphanumericbool, InputToggleModel, InputToggleValue, SelectOptionModel } from '@shared/models';
 import { BaseFormFieldComponent } from '../base-form-field.component';
@@ -27,23 +24,12 @@ const materialModules = [MatSelectModule, MatSlideToggleModule, MatTimepickerMod
   providers: [
     { provide: MatFormFieldControl, useExisting: InputToggleFormField },
   ],
-  viewProviders: [
-    {
-      provide: ControlContainer,
-      useFactory: () => inject(ControlContainer, { skipSelf: true }),
-    },
-  ],
+
 
 })
 
 export class InputToggleFormField extends BaseFormFieldComponent<InputToggleValue> implements OnInit {
   @Input({ required: true }) control!: InputToggleModel;
-
-  parentContainer = inject(ControlContainer);
-
-  get parentFormGroup(): FormGroup | null {
-    return this.parentContainer.control as FormGroup ?? null;
-  }
 
   override readonly form = new FormGroup({
     checked: new FormControl<boolean | null>(false),
@@ -52,14 +38,14 @@ export class InputToggleFormField extends BaseFormFieldComponent<InputToggleValu
 
 
   //Form Control Aliases
-  get toggleControl() {
+  get toggleControl(): FormControl<boolean | null> {
     return this.form.get('checked') as FormControl;
   }
-  get valueControl() {
+  get valueControl(): FormControl<alphanumericbool | null> {
     return this.form.get('value') as FormControl;
   }
-  // Services
-  private readonly formService = inject(FormService);
+
+  
   //Variables
   options: SelectOptionModel[] = [];
   //TODO move to utility
@@ -102,8 +88,8 @@ export class InputToggleFormField extends BaseFormFieldComponent<InputToggleValu
     if (!!seriesProperties) {
       this.options = this.formService.getSeriesOptions(seriesProperties);
     }
-    if (this.parentFormGroup && this.formGroupName)
-      (this.parentFormGroup?.get(this.formGroupName) as FormGroup).addControl(this.control.name, this.form);
+    let parentGroup = this.parentFormGroup.get(this.formGroupName) as FormGroup;
+    parentGroup.addControl(this.control.name, this.form);
   }
 
   getValidationError(): string {

@@ -1,19 +1,35 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, Input, input, model, signal, untracked } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, FormGroup, NgControl } from '@angular/forms';
+import { ControlContainer, ControlValueAccessor, FormGroup, NgControl } from '@angular/forms';
 import { MAT_FORM_FIELD, MatFormFieldControl } from '@angular/material/form-field';
+import { FormService } from '@shared/services';
 import { Subject } from 'rxjs';
 
 @Component({
   selector: 'tap-base-form-field',
   imports: [],
   template: ``,
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useFactory: () => inject(ControlContainer, { skipSelf: true }),
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export abstract class BaseFormFieldComponent<T> implements ControlValueAccessor, MatFormFieldControl<T> {
-  @Input() formGroupName?: string;
+  @Input({ required: true }) formGroupName!: string;
+
+  protected readonly parentContainer = inject(ControlContainer, { skipSelf: true });
+
+  get parentFormGroup(): FormGroup {
+    return this.parentContainer.control as FormGroup;
+  }
   
+  // Services
+  protected readonly formService = inject(FormService);
+
   static nextId = 0;
   readonly controlType = 'tap-base-form-field';
   readonly id = `tap-base-form-field-${BaseFormFieldComponent.nextId++}`;

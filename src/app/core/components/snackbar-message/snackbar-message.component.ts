@@ -19,7 +19,6 @@ export class SnackbarMessageComponent {
 
 
   ngOnInit() {
-    console.log("SnackbarMessageComponent data", this.data)
     this.actionLabel = this.data.actionLabel || 'Dismiss';
     const stepsInterval = (this.data.msDuration - this.data.msDelay) / this.progress;
     this.timeoutId = setTimeout(() => {
