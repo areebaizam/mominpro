@@ -3,32 +3,20 @@
 export type alphanumericbool = string | number | boolean | Date;
 export const INPUT_TYPES = ['color', 'email', 'month', 'search', 'tel', 'text', 'url', 'week'] as const;
 export type InputType = typeof INPUT_TYPES[number];
-export const CUSTOM_TYPES = ['iqamah', 'athan', 'input-toggle'] as const;
+export const CUSTOM_TYPES = ['input-toggle', 'option-select'] as const;
 export type CustomType = typeof CUSTOM_TYPES[number];
-export type InputToggleType = 'series' | 'time';
-export type AthanType = 'iqamah' | 'salah';
+export type CustomControlType = 'series' | 'time';
 export type FormControlModel = InputModel | PasswordModel | TextAreaModel | SelectModel | SliderModel | NumberModel
-    | SeriesModel | ToggleModel | IqamahModel | AthanModel | InputToggleModel | TimeModel | DatePickerModel | PlaceholderModel
+    | SeriesModel | ToggleModel | InputToggleModel | OptionSelectModel | TimeModel | DatePickerModel | PlaceholderModel
     | CheckboxModel | RadioModel;
 export type ControlType = InputType | CustomType | 'number' | 'select' | 'textarea' | 'slider' | 'series' | 'toggle' | 'date' | 'time' | 'placeholder' | 'hidden' | 'password' | 'checkbox' | 'radio';
-export type ControlValue = alphanumericbool | InputToggleValue | ControlTypeValue | AthanTypeValue;
+export type ControlValue = alphanumericbool | InputToggleValue | OptionSelectValue;
 export enum eGridSpan {
     FULL = '1 1 calc(100% - 1.25rem)',
     HALF = '1 1 calc(50% - 1.25rem)',
     ONE_THIRD = '1 1 calc(33.33% - 1.25rem)',
     ONE_FOURTH = '1 1 calc(25% - 1.25rem)',
     HIDDEN = '',//TODO Check the value
-}
-
-export class ControlTypeValue {
-    constructor(public type: ControlType, public value: alphanumericbool | null) { }
-}
-export class AthanTypeValue {
-    constructor(public type: AthanType, public value: alphanumericbool | null) { }
-}
-
-export class InputToggleValue {
-    constructor(public checked: boolean | null, public value: alphanumericbool | null,) { }
 }
 
 export interface ValidatorModel {
@@ -148,52 +136,49 @@ export interface RadioModel extends BaseFormControlModel {
     type: 'radio';
 }
 //Time
+export interface TimeAttributes {
+    interval: string;
+    min: string;
+    max: string;
+}
 export interface TimeModel extends BaseFormControlModel {
     type: 'time',
+    attr: TimeAttributes
 }
 
-export interface ControlTypeValueModel extends BaseFormControlModel {
-    value: ControlTypeValue,
-}
-//Iqamah
-export interface IqamahModel extends BaseFormControlModel {
-    type: 'iqamah',
-    value: ControlTypeValue;
-    options: ControlTypeValueOptions[];
-}
-//Athaan
-export interface AthanModel extends BaseFormControlModel {
-    type: 'athan',
-    value: AthanTypeValue;
-    options: AthanControlTypeValueOptions[];
+
+// Custom Form Field : Input Toggle
+export class InputToggleValue {
+    constructor(public checked: boolean | null, public value: alphanumericbool | null) { }
 }
 
 export interface InputToggleModel extends BaseFormControlModel {
     type: 'input-toggle',
-    typeLabel: string,
-    inputType: InputToggleType,
+    toggleLabel: string,
+    inputType: CustomControlType,
     value: InputToggleValue;
     props?: SeriesOptionProperties;
 }
-
-export interface ControlTypeValueOptions {
-    type: ControlType,
-    typeLabel: string,
-    recommended?: boolean,
-    value: ControlTypeValue,
-    control: FormControlModel,
+// Custom Form Field : Option Select
+export interface SelectRadioOptionsModel {
+    value: number | null;//must match the form control name option in the custom form fiels
+    label: string;
+    recommended?: boolean;
 }
-
-export interface AthanControlTypeValueOptions {
-    value: AthanType;
-    type: ControlType,
-    typeLabel: string,
-    recommended?: boolean,
-    control: FormControlModel,
-    subtype: AthanType;
+export interface CustomSelectOptionModel {
+    optionValue: number | null;
+    type: CustomControlType;
+    attr: SeriesOptionProperties | TimeAttributes;
 }
-
-
+export class OptionSelectValue {
+    constructor(public option: number | null, public value: alphanumericbool | null) { }
+}
+export interface OptionSelectModel extends BaseFormControlModel {
+    type: 'option-select',
+    options: SelectRadioOptionsModel[],
+    value: OptionSelectValue;
+    selectOptions: CustomSelectOptionModel[],
+}
 
 export interface ReactiveForm {
     name: string;

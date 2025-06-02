@@ -17,7 +17,7 @@ export const IQAMAH_FORM_SETTINGS_DATA = [
         name: 'startDate',
         label: 'Start date',
         value: new Date(),//TOD FIX Error        
-        colspan: eGridSpan.ONE_THIRD,        
+        colspan: eGridSpan.ONE_THIRD,
         validators: {
             required: true,
         },
@@ -29,237 +29,176 @@ export const IQAMAH_FORM_SETTINGS_DATA = [
 
 export const IQAMAH_FORM_PRAYER_DATA = [
     {
-        type: "iqamah",
+        type: "option-select",
         name: 'fajr',
         label: 'Fajr',
-        value: { type: 'time', value: new Date(0, 0, 0, 4, 0) },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 0, value: new Date(0, 0, 0, 4, 0) },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Fixed', recommended: true }, { value: 1, label: 'Offset', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'time',
-                typeLabel: 'Fixed',
-                recommended: true,
-                control: {
-                    name: 'time',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
-                    validators: {
-                        matTimepickerMin: '02:00',
-                        matTimepickerMax: '10:00',
-                    },
+                attr: {
+                    min: '02:00',
+                    max: '09:00',
+                    interval: '5m',
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Offset',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
+                attr: {
+                    min: 0,
+                    max: 60,
                     suffix: 'minutes after start time',
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
-                    recommendedValue: null,
+                    recommended: null,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "iqamah",
+        type: "option-select",
         name: 'dhur',
         label: 'Dhuhr',
-        value: { type: 'time', value: new Date(0, 0, 0, 12, 0) },
+        value: { option: 0, value: new Date(0, 0, 0, 12, 0) },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        colspan: eGridSpan.ONE_THIRD,
-        options: [
+        options: [{ value: 0, label: 'Fixed', recommended: true }, { value: 1, label: 'Offset', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'time',
-                typeLabel: 'Fixed',
-                recommended: true,
-                control: {
-                    name: 'time',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
-                    validators: {
-                        matTimepickerMin: '11:00',
-                        matTimepickerMax: '16:00',
-                    },
+                attr: {
+                    min: '11:00',
+                    max: '17:00',
+                    interval: '5m',
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Offset',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 60,
-                    },
+                attr: {
+                    min: 0,
+                    max: 60,
                     suffix: 'minutes after start time',
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
-                    recommendedValue: null,
+                    recommended: null,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "iqamah",
+        type: "option-select",
         name: 'asr',
         label: 'Asr',
-        value: { type: 'time', value: new Date(0, 0, 0, 16, 0) },
+        value: { option: 0, value: new Date(0, 0, 0, 16, 0) },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        colspan: eGridSpan.ONE_THIRD,
-        options: [
+        options: [{ value: 0, label: 'Fixed', recommended: true }, { value: 1, label: 'Offset', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'time',
-                typeLabel: 'Fixed',
-                recommended: true,
-                control: {
-                    name: 'time',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
-                    validators: {
-                        matTimepickerMin: '12:00',
-                        matTimepickerMax: '20:00',
-                    },
+                attr: {
+                    min: '12:00',
+                    max: '20:00',
+                    interval: '5m',
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Offset',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 60,
-                    },
+                attr: {
+                    min: 0,
+                    max: 60,
                     suffix: 'minutes after start time',
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
-                    recommendedValue: null,
+                    recommended: null,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "iqamah",
+        type: "option-select",
         name: 'maghrib',
         label: 'Maghrib',
-        value: { type: 'series', value: 0 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 1, value: 5 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Fixed', recommended: true }, { value: 1, label: 'Offset', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'time',
-                typeLabel: 'Fixed',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
-                    validators: {
-                        matTimepickerMin: '14:00',
-                        matTimepickerMax: '22:00',
-                    },
+                attr: {
+                    min: '15:00',
+                    max: '23:00',
+                    interval: '5m',
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Offset',
-                recommended: true,
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 5,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 60,
-                    },
+                attr: {
+                    min: 0,
+                    max: 60,
                     suffix: 'minutes after start time',
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
-                    recommendedValue: null,
+                    recommended: 2,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "iqamah",
+        type: "option-select",
         name: 'isha',
         label: 'Isha',
-        value: { type: 'time', value: new Date(0, 0, 0, 19, 0) },
+        value: { option: 0, value: new Date(0, 0, 0, 19, 0) },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        colspan: eGridSpan.ONE_THIRD,
-        options: [
+        options: [{ value: 0, label: 'Fixed', recommended: true }, { value: 1, label: 'Offset', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'time',
-                typeLabel: 'Fixed',
-                recommended: true,
-                control: {
-                    name: 'time',
-                    label: '',
-                    value: null,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'time',
+                attr: {
+                    min: '00:00',//TODO FIX FOR ISHA
+                    max: '23:59',
+                    interval: '5m',
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Offset',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 60,
-                    },
+                attr: {
+                    min: 0,
+                    max: 60,
                     suffix: 'minutes after start time',
                     suffixUnit: 'minute after start time',
                     baseLabel: 'At start time',
-                    recommendedValue: null,
+                    recommended: null,
                 }
             },
-        ]
+        ],
     },
-    createPlaceholderFormField(eGridSpan.ONE_THIRD),
+    createPlaceholderFormField(eGridSpan.HALF),
 ] as FormControlModel[];
 
 export const IQAMAH_FORM_JUMUAH_DATA = [
@@ -302,7 +241,7 @@ export const IQAMAH_FORM_JUMUAH_DATA = [
 export const PREFERENCES_FORM_HIJRI_DATA = [
     {
         type: "input-toggle",
-        typeLabel: "Show",
+        toggleLabel: "Show",
         inputType: 'series',
         name: 'days',
         label: 'Days',
@@ -319,7 +258,7 @@ export const PREFERENCES_FORM_HIJRI_DATA = [
     },
     {
         type: "input-toggle",
-        typeLabel: "Show",
+        toggleLabel: "Show",
         inputType: 'time',
         name: 'daytime',
         label: 'Days Time',
@@ -336,7 +275,7 @@ export const PREFERENCES_FORM_HIJRI_DATA = [
 export const PREFERENCES_FORM_RAMADAN_DATA = [
     {
         type: "input-toggle",
-        typeLabel: "Enable",
+        toggleLabel: "Enable",
         inputType: 'series',
         name: 'fajr',
         label: 'Fajr',
@@ -353,7 +292,7 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
     },
     {
         type: "input-toggle",
-        typeLabel: "Enable",
+        toggleLabel: "Enable",
         inputType: 'series',
         name: 'maghrib',
         label: 'Maghrib',
@@ -370,7 +309,7 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
     },
     {
         type: "input-toggle",
-        typeLabel: "Enable",
+        toggleLabel: "Enable",
         inputType: 'series',
         name: 'isha',
         label: 'Isha',
@@ -387,7 +326,7 @@ export const PREFERENCES_FORM_RAMADAN_DATA = [
     },
     {
         type: "input-toggle",
-        typeLabel: "Enable",
+        toggleLabel: "Enable",
         inputType: 'series',
         name: 'taraweeh',
         label: 'Taraweeh',
@@ -588,530 +527,380 @@ export const SALAH_FORM_OFFSET_DATA = [
 
 export const ATHAN_FORM_SALAH_DATA = [
     {
-        type: "athan",
+        type: "option-select",
         name: 'fajr',
         label: 'Fajr',
-        value: { type: 'iqamah', value: 10 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 0, value: 10 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Iqamah', recommended: true }, { value: 1, label: 'Salah', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'series',
-                typeLabel: 'Iqamah',
-                subtype: 'iqamah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes before Iqamah',
-                    suffixUnit: 'minute before Iqamah',
-                    baseLabel: 'Soon before Iqamah',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes before Iqamah time',
+                    suffixUnit: 'minute before Iqamah time',
+                    baseLabel: 'At Iqamah time',
+                    recommended: 10,
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Salah',
-                subtype: 'salah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes after salah',
-                    suffixUnit: 'minute after salah',
-                    baseLabel: 'Salah start time',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommended: 20,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "athan",
+        type: "option-select",
         name: 'dhuhr',
         label: 'Dhuhr',
-        value: { type: 'iqamah', value: 10 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 0, value: 10 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Iqamah', recommended: true }, { value: 1, label: 'Salah', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'series',
-                typeLabel: 'Iqamah',
-                subtype: 'iqamah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes before Iqamah',
-                    suffixUnit: 'minute before Iqamah',
-                    baseLabel: 'Soon before Iqamah',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes before Iqamah time',
+                    suffixUnit: 'minute before Iqamah time',
+                    baseLabel: 'At Iqamah time',
+                    recommended: 10,
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Salah',
-                subtype: 'salah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes after salah',
-                    suffixUnit: 'minute after salah',
-                    baseLabel: 'Salah start time',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommended: 30,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "athan",
+        type: "option-select",
         name: 'asr',
         label: 'Asr',
-        value: { type: 'iqamah', value: 10 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 0, value: 10 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Iqamah', recommended: true }, { value: 1, label: 'Salah', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'series',
-                typeLabel: 'Iqamah',
-                subtype: 'iqamah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes before Iqamah',
-                    suffixUnit: 'minute before Iqamah',
-                    baseLabel: 'Soon before Iqamah',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes before Iqamah time',
+                    suffixUnit: 'minute before Iqamah time',
+                    baseLabel: 'At Iqamah time',
+                    recommended: 10,
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Salah',
-                subtype: 'salah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes after salah',
-                    suffixUnit: 'minute after salah',
-                    baseLabel: 'Salah start time',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommended: 30,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "athan",
+        type: "option-select",
         name: 'maghrib',
         label: 'Maghrib',
-        value: { type: 'salah', value: 0 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 1, value: 0 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Iqamah', recommended: true }, { value: 1, label: 'Salah', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'series',
-                typeLabel: 'Iqamah',
-                subtype: 'iqamah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes before Iqamah',
-                    suffixUnit: 'minute before Iqamah',
-                    baseLabel: 'Soon before Iqamah',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes before Iqamah time',
+                    suffixUnit: 'minute before Iqamah time',
+                    baseLabel: 'At Iqamah time',
+                    recommended: 0,
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Salah',
-                subtype: 'salah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes after salah',
-                    suffixUnit: 'minute after salah',
-                    baseLabel: 'Salah start time',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommended: 0,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "athan",
+        type: "option-select",
         name: 'isha',
         label: 'Isha',
-        value: { type: 'iqamah', value: 10 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 0, value: 10 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Iqamah', recommended: true }, { value: 1, label: 'Salah', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'series',
-                typeLabel: 'Iqamah',
-                subtype: 'iqamah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes before Iqamah',
-                    suffixUnit: 'minute before Iqamah',
-                    baseLabel: 'Soon before Iqamah',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes before Iqamah time',
+                    suffixUnit: 'minute before Iqamah time',
+                    baseLabel: 'At Iqamah time',
+                    recommended: 10,
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Salah',
-                subtype: 'salah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes after salah',
-                    suffixUnit: 'minute after salah',
-                    baseLabel: 'Salah start time',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommended: 30,
                 }
             },
-        ]
+        ],
     },
-    createPlaceholderFormField(eGridSpan.ONE_THIRD),
+    createPlaceholderFormField(eGridSpan.HALF),
 ] as FormControlModel[];
 
 export const ATHAN_FORM_RAMADAN_DATA = [
     {
-        type: "athan",
+        type: "option-select",
         name: 'fajr',
         label: 'Fajr',
-        value: { type: 'salah', value: 0 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 1, value: 0 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Iqamah', recommended: true }, { value: 1, label: 'Salah', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'series',
-                typeLabel: 'Iqamah',
-                subtype: 'iqamah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes before Iqamah',
-                    suffixUnit: 'minute before Iqamah',
-                    baseLabel: 'Soon before Iqamah',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes before Iqamah time',
+                    suffixUnit: 'minute before Iqamah time',
+                    baseLabel: 'At Iqamah time',
+                    recommended: 20,
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Salah',
-                subtype: 'salah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes after salah',
-                    suffixUnit: 'minute after salah',
-                    baseLabel: 'Salah start time',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommended: 0,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "athan",
+        type: "option-select",
         name: 'dhuhr',
         label: 'Dhuhr',
-        value: { type: 'iqamah', value: 10 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 0, value: 10 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Iqamah', recommended: true }, { value: 1, label: 'Salah', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'series',
-                typeLabel: 'Iqamah',
-                subtype: 'iqamah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes before Iqamah',
-                    suffixUnit: 'minute before Iqamah',
-                    baseLabel: 'Soon before Iqamah',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes before Iqamah time',
+                    suffixUnit: 'minute before Iqamah time',
+                    baseLabel: 'At Iqamah time',
+                    recommended: 10,
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Salah',
-                subtype: 'salah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes after salah',
-                    suffixUnit: 'minute after salah',
-                    baseLabel: 'Salah start time',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommended: 30,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "athan",
+        type: "option-select",
         name: 'asr',
         label: 'Asr',
-        value: { type: 'iqamah', value: 10 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 0, value: 10 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Iqamah', recommended: true }, { value: 1, label: 'Salah', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'series',
-                typeLabel: 'Iqamah',
-                subtype: 'iqamah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes before Iqamah',
-                    suffixUnit: 'minute before Iqamah',
-                    baseLabel: 'Soon before Iqamah',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes before Iqamah time',
+                    suffixUnit: 'minute before Iqamah time',
+                    baseLabel: 'At Iqamah time',
+                    recommended: 10,
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Salah',
-                subtype: 'salah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes after salah',
-                    suffixUnit: 'minute after salah',
-                    baseLabel: 'Salah start time',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommended: 30,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "athan",
+        type: "option-select",
         name: 'maghrib',
         label: 'Maghrib',
-        value: { type: 'salah', value: 0 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 1, value: 0 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Iqamah', recommended: true }, { value: 1, label: 'Salah', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'series',
-                typeLabel: 'Iqamah',
-                subtype: 'iqamah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes before Iqamah',
-                    suffixUnit: 'minute before Iqamah',
-                    baseLabel: 'Soon before Iqamah',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes before Iqamah time',
+                    suffixUnit: 'minute before Iqamah time',
+                    baseLabel: 'At Iqamah time',
+                    recommended: 0,
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Salah',
-                subtype: 'salah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes after salah',
-                    suffixUnit: 'minute after salah',
-                    baseLabel: 'Salah start time',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommended: 0,
                 }
             },
-        ]
+        ],
     },
     {
-        type: "athan",
+        type: "option-select",
         name: 'isha',
         label: 'Isha',
-        value: { type: 'salah', value: 0 },
-        colspan: eGridSpan.ONE_THIRD,
+        value: { option: 1, value: 0 },
+        colspan: eGridSpan.HALF,
         validators: {
             required: true,
         },
-        options: [
+        options: [{ value: 0, label: 'Iqamah', recommended: true }, { value: 1, label: 'Salah', recommended: false }],
+        selectOptions: [
             {
+                optionValue: 0,
                 type: 'series',
-                typeLabel: 'Iqamah',
-                subtype: 'iqamah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes before Iqamah',
-                    suffixUnit: 'minute before Iqamah',
-                    baseLabel: 'Soon before Iqamah',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes before Iqamah time',
+                    suffixUnit: 'minute before Iqamah time',
+                    baseLabel: 'At Iqamah time',
+                    recommended: 10,
                 }
             },
             {
+                optionValue: 1,
                 type: 'series',
-                typeLabel: 'Salah',
-                subtype: 'salah',
-                control: {
-                    name: 'value',
-                    label: '',
-                    value: 20,
-                    colspan: eGridSpan.ONE_FOURTH,
-                    type: 'series',
-                    validators: {
-                        min: 0,
-                        max: 30,
-                    },
-                    suffix: 'minutes after salah',
-                    suffixUnit: 'minute after salah',
-                    baseLabel: 'Salah start time',
-                    recommendedValue: null,
+                attr: {
+                    min: 0,
+                    max: 60,
+                    suffix: 'minutes after start time',
+                    suffixUnit: 'minute after start time',
+                    baseLabel: 'At start time',
+                    recommended: 0,
                 }
             },
-        ]
+        ],
     },
-    createPlaceholderFormField(eGridSpan.ONE_THIRD),
+    createPlaceholderFormField(eGridSpan.HALF),
 ] as FormControlModel[];
 
 export const MOSQUE_FORM_GENERAL_DATA = [
@@ -1415,7 +1204,7 @@ export const CRED_FORM_SIGNUP_DATA = [
         validators: {
             maxLength: 100, //TODO Change to enum
         },
-         attr: {
+        attr: {
             placeholder: 'John Doe',
             icon: 'account_circle',
             autocompleteLabel: 'name',

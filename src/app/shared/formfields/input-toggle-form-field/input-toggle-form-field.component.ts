@@ -59,8 +59,8 @@ export class InputToggleFormField extends BaseFormFieldComponent<InputToggleValu
   // }
 
   //HTML ELements
-  readonly toggleInput = viewChild.required<HTMLInputElement>('toggle');
-  readonly valueInput = viewChild.required<HTMLInputElement>('value');
+  readonly toggleInput = viewChild.required('toggle');
+  readonly valueInput = viewChild.required<HTMLSelectElement>('value');
 
 
   constructor() {

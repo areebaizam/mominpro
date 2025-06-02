@@ -31,7 +31,7 @@ export abstract class BaseFormFieldComponent<T> implements ControlValueAccessor,
   protected readonly formService = inject(FormService);
 
   static nextId = 0;
-  readonly controlType = 'tap-base-form-field';
+  readonly  = 'tap-base-form-field';
   readonly id = `tap-base-form-field-${BaseFormFieldComponent.nextId++}`;
   readonly _userAriaDescribedBy = input<string>('', { alias: 'aria-describedby' });
   readonly _placeholder = input<string>('', { alias: 'placeholder' });

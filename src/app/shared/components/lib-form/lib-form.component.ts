@@ -14,7 +14,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTimepicker, MatTimepickerModule } from '@angular/material/timepicker';
 //Custom Form Fields
-import { AthanFormField, InputToggleFormField, IqamahFormField } from '@shared/formfields';
+import { InputToggleFormField, OptionSelectFormField } from '@shared/formfields';
 //Services
 import { FormService } from '@shared/services';
 //Models
@@ -24,7 +24,7 @@ import { FormControlModel } from '@shared/models';
 const formModules = [FormsModule, ReactiveFormsModule];
 const materialModules = [MatGridListModule, MatFormFieldModule, MatInputModule, MatSliderModule, MatCheckboxModule,
   MatIconModule, MatButtonModule, MatSelectModule, MatSlideToggleModule, MatDatepickerModule, MatTimepickerModule];
-const customControls = [AthanFormField, IqamahFormField, InputToggleFormField];
+const customControls = [InputToggleFormField, OptionSelectFormField];
 
 //Reference:https://github.com/DMezhenskyi/shared-angular-forms/blob/implemented/src/app/address-group/address-group.component.ts
 @Component({

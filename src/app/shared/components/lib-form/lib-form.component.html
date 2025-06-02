@@ -125,16 +125,13 @@
     @else if(field.type == 'placeholder'){
     <div class="field-width" [style.flex]="field.colspan"></div>
     }
-    @else if(field.type == 'iqamah'){
-    <tap-iqamah-form-field [control]="field" [editMode]="editMode()"
-        [style.flex]="field.colspan"></tap-iqamah-form-field>
-    }
-    @else if(field.type == 'athan'){
-    <tap-athan-form-field [control]="field" [editMode]="editMode()" [style.flex]="field.colspan"></tap-athan-form-field>
-    }
     @else if(field.type == 'input-toggle'){
     <tap-input-toggle-form-field [control]="field" [formGroupName]="formGroupName"
         [style.flex]="field.colspan"></tap-input-toggle-form-field>
+    }
+    @else if(field.type == 'option-select'){
+    <tap-option-select-form-field [control]="field" [formGroupName]="formGroupName"
+        [style.flex]="field.colspan"></tap-option-select-form-field>
     }
     }
 </div>

@@ -1,5 +1,5 @@
-<div role="group" class="tap-input-toggle-form-field-container" [formGroup]="form"
-    [attr.aria-labelledby]="_formField?.getLabelId()">
+<div role="group" class="tap-input-toggle-form-field-container"
+    [attr.aria-labelledby]="_formField?.getLabelId()" (focusin)="onFocusIn()" (focusout)="onFocusOut($event)">
     @if(control.inputType == 'series') {
     <mat-form-field class="form-field-value flex-grow " aria-label="Select Option">
         <mat-label>{{control.label}}</mat-label>
@@ -23,5 +23,5 @@
     </mat-form-field>
     }
     <mat-slide-toggle [formControl]="toggleControl" #toggleInput aria-label="Enable/Disable toggle"
-        class="form-field-toggle flex-grow"><span>{{control.typeLabel}}</span></mat-slide-toggle>
+        class="form-field-toggle flex-grow"><span>{{control.toggleLabel}}</span></mat-slide-toggle>
 </div>
